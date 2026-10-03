@@ -1,0 +1,6 @@
+{
+  "name": "SuluhBrunei - Higher Education & Scholarship Navigator",
+  "description": "Comprehensive pathway navigator, scholarship guides, application deadline tracker, and alumni mentorship hub for college and pre-university students in Brunei Darussalam.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
