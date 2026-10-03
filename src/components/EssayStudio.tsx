@@ -17,6 +17,7 @@ export const EssayStudio: React.FC<EssayStudioProps> = ({ profile, onRequestAlum
   const handleTextChange = (val: string) => {
     setEssayText(val);
     localStorage.setItem('suluh_draft_essay', val);
+    window.dispatchEvent(new Event('suluh_storage_update'));
   };
 
   // Metrics

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StudentProfile } from './types';
 import { calculateTariffPoints, calculateStudentTariff } from './utils/tariffCalculator';
 import { Navbar } from './components/Navbar';
@@ -23,31 +23,47 @@ export default function App() {
   const [isShareModalOpen, setIsShareModalOpen] = useState<boolean>(false);
   const [isOwnershipModalOpen, setIsOwnershipModalOpen] = useState<boolean>(false);
 
-  // Default Bruneian Sixth-Former / College profile
-  const [profile, setProfile] = useState<StudentProfile>({
-    name: 'Siti Nurhaliza',
-    school: 'Maktab Duli Pengiran Muda Al-Muhtadee Billah (MDPMAMB)',
-    qualificationType: 'A-Level',
-    icStatus: 'Yellow IC (Citizen)',
-    oLevelEnglishGrade: 'B3',
-    oLevelMalayGrade: 'B3', // Credit (Mandatory for Govt Institutions scholarship / non fee-paying)
-    hasMedicalInterest: false,
-    pbDiplomaProgram: 'Level 5 Diploma in Information Technology',
-    pbCgpa: 3.45,
-    ibteSchool: 'IBTE Sultan Saiful Rijal Campus',
-    ibteProgram: 'HNTec in Information Technology',
-    ibteCgpa: 3.30,
-    ibteAward: 'Merit',
-    ibPoints: 34,
-    stpubGrade: 'Jayyid Jiddan',
-    targetField: 'all',
-    targetDestination: 'all',
-    subjects: [
-      { id: 'sub-1', subject: 'Mathematics', grade: 'A', isPredicted: true },
-      { id: 'sub-2', subject: 'Physics', grade: 'A', isPredicted: true },
-      { id: 'sub-3', subject: 'Chemistry', grade: 'B', isPredicted: true }
-    ]
+  // Student profile with local storage persistence
+  const [profile, setProfile] = useState<StudentProfile>(() => {
+    try {
+      const saved = localStorage.getItem('suluh_student_profile');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error(e);
+    }
+    return {
+      name: 'Brunei Student',
+      school: 'Maktab Duli Pengiran Muda Al-Muhtadee Billah (MDPMAMB)',
+      qualificationType: 'A-Level',
+      icStatus: 'Yellow IC (Citizen)',
+      oLevelEnglishGrade: 'B3',
+      oLevelMalayGrade: 'B3', // Credit (Mandatory for Govt Institutions scholarship / non fee-paying)
+      hasMedicalInterest: false,
+      pbDiplomaProgram: 'Level 5 Diploma in Information Technology',
+      pbCgpa: 3.45,
+      ibteSchool: 'IBTE Sultan Saiful Rijal Campus',
+      ibteProgram: 'HNTec in Information Technology',
+      ibteCgpa: 3.30,
+      ibteAward: 'Merit',
+      ibPoints: 34,
+      stpubGrade: 'Jayyid Jiddan',
+      targetField: 'all',
+      targetDestination: 'all',
+      subjects: [
+        { id: 'sub-1', subject: 'Mathematics', grade: 'A', isPredicted: true },
+        { id: 'sub-2', subject: 'Physics', grade: 'A', isPredicted: true },
+        { id: 'sub-3', subject: 'Chemistry', grade: 'B', isPredicted: true }
+      ]
+    };
   });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('suluh_student_profile', JSON.stringify(profile));
+    } catch (e) {
+      console.error(e);
+    }
+  }, [profile]);
 
   const tariffPoints = calculateStudentTariff(profile);
 
@@ -112,6 +128,7 @@ export default function App() {
         {activeTab === 'dashboard' && (
           <StudentProgressionDashboard
             profile={profile}
+            setProfile={setProfile}
             tariffPoints={tariffPoints}
             onNavigateToTab={(tab) => {
               setActiveTab(tab);

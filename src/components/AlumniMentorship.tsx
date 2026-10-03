@@ -94,6 +94,15 @@ export const AlumniMentorship: React.FC<AlumniMentorshipProps> = ({
       createdAt: new Date().toISOString()
     };
 
+    try {
+      const existingRaw = localStorage.getItem('suluh_progression_calls');
+      const existing = existingRaw ? JSON.parse(existingRaw) : [];
+      localStorage.setItem('suluh_progression_calls', JSON.stringify([booking, ...existing]));
+      window.dispatchEvent(new Event('suluh_storage_update'));
+    } catch (err) {
+      console.error('Failed to sync booking to localStorage', err);
+    }
+
     setBookingConfirmed(booking);
     setSelectedMentor(null);
   };
