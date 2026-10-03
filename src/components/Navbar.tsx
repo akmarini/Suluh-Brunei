@@ -27,11 +27,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenOwnershipModal 
 }) => {
   const navItems = [
-    { id: 'dashboard', label: 'My Journey', fullLabel: 'Student Progression Dashboard', icon: Target },
     { id: 'pathways', label: 'Pathways', fullLabel: 'Degree Pathways', icon: Compass },
     { id: 'aptitude', label: 'Aptitude Test', fullLabel: 'Career Aptitude & Matcher', icon: BrainCircuit },
     { id: 'scholarships', label: 'Scholarships', fullLabel: 'Scholarship Guides', icon: Award },
     { id: 'sbpp', label: 'SBPP Loan', fullLabel: 'SBPP Education Loan Scheme', icon: Building2 },
+    { id: 'dashboard', label: 'My Journey', fullLabel: 'Student Progression Dashboard', icon: Target },
     { id: 'studio', label: 'Essay Studio', fullLabel: 'Personal Statement Studio', icon: FileText }
   ];
 

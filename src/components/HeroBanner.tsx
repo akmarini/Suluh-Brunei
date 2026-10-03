@@ -57,7 +57,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onNavigate, calculatedPo
 
         {/* Editorial Subtitle */}
         <p className="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed mb-8">
-          Personalized scholarship guides for the MOE Government Overseas Scheme & BSP, SBPP education loan financing, career aptitude matching, real-time HECAS/UCAS deadline tracking, and 1-on-1 alumni mentorship.
+          Personalized scholarship guides for the MOE Government Overseas Scheme & BSP, SBPP education loan financing, career aptitude matching, real-time HECAS/UCAS deadline tracking, and student progression journey tracking.
         </p>
 
         {/* Quick Action Controls */}
