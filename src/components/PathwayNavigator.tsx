@@ -41,7 +41,8 @@ import {
   Layers,
   Award,
   Wrench,
-  CheckCircle2
+  CheckCircle2,
+  Stethoscope
 } from 'lucide-react';
 
 interface PathwayNavigatorProps {
@@ -86,6 +87,10 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
       if (profile.school.includes('Politeknik') || profile.school.includes('IBTE') || profile.school.includes('SMALHB')) {
         newSchool = 'Maktab Duli Pengiran Muda Al-Muhtadee Billah (MDPMAMB)';
       }
+      setSelectedTechnicalFilter('all');
+      if (selectedProgramLevel === 'Diploma / HND') {
+        setSelectedProgramLevel('all');
+      }
     }
     setProfile(prev => ({
       ...prev,
@@ -93,6 +98,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
       school: newSchool
     }));
   };
+
+  const isALevelSelected = profile.qualificationType === 'A-Level';
 
   // Subject management
   const handleAddSubject = () => {
@@ -126,6 +133,17 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
 
   // Filter programs
   const filteredPrograms = UNIVERSITY_PROGRAMS.filter(program => {
+    // If A-Level was selected, remove technical progressions (PB Level 5 Diplomas and IBTE qualifications)
+    if (isALevelSelected) {
+      if (
+        program.programLevel === 'Diploma / HND' ||
+        program.institution.includes('Politeknik') ||
+        program.institution.includes('IBTE')
+      ) {
+        return false;
+      }
+    }
+
     // Program Level filter (Foundation vs Degree vs Diploma)
     if (selectedProgramLevel !== 'all' && program.programLevel !== selectedProgramLevel) return false;
 
@@ -162,8 +180,12 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
       const match =
         program.name.toLowerCase().includes(q) ||
         program.institution.toLowerCase().includes(q) ||
+        (program.field && program.field.toLowerCase().includes(q)) ||
         (program.partnerUniversity && program.partnerUniversity.toLowerCase().includes(q)) ||
         (program.programLevel && program.programLevel.toLowerCase().includes(q)) ||
+        (program.gradeRequirementText && program.gradeRequirementText.toLowerCase().includes(q)) ||
+        (program.subjectPrerequisites && program.subjectPrerequisites.some(s => s.toLowerCase().includes(q))) ||
+        (program.careerPathways && program.careerPathways.some(c => c.toLowerCase().includes(q))) ||
         (program.foundationProgression && program.foundationProgression.toLowerCase().includes(q)) ||
         (program.polytechnicAcceptance && program.polytechnicAcceptance.toLowerCase().includes(q)) ||
         (program.ibteAcceptance && program.ibteAcceptance.toLowerCase().includes(q)) ||
@@ -1036,6 +1058,101 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
           </div>
         </div>
 
+        {/* Medicine & Healthcare Special Spotlight Banner */}
+        <div className="bg-gradient-to-r from-blue-900 via-sky-900 to-indigo-950 text-white p-4 sm:p-5 rounded-2xl shadow-sm border border-blue-800">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <span className="p-2.5 bg-blue-500/20 text-blue-300 rounded-xl border border-blue-400/30 shrink-0 mt-0.5">
+                <Stethoscope className="w-5 h-5" />
+              </span>
+              <div>
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <span className="px-2 py-0.5 bg-blue-500/30 text-blue-200 border border-blue-400/40 rounded text-[10px] font-bold uppercase tracking-wider">
+                    Medical &amp; Health Priority Track
+                  </span>
+                  <span className="text-[11px] text-blue-200">
+                    MOE Circular 14/2025 · UBD PAPRSB IHS &amp; UK Medical Schools
+                  </span>
+                </div>
+                <h3 className="text-base font-bold text-white">
+                  Looking for Medicine, Dentistry, Pharmacy &amp; Allied Health?
+                </h3>
+                <p className="text-xs text-blue-200/90 mt-0.5 leading-relaxed max-w-2xl">
+                  Explore clinical medicine and surgery degrees at UBD PAPRSB IHS (Brunei + UK twinning with Aberdeen/Glasgow/ANU) and direct top UK universities (KCL, Imperial, UCL, Dundee, Edinburgh, QMUL Barts, Oxford, Cambridge).
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                onClick={() => {
+                  setSelectedField('Medicine & Health Sciences');
+                  setSelectedDestination('all');
+                  setSelectedProgramLevel('all');
+                  setSelectedFundingScheme('all');
+                  setSearchQuery('');
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedField === 'Medicine & Health Sciences' && selectedDestination === 'all'
+                    ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
+                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+                }`}
+              >
+                🩺 All Medicine &amp; Health
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedField('Medicine & Health Sciences');
+                  setSelectedDestination('local');
+                  setSelectedProgramLevel('all');
+                  setSelectedFundingScheme('all');
+                  setSearchQuery('');
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedField === 'Medicine & Health Sciences' && selectedDestination === 'local'
+                    ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
+                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+                }`}
+              >
+                🏛️ UBD PAPRSB IHS
+              </button>
+              <button
+                onClick={() => {
+                  setSelectedField('Medicine & Health Sciences');
+                  setSelectedDestination('uk');
+                  setSelectedProgramLevel('all');
+                  setSelectedFundingScheme('all');
+                  setSearchQuery('');
+                }}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                  selectedField === 'Medicine & Health Sciences' && selectedDestination === 'uk'
+                    ? 'bg-amber-400 text-slate-950 shadow-md font-bold'
+                    : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
+                }`}
+              >
+                🇬🇧 Top UK Medical Schools
+              </button>
+            </div>
+          </div>
+
+          {selectedField === 'Medicine & Health Sciences' && (
+            <div className="mt-3 pt-3 border-t border-blue-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-blue-200">
+              <div className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>
+                  Filtering active: <strong>Medicine &amp; Health Sciences</strong>. Requirements: Min 144 pts (AAA in 1 sitting), Chemistry + Biology, O-Level BM Credit C6 (essential for government scholarship/allowance), O-Level English B3.
+                </span>
+              </div>
+              <button
+                onClick={() => setSelectedField('all')}
+                className="text-amber-300 font-semibold hover:underline self-start sm:self-auto cursor-pointer"
+              >
+                Reset to All Fields ✕
+              </button>
+            </div>
+          )}
+        </div>
+
         {/* Search & Multi-Tier Filter Bar */}
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-2xs space-y-3">
           <div className="flex flex-col lg:flex-row gap-3">
@@ -1046,7 +1163,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by degree, foundation, institution (UBD, LCB, KIGS, UTB, CCCT), or partner university..."
+                placeholder="Search by degree (Medicine, Dentistry, Nursing, AI), institution (UBD, Aberdeen, Glasgow, KCL), or sector..."
                 className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white text-slate-900"
               />
             </div>
@@ -1084,7 +1201,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
               { id: 'all', label: 'All Levels' },
               { id: 'Foundation / Pre-University', label: 'Foundation / Pre-U (32+ pts / 4 O-Levels)' },
               { id: 'Undergraduate Degree', label: 'Undergraduate Degrees' },
-              { id: 'Diploma / HND', label: 'Diploma / HND Pathways' }
+              ...(!isALevelSelected ? [{ id: 'Diploma / HND', label: 'Diploma / HND Pathways' }] : [])
             ].map((level) => (
               <button
                 key={level.id}
@@ -1131,7 +1248,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
             <span className="text-slate-500 shrink-0 font-medium mr-1">Field:</span>
             {[
               { id: 'all', label: 'All Fields' },
-              { id: 'Medicine & Health Sciences', label: 'Medicine & Health' },
+              { id: 'Medicine & Health Sciences', label: '🩺 Medicine & Health Sciences' },
               { id: 'Computer Science & AI', label: 'Computing & AI' },
               { id: 'Engineering & Technology', label: 'Engineering' },
               { id: 'Business, Economics & Finance', label: 'Business & Finance' },
@@ -1145,7 +1262,11 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 onClick={() => setSelectedField(field.id as FieldOfInterest)}
                 className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
                   selectedField === field.id
-                    ? 'bg-slate-900 text-white font-semibold'
+                    ? field.id === 'Medicine & Health Sciences'
+                      ? 'bg-blue-900 text-white font-bold shadow-2xs'
+                      : 'bg-slate-900 text-white font-semibold'
+                    : field.id === 'Medicine & Health Sciences'
+                    ? 'bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200 font-semibold'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -1178,36 +1299,45 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
             ))}
           </div>
 
-          {/* Technical Progression Filter Bar (PB Diploma vs IBTE) */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs border-t border-slate-100 pt-2">
-            <span className="text-slate-500 shrink-0 font-medium mr-1 flex items-center gap-1">
-              <Wrench className="w-3.5 h-3.5 text-blue-700" />
-              <span>Technical Progression:</span>
-            </span>
-            {[
-              { id: 'all', label: 'All Entry Types' },
-              { id: 'accepts-pb', label: '🏛️ Accepts PB Level 5 Diploma (UTB Year 2 / Top-Up)' },
-              { id: 'accepts-ibte', label: '⚙️ Accepts IBTE HNTec (PB Diploma & Private HND)' }
-            ].map((tech) => (
-              <button
-                key={tech.id}
-                onClick={() => setSelectedTechnicalFilter(tech.id as any)}
-                className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
-                  selectedTechnicalFilter === tech.id
-                    ? 'bg-blue-900 text-white font-semibold shadow-2xs'
-                    : 'bg-blue-50/70 text-blue-950 hover:bg-blue-100 border border-blue-200/70'
-                }`}
-              >
-                {tech.label}
-              </button>
-            ))}
-          </div>
+          {/* Technical Progression Filter Bar (PB Diploma vs IBTE) - REMOVED if A-Level was selected */}
+          {!isALevelSelected && (
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs border-t border-slate-100 pt-2">
+              <span className="text-slate-500 shrink-0 font-medium mr-1 flex items-center gap-1">
+                <Wrench className="w-3.5 h-3.5 text-blue-700" />
+                <span>Technical Progression:</span>
+              </span>
+              {[
+                { id: 'all', label: 'All Entry Types' },
+                { id: 'accepts-pb', label: '🏛️ Accepts PB Level 5 Diploma (UTB Year 2 / Top-Up)' },
+                { id: 'accepts-ibte', label: '⚙️ Accepts IBTE HNTec (PB Diploma & Private HND)' }
+              ].map((tech) => (
+                <button
+                  key={tech.id}
+                  onClick={() => setSelectedTechnicalFilter(tech.id as any)}
+                  className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
+                    selectedTechnicalFilter === tech.id
+                      ? 'bg-blue-900 text-white font-semibold shadow-2xs'
+                      : 'bg-blue-50/70 text-blue-950 hover:bg-blue-100 border border-blue-200/70'
+                  }`}
+                >
+                  {tech.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Results Counter & Active Criteria */}
         <div className="flex items-center justify-between text-xs text-slate-500 px-1">
-          <div>
-            Showing <span className="font-semibold text-slate-800 tabular-nums">{filteredPrograms.length}</span> programmes
+          <div className="flex items-center gap-2">
+            <div>
+              Showing <span className="font-semibold text-slate-800 tabular-nums">{filteredPrograms.length}</span> programmes
+            </div>
+            {isALevelSelected && (
+              <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded text-[11px] font-medium">
+                🎓 GCE A-Level Progression Mode (Technical progressions filtered)
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-2">
             <span>Your Current Points: <strong className="font-mono text-slate-800">{tariffPoints} pts</strong></span>
@@ -1294,8 +1424,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                     </div>
                   )}
 
-                  {/* Politeknik Brunei Articulation Banner */}
-                  {prog.polytechnicAcceptance && (
+                  {/* Politeknik Brunei Articulation Banner (Hidden for A-Level stream) */}
+                  {!isALevelSelected && prog.polytechnicAcceptance && (
                     <div className="mt-2.5 p-2.5 bg-blue-50/80 rounded-lg border border-blue-200/80 text-[11px] text-blue-950 flex items-start gap-2 leading-relaxed">
                       <GraduationCap className="w-3.5 h-3.5 text-blue-700 shrink-0 mt-0.5" />
                       <div>
@@ -1305,8 +1435,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                     </div>
                   )}
 
-                  {/* IBTE HNTec Pathway Banner */}
-                  {prog.ibteAcceptance && (
+                  {/* IBTE HNTec Pathway Banner (Hidden for A-Level stream) */}
+                  {!isALevelSelected && prog.ibteAcceptance && (
                     <div className="mt-2.5 p-2.5 bg-amber-50/80 rounded-lg border border-amber-200/80 text-[11px] text-amber-950 flex items-start gap-2 leading-relaxed">
                       <Award className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
                       <div>
@@ -1468,8 +1598,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 </div>
               )}
 
-              {/* Politeknik Brunei Articulation Highlight */}
-              {activeModalProgram.polytechnicAcceptance && (
+              {/* Politeknik Brunei Articulation Highlight (Hidden for A-Level stream) */}
+              {!isALevelSelected && activeModalProgram.polytechnicAcceptance && (
                 <div className="p-3.5 bg-blue-50/90 rounded-xl border border-blue-200 text-xs text-blue-950 flex items-start gap-2.5">
                   <GraduationCap className="w-4 h-4 text-blue-700 shrink-0 mt-0.5" />
                   <div>
@@ -1481,8 +1611,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 </div>
               )}
 
-              {/* IBTE Progression Highlight */}
-              {activeModalProgram.ibteAcceptance && (
+              {/* IBTE Progression Highlight (Hidden for A-Level stream) */}
+              {!isALevelSelected && activeModalProgram.ibteAcceptance && (
                 <div className="p-3.5 bg-amber-50/90 rounded-xl border border-amber-200 text-xs text-amber-950 flex items-start gap-2.5">
                   <Award className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                   <div>

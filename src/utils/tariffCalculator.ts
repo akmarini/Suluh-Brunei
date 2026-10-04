@@ -233,10 +233,19 @@ export function evaluateScholarshipReadiness(
       eligible: isCitizen && tariffPoints >= 120 && hasMalayCredit,
       gap: tariffPoints >= 120 ? 0 : 120 - tariffPoints,
       hasMalayCredit,
-      benchmark: 'Min 120 points (BBB / ABB) + Yellow IC + Credit in O-Level Bahasa Melayu',
+      benchmark: 'Min 120 points (3 subjects in 1 sitting, no grade < C) + Yellow IC + O-Level BM C6 (Circular 14/2025)',
       statusNotice: !hasMalayCredit
         ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
         : tariffPoints >= 120 ? 'Qualified' : `${120 - tariffPoints} pts away`
+    },
+    moeMedicineDentistry: {
+      eligible: isCitizen && tariffPoints >= 144 && hasMalayCredit,
+      gap: tariffPoints >= 144 ? 0 : 144 - tariffPoints,
+      hasMalayCredit,
+      benchmark: 'Min 144 points (3 subjects in 1 sitting, no grade < A / AAA) + O-Level English B3 + BM C6 (Circular 14/2025 Para 1.1.1)',
+      statusNotice: !hasMalayCredit
+        ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+        : tariffPoints >= 144 ? 'Qualified' : `${144 - tariffPoints} pts away`
     },
     sultansScholar: {
       eligible: isCitizen && tariffPoints >= 152,

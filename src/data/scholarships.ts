@@ -3,61 +3,123 @@ import { Scholarship } from '../types';
 export const SCHOLARSHIPS_DATA: Scholarship[] = [
   {
     id: 'moe-overseas',
-    title: 'Brunei Government Overseas Scholarship',
-    malayTitle: 'Skim Biasiswa Kerajaan Ke Luar Negeri (Kementerian Pendidikan)',
-    provider: 'Jabatan Pengurusan Biasiswa, Kementerian Pendidikan (MOE)',
+    title: 'Brunei Government Overseas Scholarship (General)',
+    malayTitle: 'Biasiswa Kerajaan KDYMM Paduka Seri Baginda Sultan dan Yang Di-Pertuan Ke Luar Negeri (Umum) - Surat Pemberitahuan Bil. 14/2025 (Sesi 2026/2027)',
+    provider: 'Jabatan Pengurusan Biasiswa, Kementerian Pendidikan (Kaunter 3, Lantai Dasar, Blok C, Pusat Perkhidmatan Setempat)',
     type: 'Government',
     coverageType: 'Full Scholarship',
     destinationAllowed: 'Overseas Only',
     bondYears: 5,
     bondEmployer: "Government of His Majesty The Sultan and Yang Di-Pertuan of Brunei Darussalam",
     minPoints: 120,
-    minGradesDescription: 'Minimum 120 UCAS tariff points from 3 A-Level subjects (e.g. BBB / ABB), or IB equivalent (typically 32-34+ points), with mandatory Credit (Grade C6 or better) in GCE O-Level Bahasa Melayu and English Language / IELTS 6.5+',
-    citizenshipRequirement: 'Citizens of Brunei Darussalam (Holders of Brunei Yellow IC only)',
+    minGradesDescription: 'Surat Pemberitahuan Bil. 14/2025 (Sesi 2026/2027): Minimum 120 UCAS tariff points from 3 A-Level subjects in ONE sitting within the last 2 years, with NO subject lower than Grade C (A*=56, A=48, B=40, C=32). Medicine/Dentistry requires min 144 pts (AAA) with no grade < A. IB: min 32 pts (Medicine 38 pts). Level 5 Diploma / HND: Distinction or Grade A.',
+    citizenshipRequirement: 'Rakyat Kebawah Duli Yang Maha Mulia yang memegang Kad Pengenalan Berwarna Kuning (Brunei Yellow IC only). Umur tidak melebihi 26 tahun pada 01/09/2026.',
     monthlyAllowanceEstimate: 'Approx. £1,150 – £1,350/mo (UK) or AUD $1,600 – $1,850/mo (Australia) plus warm clothing and book allowances',
     benefits: [
-      '100% Tuition and university exam fees',
-      'Monthly maintenance allowance',
-      'Return economy flight tickets at start/end and mid-term',
-      'Warm clothing allowance upon initial departure',
-      'Annual book & equipment allowance',
-      'Comprehensive National Health Service (IHS / OSHC) health cover',
-      'Excess luggage allowance for departure & final return'
+      '100% Tuition and university examination fees covered in full',
+      'Monthly maintenance allowance (cost-of-living stipend)',
+      'Return economy flight tickets at commencement, mid-term, and completion',
+      'Warm clothing allowance upon initial departure overseas',
+      'Annual book & equipment grant',
+      'Comprehensive National Health Service (IHS / OSHC) health coverage',
+      'Excess baggage / luggage allowance for initial departure & final repatriation'
     ],
     keyCriteria: [
-      'Must hold a valid Brunei Darussalam Yellow Identity Card',
-      'MANDATORY PREREQUISITE: Credit (Grade C6 or better) in GCE O-Level Bahasa Melayu (Brunei-Cambridge). Applicants without this credit are not eligible for government scholarship.',
-      'Course must be aligned with Manpower Planning and Employment Council (MPEC) priority areas (Digital Economy, Energy, Green Technology, Engineering, Healthcare, Law)',
-      'Conditional or unconditional offer from an approved overseas university (typically Top 50-100 worldwide or Russell Group / Go8)',
-      'Pass medical examination at RIPAS Hospital including chest X-ray / TB clearance',
-      'Successful performance at the MOE Scholarship Interview Panel'
+      'Citizens of Brunei Darussalam holding Yellow Identity Card (Kad Pengenalan Kuning)',
+      'Age limit: Not exceeding 26 years old on 01/09/2026 (Umur tidak melebihi 26 tahun pada 01/09/2026)',
+      'MANDATORY BM REQUIREMENT: Minimum Credit C6 in BC-GCE ‘O’ Level Bahasa Melayu',
+      'MANDATORY ENGLISH REQUIREMENT: Credit C6 in BC-GCE ‘O’ Level English, OR Grade C in IGCSE English as a 2nd Language, OR Grade c in BC-GCE ‘AS’ General Paper, OR IELTS Band 6.5 within 2 years. (Medicine/Dentistry requires O-Level English B3 or IGCSE B)',
+      'ACADEMIC QUALIFICATIONS: Minimum 3 A-Levels in ONE sitting within 2 years with min 120 UCAS tariff points across 3 best subjects, and NO grade below C. (Medicine/Dentistry: min 144 points with no grade below A). IB: min 32 pts (Medicine: 38 pts). HND/Level 5: Distinction or Grade A.',
+      'INSTITUTION RANKING: Must obtain offer from Top 250 World Universities (QS World University Rankings 2026 or THE World University Rankings 2026) OR Top 20 World Universities by subject; and accredited by MKPK Kementerian Pendidikan',
+      'COURSE ALIGNMENT: Must be in one of the 32 official priority courses listed in Lampiran A (Surat Pemberitahuan Bil. 14/2025) across Life Sciences & Medicine, Social Sciences & Management, and Skim Pendidik',
+      'Pass selection interview attaining required percentage, clean security vetting, and certified medically fit (valid 6 months)'
     ],
-    applicationPeriod: 'Mid-January to early March (aligned with HECAS 1st Round)',
+    applicationPeriod: 'HECAS Pusingan Pertama sahaja (Round 1 only)',
     deadlineDate: '2027-03-05',
     status: 'Open',
-    officialUrl: 'https://moe.gov.bn/SitePages/Scholarship.aspx',
+    officialUrl: 'https://hecas.moe.gov.bn',
     hecasRequired: true,
     mpecPriorityAligned: true,
     requiredDocuments: [
-      'Certified copy of Brunei Yellow IC (Kad Pengenalan Kuning)',
-      'Certified copy of Sijil Beranak (Birth Certificate)',
-      'Official GCE O-Level & A-Level or IB result certificates',
-      'HECAS Application acknowledgement slip',
-      'Firm university admission letter / UCAS track screenshot',
-      'Co-Curricular Activities (CCA) certificates & testimonial records',
-      'Two academic referee recommendations'
+      'Senarai semak permohonan Biasiswa (diperolehi dari sistem HECAS)',
+      'Salinan borang HECAS (1 keping) dan Borang B (3 keping)',
+      'Salinan kad pengenalan pintar Brunei (Kuning)',
+      'Salinan surat tawaran tempat pengajian (Conditional / Unconditional Offer) atau bukti permohonan',
+      'Isi kandungan kursus (course content / structure)',
+      'Salinan sijil dan dokumen yang disahkan (certified true copies) oleh Pengetua Sekolah / Pendaftar Mahkamah',
+      'Surat pengiktirafan kursus dan tempat pengajian oleh Majlis Kebangsaan Pengiktirafan Kelulusan (MKPK)',
+      'Borang deklarasi maklumat Biasiswa',
+      'Softcopy submitted via email to applyscholarship@moe.gov.bn within 3 working days of HECAS closing'
     ],
     selectionStages: [
-      'Stage 1: HECAS Online Application & Document Submission to Scholarship Section',
-      'Stage 2: Eligibility screening & tariff point verification (minimum 120 points)',
-      'Stage 3: Written assessment & aptitude screening (for select disciplines)',
-      'Stage 4: Panel Interview with senior Ministry officials and university deans',
-      'Stage 5: Conditional award letter, medical check at RIPAS Hospital, and bond signing'
+      'Stage 1: Online submission via HECAS Round 1 only (https://hecas.moe.gov.bn)',
+      'Stage 2: Physical document submission to Kaunter No. 3, Lantai Dasar, Blok C, Pusat Perkhidmatan Setempat, Kementerian Pendidikan (+ email to applyscholarship@moe.gov.bn within 3 working days)',
+      'Stage 3: Academic eligibility & UCAS tariff audit (min 120 pts / BBB with no grade < C; or 144 pts / AAA for Medicine/Dentistry) and Top 250 / Top 20 Subject ranking audit',
+      'Stage 4: Formal panel interview by Kementerian Pendidikan Scholarship Selection Committee',
+      'Stage 5: Security clearance (Tapisan Keselamatan), medical examination, and Government Service Bond Agreement'
     ],
     alumniTips: [
-      'Align your personal statement with Brunei Vision 2035 (Wawasan Brunei 2035) goals.',
-      'During the panel interview, be ready to answer in both English and Malay regarding how your degree contributes back to Brunei.',
-      'Keep abreast of current local news via Pelita Brunei and RTB, especially economic diversification topics.'
+      'Check the 32 approved courses in Lampiran A (Surat Pemberitahuan Bil. 14/2025) before applying—awards are strictly allocated to listed national priority areas.',
+      'Ensure your university is in the Top 250 overall or Top 20 by subject in QS/THE World University Rankings 2026, and obtain written confirmation of MKPK recognition early.',
+      'Note that applications are open in HECAS Pusingan Pertama ONLY. Hardcopies and email softcopies must reach MOE within 3 working days after HECAS closes.'
+    ]
+  },
+  {
+    id: 'moe-overseas-med',
+    title: 'MOE Overseas Scholarship – Medicine (MBBS) & Dentistry (BDS)',
+    malayTitle: 'Biasiswa Kerajaan Ke Luar Negeri: Kursus Perubatan & Pergigian (Surat Pemberitahuan Bil. 14/2025 Para 1.1.1)',
+    provider: 'Jabatan Pengurusan Biasiswa, Kementerian Pendidikan',
+    type: 'Government',
+    coverageType: 'Full Scholarship',
+    destinationAllowed: 'Overseas Only',
+    bondYears: 5,
+    bondEmployer: "Ministry of Health (MOH) / Brunei Government",
+    minPoints: 144,
+    minGradesDescription: 'Surat Pemberitahuan Bil. 14/2025 Para 1.1.1: Minimum 144 UCAS Tariff Points (360 old tariff) across 3 best relevant subjects in ONE sitting within the last 2 years, and NO subject lower than Grade A (AAA). IB Diploma: minimum 38 points. English: minimum Credit B3 in O-Level English or Grade B in IGCSE English as a 2nd Language.',
+    citizenshipRequirement: 'Holders of Brunei Yellow IC only. Age not exceeding 26 years on 01/09/2026.',
+    monthlyAllowanceEstimate: 'Full clinical degree sponsorship: ~£1,250 – £1,450/mo (UK) or AUD $1,800/mo (Australia) + medical council/clinical placement fees',
+    benefits: [
+      '100% Clinical tuition fees and hospital placement costs',
+      'Monthly maintenance living allowance throughout 5–6 year medical/dental degree',
+      'Return economy flight tickets and baggage allowance',
+      'Warm clothing allowance upon initial departure',
+      'Clinical equipment & textbook annual grants',
+      'National Health Service / clinical indemnity insurance cover'
+    ],
+    keyCriteria: [
+      'Brunei Yellow IC citizens aged 26 or below on 01/09/2026',
+      'MANDATORY: Credit C6 in GCE O-Level Bahasa Melayu',
+      'MANDATORY ENGLISH: Credit B3 in GCE O-Level English Language OR Grade B in IGCSE English as a Second Language',
+      'ACADEMIC: Minimum 3 A-Level subjects in one sitting within 2 years with min 144 UCAS points (minimum 3 As - Chemistry & Biology usually required). IB: minimum 38 points.',
+      'INSTITUTION: Medical / Dental school in Top 250 World Universities (QS/THE 2026) or Top 20 World by Clinical/Medicine subject, recognized by Brunei Medical Board (BMB) / MKPK',
+      'Pass medical fitness check and rigorous MOE / MOH Joint Interview Panel'
+    ],
+    applicationPeriod: 'HECAS Pusingan Pertama sahaja (Round 1 only)',
+    deadlineDate: '2027-03-05',
+    status: 'Open',
+    officialUrl: 'https://hecas.moe.gov.bn',
+    hecasRequired: true,
+    mpecPriorityAligned: true,
+    requiredDocuments: [
+      'HECAS Scholarship Application checklist and Borang B (3 copies)',
+      'Certified copy of Yellow IC and Birth Certificate',
+      'Certified O-Level (BM C6+ & English B3+) and A-Level / IB transcripts',
+      'University clinical offer letter (Conditional / Unconditional)',
+      'MKPK accreditation letter for overseas medical school',
+      'Borang deklarasi maklumat Biasiswa',
+      'Hardcopy to Counter 3 Block C + softcopy email to applyscholarship@moe.gov.bn within 3 working days'
+    ],
+    selectionStages: [
+      'Stage 1: HECAS Round 1 online submission',
+      'Stage 2: Verification of AAA / 144 points and O-Level English B3 prerequisite',
+      'Stage 3: Multiple Mini Interviews (MMI) or MOE/MOH panel interview',
+      'Stage 4: Medical examination (including Hepatitis B, TB, chest X-ray)',
+      'Stage 5: Award confirmation and Government Service Agreement signing'
+    ],
+    alumniTips: [
+      'Ensure your O-Level English has at least B3 (or IGCSE Grade B); Grade C6 is NOT sufficient for the medical/dental track.',
+      'Demonstrate clinical insight, medical ethics, and passion to serve in Brunei hospitals and district health centres.',
+      'Check that your target medical school satisfies both MKPK and Brunei Medical Board (BMB) registration requirements.'
     ]
   },
   {
