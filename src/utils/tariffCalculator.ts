@@ -1,4 +1,5 @@
 import { StudentProfile } from '../types';
+import { IBTE_PROGRAMMES_LIST, IBTE_CAMPUSES_OFFICIAL } from '../data/ibteData';
 
 export const A_LEVEL_TARIFF_MAP: Record<string, number> = {
   'A*': 56,
@@ -54,29 +55,9 @@ export const POLITEKNIK_DIPLOMAS = [
   'Level 5 Diploma in Library & Information Management'
 ];
 
-export const IBTE_PROGRAMMES = [
-  'HNTec in Information Technology',
-  'HNTec in Computer & Networking',
-  'HNTec in Electronic Engineering',
-  'HNTec in Electrical Engineering',
-  'HNTec in Mechanical Engineering',
-  'HNTec in Building Services Engineering',
-  'HNTec in Business & Finance',
-  'HNTec in Office Administration',
-  'HNTec in Hospitality Operations',
-  'HNTec in Culinary Operations',
-  'HNTec in Plant Engineering',
-  'HNTec in Instrumentation & Control'
-];
+export const IBTE_PROGRAMMES = IBTE_PROGRAMMES_LIST;
 
-export const IBTE_CAMPUSES = [
-  'IBTE Sultan Saiful Rijal Campus',
-  'IBTE Jefri Bolkiah Campus (Kuala Belait)',
-  'IBTE Nakhoda Ragam Campus',
-  'IBTE Sultan Bolkiah Campus (Seria)',
-  'IBTE Business Campus (Gadong)',
-  'IBTE Agro-Technology Campus (Wasan)'
-];
+export const IBTE_CAMPUSES = IBTE_CAMPUSES_OFFICIAL;
 
 export const BRUNEI_SIXTH_FORMS = [
   'Maktab Duli Pengiran Muda Al-Muhtadee Billah (MDPMAMB)',
