@@ -1296,17 +1296,14 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
                   <button
                     onClick={() => setActiveModalProgram(prog)}
-                    className="text-xs font-semibold text-amber-800 hover:text-amber-900 transition-colors cursor-pointer"
+                    className="text-xs font-semibold text-amber-800 hover:text-amber-900 transition-colors cursor-pointer inline-flex items-center gap-1"
                   >
-                    View Details & Prerequisites →
+                    <span>View Details & Entry Prerequisites</span>
+                    <span aria-hidden="true">→</span>
                   </button>
-
-                  <button
-                    onClick={() => onBookAlumniForCourse(prog.name)}
-                    className="text-xs text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded transition-colors whitespace-nowrap cursor-pointer"
-                  >
-                    Ask Alumni
-                  </button>
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    {prog.institution}
+                  </span>
                 </div>
               </div>
             );
@@ -1532,14 +1529,10 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => {
-                    const progName = activeModalProgram.name;
-                    setActiveModalProgram(null);
-                    onBookAlumniForCourse(progName);
-                  }}
-                  className="px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-md transition-colors"
+                  onClick={() => setActiveModalProgram(null)}
+                  className="px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors cursor-pointer"
                 >
-                  Ask a Bruneian Graduate
+                  Close
                 </button>
               </div>
             </div>

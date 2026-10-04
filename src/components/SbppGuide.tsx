@@ -73,10 +73,10 @@ export const SbppGuide: React.FC<SbppGuideProps> = ({
               <span>Brunei Yellow IC (Priority) & approved Red IC Permanent Residents</span>
             </div>
             <button
-              onClick={onBookAlumniForSbpp}
-              className="px-3.5 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors text-center shadow-2xs"
+              onClick={onNavigateToPathways}
+              className="px-3.5 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors text-center shadow-2xs cursor-pointer"
             >
-              Ask an Alumni Who Used SBPP
+              Explore Eligible Degree Pathways →
             </button>
           </div>
         </div>

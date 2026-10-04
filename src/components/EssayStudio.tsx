@@ -69,7 +69,7 @@ Studying Computer Science at a world-class level will equip me with the technica
               Personal Statement & Scholarship Essay Studio
             </h2>
             <p className="text-sm text-slate-600 mt-1">
-              Draft your statement with live character limit tracking and rubrics vetted by Bruneian alumni mentors.
+              Draft your statement with live character limit tracking and rubrics vetted for Bruneian university applicants.
             </p>
           </div>
 
@@ -135,7 +135,7 @@ Studying Computer Science at a world-class level will equip me with the technica
           </div>
 
           <div>
-            <span className="text-slate-500 block mb-0.5">Alumni Rubric Score</span>
+            <span className="text-slate-500 block mb-0.5">Admissions Rubric Score</span>
             <div className="font-mono font-bold text-amber-900 text-lg tabular-nums">
               {[hasSupercurricular, hasBruneiKeyword, !hasCliches, hasLeadership].filter(Boolean).length * 25}%
             </div>
@@ -186,11 +186,19 @@ Studying Computer Science at a world-class level will equip me with the technica
               </span>
 
               <button
-                onClick={() => onRequestAlumniReview(essayText, essayMode)}
-                className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors shadow-2xs"
+                onClick={() => {
+                  try {
+                    localStorage.setItem('suluh_draft_essay', essayText);
+                    window.dispatchEvent(new Event('suluh_storage_update'));
+                    alert('Draft successfully saved and synced to your My Journey progression hub!');
+                  } catch (e) {
+                    console.error(e);
+                  }
+                }}
+                className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg transition-colors shadow-2xs cursor-pointer"
               >
-                <Send className="w-3.5 h-3.5 text-amber-400" />
-                <span>Submit to Alumni Mentor for Detailed Review</span>
+                <Check className="w-3.5 h-3.5 text-amber-400" />
+                <span>Save to My Journey Hub</span>
               </button>
             </div>
           </div>
@@ -199,7 +207,7 @@ Studying Computer Science at a world-class level will equip me with the technica
           <div className="lg:col-span-4 space-y-4">
             <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
               <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                Alumni Rubric Diagnostics
+                Statement Rubric Diagnostics
               </h4>
 
               {/* Check 1: Supercurriculars */}
@@ -267,12 +275,12 @@ Studying Computer Science at a world-class level will equip me with the technica
 
             {/* Quick Tips Box */}
             <div className="p-4 bg-amber-50/70 border border-amber-200/80 rounded-xl text-xs space-y-2">
-              <span className="font-bold text-amber-950 block">Alumni Mentor Advice:</span>
+              <span className="font-bold text-amber-950 block">Admissions Writing Tip:</span>
               <p className="text-amber-900 leading-relaxed">
                 "UK admissions tutors want to see curiosity, not just enthusiasm. If you read a book or completed an online lecture, explain how it changed your perspective, and what you did next as a result."
               </p>
               <div className="text-[11px] text-amber-800 font-medium text-right">
-                — Amirul Syafiq (Imperial / BSP Alum)
+                — Imperial College London & BSP Scholar Guidance
               </div>
             </div>
           </div>

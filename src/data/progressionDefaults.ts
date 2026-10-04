@@ -35,10 +35,10 @@ export const DEFAULT_JOURNEY_MILESTONES: JourneyMilestone[] = [
   {
     id: 'm4',
     phase: 4,
-    title: 'Book 1-on-1 Consultation with Alumni Scholar',
-    description: 'Schedule a free session with verified Bruneian scholars (BSJV, MOE Overseas, UBD/UTB) for essay reviews and interview prep.',
+    title: 'Complete RIASEC Career Profiling Assessment',
+    description: 'Take the Holland Occupational Codes test to discover your vocational strengths, career matches, and corresponding degree programmes.',
     isCompleted: false,
-    actionTab: 'mentorship'
+    actionTab: 'aptitude'
   },
   {
     id: 'm5',

@@ -156,9 +156,12 @@ export default function App() {
               setActiveTab('pathways');
               window.scrollTo({ top: 350, behavior: 'smooth' });
             }}
-            onBookAlumniForCareer={handleBookAlumniForCareer}
             onExploreSbpp={() => {
               setActiveTab('sbpp');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onNavigateToTab={(tab) => {
+              setActiveTab(tab);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           />

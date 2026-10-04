@@ -47,7 +47,8 @@ Key Features for Students:
 ✓ Mandatory O-Level Bahasa Melayu credit verification & fee-paying warnings
 ✓ SBPP Education Loan Scheme requirements & payment tables
 ✓ Real-time HECAS, OAS, and UCAS deadline tracking with calendar export
-✓ 1-on-1 Alumni Mentorship matching & Personal Statement Studio
+✓ RIASEC Holland Career Profiler & My Journey Progression Hub
+✓ Personal Statement & Scholarship Essay Studio
 
 Please share with your classmates, teachers, and school counselors!`;
 

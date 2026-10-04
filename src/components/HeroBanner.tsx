@@ -64,10 +64,10 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onNavigate, calculatedPo
         <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10">
           <button
             onClick={() => onNavigate('aptitude')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-lg transition-colors whitespace-nowrap shadow-md"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-slate-950 bg-amber-400 hover:bg-amber-300 rounded-lg transition-colors whitespace-nowrap shadow-md cursor-pointer"
           >
             <Compass className="w-4 h-4 text-slate-950" />
-            <span>Career Aptitude Test</span>
+            <span>RIASEC Career Profiler</span>
             <ArrowRight className="w-4 h-4 text-slate-950" />
           </button>
 
@@ -110,8 +110,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onNavigate, calculatedPo
             <div className="font-semibold text-white">MOE, BSP & SBPP Loan</div>
           </div>
           <div>
-            <div className="text-slate-400 text-xs mb-0.5">Alumni Mentors</div>
-            <div className="font-semibold text-white">Verified Bruneian Scholars</div>
+            <div className="text-slate-400 text-xs mb-0.5">Career Profiling</div>
+            <div className="font-semibold text-white">RIASEC Holland Codes</div>
           </div>
         </div>
       </div>

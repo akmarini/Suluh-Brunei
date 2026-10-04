@@ -28,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const navItems = [
     { id: 'pathways', label: 'Pathways', fullLabel: 'Degree Pathways', icon: Compass },
-    { id: 'aptitude', label: 'Aptitude Test', fullLabel: 'Career Aptitude & Matcher', icon: BrainCircuit },
+    { id: 'aptitude', label: 'RIASEC Profiler', fullLabel: 'RIASEC Career Profiler', icon: BrainCircuit },
     { id: 'scholarships', label: 'Scholarships', fullLabel: 'Scholarship Guides', icon: Award },
     { id: 'sbpp', label: 'SBPP Loan', fullLabel: 'SBPP Education Loan Scheme', icon: Building2 },
     { id: 'dashboard', label: 'My Journey', fullLabel: 'Student Progression Dashboard', icon: Target },
@@ -108,8 +108,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-slate-900 rounded-md hover:bg-slate-800 transition-colors whitespace-nowrap shadow-2xs cursor-pointer"
             >
               <BrainCircuit className="w-3.5 h-3.5 text-amber-400" />
-              <span className="hidden sm:inline">Career Aptitude Test</span>
-              <span className="sm:hidden">Aptitude</span>
+              <span className="hidden sm:inline">RIASEC Career Profiler</span>
+              <span className="sm:hidden">Profiler</span>
             </button>
           </div>
         </div>

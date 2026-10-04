@@ -25,7 +25,8 @@ import {
   Check,
   X,
   Building,
-  Target
+  Target,
+  BrainCircuit
 } from 'lucide-react';
 import { 
   DEFAULT_TRACKED_APPLICATIONS, 
@@ -116,6 +117,20 @@ export const StudentProgressionDashboard: React.FC<StudentProgressionDashboardPr
     return DEFAULT_JOURNEY_MILESTONES;
   });
 
+  // Load RIASEC Holland Code result if student completed the assessment
+  const [riasecResult, setRiasecResult] = useState<{
+    hollandCode: string;
+    archetype?: { title: string; tagline: string };
+  } | null>(() => {
+    try {
+      const saved = localStorage.getItem('suluh_riasec_result');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error(e);
+    }
+    return null;
+  });
+
   // Modal and state controls
   const [activeCallModal, setActiveCallModal] = useState<MentorshipBooking | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -166,6 +181,9 @@ export const StudentProgressionDashboard: React.FC<StudentProgressionDashboardPr
       try {
         const savedCalls = localStorage.getItem('suluh_progression_calls');
         if (savedCalls) setScheduledCalls(JSON.parse(savedCalls));
+
+        const savedRiasec = localStorage.getItem('suluh_riasec_result');
+        if (savedRiasec) setRiasecResult(JSON.parse(savedRiasec));
 
         const draft = localStorage.getItem('suluh_draft_essay');
         if (draft && draft.trim()) {
@@ -621,8 +639,8 @@ export const StudentProgressionDashboard: React.FC<StudentProgressionDashboardPr
           </div>
         </div>
 
-        {/* 3 Quick Metric Gauges */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 text-xs">
+        {/* 4 Quick Metric Gauges */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 text-xs">
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
             <div>
               <span className="text-slate-500 block mb-0.5">Tracked Applications</span>
@@ -637,13 +655,48 @@ export const StudentProgressionDashboard: React.FC<StudentProgressionDashboardPr
           </div>
 
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-slate-500 block mb-0.5">RIASEC Holland Code</span>
+              {riasecResult ? (
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-mono font-bold text-amber-900 bg-amber-100 text-base px-2 py-0.5 rounded border border-amber-300">
+                      {riasecResult.hollandCode}
+                    </span>
+                    <span className="text-[11px] font-semibold text-slate-700 truncate max-w-[110px]">
+                      {riasecResult.archetype?.title.replace('The ', '')}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => onNavigateToTab('aptitude')}
+                    className="text-[10px] text-amber-800 hover:underline font-semibold block mt-1 cursor-pointer"
+                  >
+                    View Matched Careers →
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <span className="text-sm font-semibold text-slate-700 block">Not Taken Yet</span>
+                  <button
+                    onClick={() => onNavigateToTab('aptitude')}
+                    className="text-[11px] text-amber-800 hover:underline font-semibold block mt-0.5 cursor-pointer"
+                  >
+                    Take RIASEC Test →
+                  </button>
+                </div>
+              )}
+            </div>
+            <BrainCircuit className="w-8 h-8 text-indigo-600/30 shrink-0 ml-1" />
+          </div>
+
+          <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
             <div>
               <span className="text-slate-500 block mb-0.5">Essay Drafts Tracked</span>
               <span className="text-2xl font-bold font-mono text-slate-900 tabular-nums">
                 {essays.length}
               </span>
               <span className="text-[11px] text-slate-500 block mt-0.5">
-                {essays.length > 0 ? 'Synchronized with Essay Studio' : 'Draft in Essay Studio to auto-track'}
+                {essays.length > 0 ? 'Synchronized with Essay Studio' : 'Draft in Essay Studio to track'}
               </span>
             </div>
             <FileText className="w-8 h-8 text-emerald-600/30" />
@@ -651,15 +704,15 @@ export const StudentProgressionDashboard: React.FC<StudentProgressionDashboardPr
 
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex items-center justify-between">
             <div>
-              <span className="text-slate-500 block mb-0.5">Scheduled Alumni Sessions</span>
+              <span className="text-slate-500 block mb-0.5">Completed Milestones</span>
               <span className="text-2xl font-bold font-mono text-slate-900 tabular-nums">
-                {scheduledCalls.length}
+                {milestones.filter(m => m.isCompleted).length} <span className="text-sm font-normal text-slate-400">/ {milestones.length}</span>
               </span>
               <span className="text-[11px] text-slate-500 block mt-0.5">
-                {scheduledCalls.length > 0 ? 'Upcoming scholar consultations' : 'Book a session in Alumni Mentorship'}
+                {milestones.filter(m => m.isCompleted).length > 0 ? 'Milestones achieved' : 'Check milestones below'}
               </span>
             </div>
-            <Video className="w-8 h-8 text-blue-600/30" />
+            <CheckCircle2 className="w-8 h-8 text-emerald-600/30" />
           </div>
         </div>
       </section>

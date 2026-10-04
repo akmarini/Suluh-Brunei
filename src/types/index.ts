@@ -176,7 +176,29 @@ export interface AlumniForumPost {
   }[];
 }
 
-// --- Career Aptitude Test & Program Matcher Types ---
+// --- Career Aptitude Test & RIASEC Career Profiler Types ---
+export type RiasecType = 'R' | 'I' | 'A' | 'S' | 'E' | 'C';
+
+export interface RiasecDimension {
+  code: RiasecType;
+  name: string;
+  trait: string;
+  tagline: string;
+  color: string;
+  description: string;
+  keySkills: string[];
+  bruneiSectors: string[];
+}
+
+export interface RiasecArchetype {
+  code: string;
+  title: string;
+  summary: string;
+  topStrengths: string[];
+  idealWorkEnvironment: string;
+  growthAreas: string[];
+}
+
 export type AptitudeDomain =
   | 'engineering'
   | 'medical'
@@ -189,6 +211,7 @@ export interface AptitudeOption {
   text: string;
   domainWeights: Record<AptitudeDomain, number>;
   bruneiContextNote?: string;
+  riasecType?: RiasecType;
 }
 
 export interface AptitudeQuestion {
@@ -204,6 +227,8 @@ export interface CareerMatch {
   malayTitle: string;
   industryCluster: string;
   primaryDomain: AptitudeDomain;
+  hollandCode?: string;
+  riasecPrimary?: RiasecType;
   averageSalaryBnd: string;
   keyEmployersInBrunei: string[];
   wawasanAlignment: string;
@@ -213,7 +238,7 @@ export interface CareerMatch {
     country: string;
     minTariff: number;
   }[];
-  fundingPathways: ("Sultan's Scholar" | 'MOE Scholarship' | 'BSP Scholarship' | 'SBPP Education Loan' | 'Local Govt Scheme')[];
+  fundingPathways: ("Sultan's Scholar" | 'MOE Scholarship' | 'BSP Scholarship' | 'SBPP Education Loan' | 'Local Govt Scheme' | 'Hengyi Joint Scholarship' | 'BGC Cadetship' | string)[];
   roleOverview: string;
   dayInTheLife: string;
 }
@@ -224,6 +249,13 @@ export interface AptitudeResult {
   secondaryDomain: AptitudeDomain;
   matchedCareers: CareerMatch[];
   completedAt: string;
+  // RIASEC profile extensions
+  hollandCode?: string;
+  riasecScores?: Record<RiasecType, number>;
+  primaryType?: RiasecType;
+  secondaryType?: RiasecType;
+  tertiaryType?: RiasecType;
+  archetype?: RiasecArchetype;
 }
 
 // --- SBPP (Skim Bantuan Pinjaman Pendidikan) Types ---
