@@ -1,6 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Copyright, AlertTriangle, FileText, X, Lock, CheckCircle2, Mail, ExternalLink } from 'lucide-react';
-import brandLogo from '../assets/images/suluhbrunei_logo_1790999633328.jpg';
+import { ShieldCheck, Copyright, AlertTriangle, FileText, X, Lock, CheckCircle2, Mail, ExternalLink, Compass } from 'lucide-react';
 
 interface OwnershipModalProps {
   isOpen: boolean;
@@ -32,12 +31,8 @@ export const OwnershipModal: React.FC<OwnershipModalProps> = ({
         {/* Header */}
         <div className="bg-slate-900 text-white p-6 flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl overflow-hidden border border-amber-400/80 bg-slate-950 shrink-0 p-0.5">
-              <img
-                src={brandLogo}
-                alt="Suluh Brunei Logo"
-                className="w-full h-full object-cover rounded-lg"
-              />
+            <div className="w-10 h-10 rounded-xl overflow-hidden border border-amber-400/80 bg-slate-950 shrink-0 flex items-center justify-center">
+              <Compass className="w-5 h-5 text-amber-400" />
             </div>
             <div>
               <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider">

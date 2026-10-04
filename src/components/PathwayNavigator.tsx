@@ -8,7 +8,7 @@ import {
   ICStatus
 } from '../types';
 import { UNIVERSITY_PROGRAMS } from '../data/pathways';
-import { IBTE_HNTEC_CATALOG, getIbteProgramByName } from '../data/ibteData';
+import { IBTE_HNTEC_CATALOG, IBTE_DIPLOMA_CATALOG, getIbteProgramByName } from '../data/ibteData';
 import { 
   BRUNEI_SIXTH_FORMS, 
   COMMON_SUBJECTS, 
@@ -608,79 +608,77 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
               </div>
             </div>
           ) : profile.qualificationType === 'HNTec-IBTE' ? (
-            /* IBTE (HNTEC LEVEL 4 CERTIFICATE) PANEL */
+            /* IBTE (LEVEL 5 DIPLOMA & HNTEC LEVEL 4) PANEL */
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-900 uppercase tracking-wider">
                     <Wrench className="w-4 h-4 text-amber-700" />
-                    <span>IBTE Technical Education (HNTec) Profile</span>
+                    <span>IBTE Technical Education (Level 5 Diploma &amp; HNTec) Profile</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Select your IBTE Campus, HNTec Programme, and Award classification to evaluate progression pathways.
+                    Select your IBTE Programme (Diploma or HNTec) and award classification to evaluate progression into Politeknik Brunei, UTB, and industry.
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300">
-                    BNQF Level 4 Technical
+                    {profile.ibteProgram?.toLowerCase().includes('diploma') ? 'BNQF Level 5 Diploma' : 'BNQF Level 4 Technical'}
                   </span>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-amber-50/50 p-4 rounded-xl border border-amber-200/70">
-                {/* IBTE Campus */}
+                {/* Programme Level */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                    IBTE Campus
+                    Programme Level
                   </label>
                   <select
-                    value={profile.ibteSchool || 'IBTE Sultan Saiful Rijal Campus (Jalan Muara)'}
-                    onChange={(e) => setProfile(prev => ({ ...prev, ibteSchool: e.target.value }))}
-                    className="w-full text-xs font-medium text-slate-900 bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+                    value={profile.ibteProgram?.toLowerCase().includes('diploma') ? 'Diploma' : 'HNTec'}
+                    onChange={(e) => {
+                      if (e.target.value === 'Diploma') {
+                        setProfile(prev => ({ ...prev, ibteProgram: IBTE_DIPLOMA_CATALOG[0].name }));
+                      } else {
+                        setProfile(prev => ({ ...prev, ibteProgram: IBTE_HNTEC_CATALOG[0].name }));
+                      }
+                    }}
+                    className="w-full text-xs font-bold text-amber-950 bg-white border border-amber-300 rounded-lg px-2.5 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
                   >
-                    {IBTE_CAMPUSES.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
+                    <option value="Diploma">Level 5 Diploma (Latest)</option>
+                    <option value="HNTec">HNTec (Level 4 Technical)</option>
                   </select>
                 </div>
 
                 {/* IBTE Program */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">
-                    HNTec Programme
+                    IBTE Programme
                   </label>
                   <select
-                    value={profile.ibteProgram || 'HNTec in Information Technology'}
+                    value={profile.ibteProgram || IBTE_DIPLOMA_CATALOG[0].name}
                     onChange={(e) => {
                       const newProg = e.target.value;
-                      const progDetails = getIbteProgramByName(newProg);
                       setProfile(prev => ({ 
                         ...prev, 
-                        ibteProgram: newProg,
-                        ibteSchool: progDetails && progDetails.campuses.length > 0 && !progDetails.campuses.includes(prev.ibteSchool || '')
-                          ? progDetails.campuses[0]
-                          : prev.ibteSchool
+                        ibteProgram: newProg
                       }));
                     }}
                     className="w-full text-xs font-medium text-slate-900 bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
                   >
-                    {[
-                      'Aviation',
-                      'ICT',
-                      'Engineering',
-                      'Building Services',
-                      'Applied Sciences',
-                      'Business',
-                      'Hospitality'
-                    ].map((clusterName) => (
-                      <optgroup key={clusterName} label={`📂 ${clusterName} (${IBTE_HNTEC_CATALOG.filter(p => p.cluster === clusterName).length} courses)`}>
-                        {IBTE_HNTEC_CATALOG.filter(p => p.cluster === clusterName).map((prog) => (
-                          <option key={prog.id} value={prog.name}>
-                            {prog.name}
-                          </option>
-                        ))}
-                      </optgroup>
-                    ))}
+                    <optgroup label="🎓 IBTE Level 5 Diplomas (Latest)">
+                      {IBTE_DIPLOMA_CATALOG.map((prog) => (
+                        <option key={prog.id} value={prog.name}>
+                          {prog.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="⚙️ IBTE HNTec Programmes (Level 4)">
+                      {IBTE_HNTEC_CATALOG.map((prog) => (
+                        <option key={prog.id} value={prog.name}>
+                          {prog.name}
+                        </option>
+                      ))}
+                    </optgroup>
                   </select>
                 </div>
 
@@ -720,40 +718,43 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 </div>
               </div>
 
-              {/* Selected HNTec Programme Deep-Dive Card */}
+              {/* Selected IBTE Programme Deep-Dive Card */}
               {(() => {
-                const selectedHntec = getIbteProgramByName(profile.ibteProgram || 'HNTec in Information Technology');
-                if (!selectedHntec) return null;
+                const selectedProg = getIbteProgramByName(profile.ibteProgram || IBTE_DIPLOMA_CATALOG[0].name);
+                if (!selectedProg) return null;
+                const isDiploma = selectedProg.name.toLowerCase().includes('diploma');
+                const pbArtic = 'pbArticulationDiploma' in selectedProg ? selectedProg.pbArticulationDiploma : null;
+                
                 return (
                   <div className="p-4 bg-white rounded-xl border border-amber-300/80 shadow-2xs space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-300">
-                            {selectedHntec.cluster}
+                            {selectedProg.cluster}
                           </span>
                           <span className="text-[11px] font-semibold text-slate-500">
-                            {selectedHntec.school}
+                            {selectedProg.school} · {isDiploma ? 'Level 5 Diploma' : 'Level 4 HNTec'}
                           </span>
                         </div>
                         <h4 className="text-sm font-bold text-slate-900">
-                          {selectedHntec.name}
+                          {selectedProg.name}
                         </h4>
                       </div>
                       <div className="text-[11px] text-slate-500 sm:text-right">
                         <span className="font-semibold block text-slate-700">Official Duration:</span>
-                        <span>{selectedHntec.duration}</span>
+                        <span>{selectedProg.duration}</span>
                       </div>
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      {selectedHntec.overview}
+                      {selectedProg.overview}
                     </p>
 
                     {/* Core competencies */}
                     <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
-                      <span className="text-[11px] font-semibold text-slate-500 mr-1">Key Modules & Skills:</span>
-                      {selectedHntec.keyCompetencies.map((comp, idx) => (
+                      <span className="text-[11px] font-semibold text-slate-500 mr-1">Key Modules &amp; Skills:</span>
+                      {selectedProg.keyCompetencies.map((comp, idx) => (
                         <span key={idx} className="px-2 py-0.5 bg-slate-100 border border-slate-200 text-slate-700 rounded text-[10px] font-medium">
                           {comp}
                         </span>
@@ -765,26 +766,28 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                       <div className="p-3 bg-emerald-50/70 border border-emerald-200 rounded-lg space-y-1">
                         <span className="font-bold text-emerald-950 flex items-center gap-1 text-xs">
                           <GraduationCap className="w-3.5 h-3.5 text-emerald-700" />
-                          <span>Politeknik Brunei Direct Articulation</span>
+                          <span>{isDiploma ? 'University Degree Articulation' : 'Politeknik Brunei Direct Articulation'}</span>
                         </span>
-                        <p className="text-[11px] text-emerald-900 font-medium">
-                          {selectedHntec.pbArticulationDiploma}
-                        </p>
-                        <span className="text-[10px] text-emerald-700 block">
-                          Degree Articulation: <strong>{selectedHntec.utbDegreeTarget}</strong>
+                        {pbArtic && (
+                          <p className="text-[11px] text-emerald-900 font-medium">
+                            {pbArtic}
+                          </p>
+                        )}
+                        <span className="text-[11px] text-emerald-800 font-semibold block">
+                          Degree Articulation: <strong>{selectedProg.utbDegreeTarget}</strong>
                         </span>
                       </div>
 
                       <div className="p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-1">
                         <span className="font-bold text-slate-800 flex items-center gap-1 text-xs">
                           <Building className="w-3.5 h-3.5 text-blue-600" />
-                          <span>Industry Opportunities & Employers in Brunei</span>
+                          <span>Industry Opportunities &amp; Key Employers in Brunei</span>
                         </span>
                         <p className="text-[11px] text-slate-600">
-                          {selectedHntec.industryOpportunities.join(' · ')}
+                          {selectedProg.industryOpportunities.join(' · ')}
                         </p>
-                        <span className="text-[10px] text-slate-500 block">
-                          Available at: <strong>{selectedHntec.campuses.join(', ')}</strong>
+                        <span className="text-[10px] text-emerald-700 font-medium block">
+                          ✓ National TVET qualification accredited by BDNAC (MKPK)
                         </span>
                       </div>
                     </div>
@@ -792,7 +795,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                     {/* Entry requirement */}
                     <div className="text-[11px] text-slate-500 pt-1 flex items-start gap-1.5 bg-amber-50/40 p-2 rounded border border-amber-200/50">
                       <Info className="w-3.5 h-3.5 text-amber-700 shrink-0 mt-0.5" />
-                      <span><strong>O-Level Admission Prerequisite:</strong> {selectedHntec.entryRequirements}</span>
+                      <span><strong>Admission Requirements:</strong> {selectedProg.entryRequirements}</span>
                     </div>
                   </div>
                 );

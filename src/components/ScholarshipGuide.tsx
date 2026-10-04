@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { Scholarship, StudentProfile } from '../types';
 import { SCHOLARSHIPS_DATA } from '../data/scholarships';
 import { MOE_CIRCULAR_14_2025, MoePriorityCourse } from '../data/moeCircularData';
-import { calculateTariffPoints, evaluateScholarshipReadiness } from '../utils/tariffCalculator';
-import scholarshipEmblem from '../assets/images/scholarship_emblem_1790996860311.jpg';
+import { 
+  calculateTariffPoints, 
+  calculateStudentTariff, 
+  getQualificationDetails, 
+  evaluateScholarshipReadiness 
+} from '../utils/tariffCalculator';
 import { 
   Award, 
   CheckCircle2, 
@@ -31,12 +35,14 @@ import {
 
 interface ScholarshipGuideProps {
   profile: StudentProfile;
+  setProfile?: React.Dispatch<React.SetStateAction<StudentProfile>>;
   onBookAlumniForScholarship: (scholarshipTitle: string) => void;
   onNavigateToDeadlines: () => void;
 }
 
 export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
   profile,
+  setProfile,
   onBookAlumniForScholarship,
   onNavigateToDeadlines
 }) => {
@@ -60,8 +66,9 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
     }));
   };
 
-  const tariffPoints = calculateTariffPoints(profile.subjects);
-  const readiness = evaluateScholarshipReadiness(tariffPoints, profile.icStatus, profile.oLevelMalayGrade || 'B3');
+  const tariffPoints = calculateStudentTariff(profile);
+  const qualDetails = getQualificationDetails(profile);
+  const readiness = evaluateScholarshipReadiness(tariffPoints, profile.icStatus, profile.oLevelMalayGrade || 'B3', profile);
 
   // Filter scholarships
   const filteredScholarships = SCHOLARSHIPS_DATA.filter((item) => {
@@ -92,41 +99,156 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
       <section className="bg-white rounded-xl border border-slate-200/80 p-6 md:p-8 shadow-sm">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-slate-100">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-slate-200 bg-amber-50">
-              <img
-                src={scholarshipEmblem}
-                alt="Brunei Scholarship Emblem"
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
-              />
+            <div className="w-12 h-12 rounded-xl border border-amber-200 bg-amber-50/80 flex items-center justify-center text-amber-700 shrink-0 shadow-2xs">
+              <Award className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
                 <span>Personalized Analysis</span>
                 <span aria-hidden="true">·</span>
-                <span>Brunei Citizenship & Grade Audit</span>
+                <span>Brunei Citizenship &amp; Grade Audit</span>
               </div>
               <h2 className="text-xl md:text-2xl font-bold text-slate-900">
                 Your Scholarship Eligibility Overview
               </h2>
               <div className="text-xs text-slate-600 mt-0.5">
-                Evaluated for: <strong className="text-slate-900">{profile.school}</strong> · Status: <span className="text-amber-800 font-semibold">{profile.icStatus}</span>
+                Evaluated for: <strong className="text-slate-900">{profile.school}</strong> · Qualification: <span className="text-purple-800 font-semibold">{qualDetails.title}</span> · Status: <span className="text-amber-800 font-semibold">{profile.icStatus}</span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
-              <span className="text-slate-500 block">Your Current Score</span>
-              <span className="font-mono font-bold text-slate-900 text-lg tabular-nums">
-                {tariffPoints} UCAS pts
-              </span>
+            <div className="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-0.5">
+              <span className="text-slate-500 block font-medium">Your Current Score ({qualDetails.levelTag})</span>
+              <div className="flex items-baseline gap-2">
+                <span className="font-mono font-bold text-slate-900 text-lg tabular-nums">
+                  {profile.qualificationType === 'A-Level' ? `${tariffPoints} UCAS pts` : qualDetails.pointsDisplay || qualDetails.scoreText}
+                </span>
+                {profile.qualificationType !== 'A-Level' && (
+                  <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    ≈ {tariffPoints} equiv. pts
+                  </span>
+                )}
+              </div>
+              {profile.qualificationType !== 'A-Level' && (
+                <div className="text-[10px] text-slate-500">
+                  {profile.qualificationType === 'Politeknik-Diploma' && 'MoE Overseas evaluates Distinction (cGPA ≥ 3.50 / 120+ pts) within 2 yrs'}
+                  {profile.qualificationType === 'IB' && 'MoE evaluates min 32 pts (General) or 38 pts (Medicine/Dentistry)'}
+                  {profile.qualificationType === 'STPUB' && 'Evaluates Mumtaz / Jayyid Jiddan ranking'}
+                  {profile.qualificationType === 'HNTec-IBTE' && 'BNQF Level 4 mapped to Higher Diploma & Degree progression'}
+                </div>
+              )}
             </div>
           </div>
         </div>
+
+        {/* Stream Switcher & Live Score Adjuster for Non A-Level / A-Level Qualifications */}
+        {setProfile && (
+          <div className="mt-4 pt-3 pb-2 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+              <span className="font-semibold text-slate-500 uppercase tracking-wider mr-1 shrink-0">
+                Evaluation Stream:
+              </span>
+              {[
+                { id: 'A-Level', label: '🎓 GCE A-Level' },
+                { id: 'Politeknik-Diploma', label: '🏛️ Politeknik Brunei' },
+                { id: 'HNTec-IBTE', label: '⚙️ IBTE' },
+                { id: 'IB', label: '🌐 IB Diploma' },
+                { id: 'STPUB', label: '🕌 STPUB' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    let newSchool = profile.school;
+                    if (item.id === 'Politeknik-Diploma') newSchool = 'Politeknik Brunei (PB)';
+                    else if (item.id === 'HNTec-IBTE') newSchool = 'IBTE (Institute of Brunei Technical Education)';
+                    else if (item.id === 'IB') newSchool = 'Jerudong International School (JIS)';
+                    else if (item.id === 'STPUB') newSchool = 'Sekolah Menengah Arab Laki-Laki Hassanal Bolkiah (SMALHB)';
+                    else newSchool = 'Maktab Duli Pengiran Muda Al-Muhtadee Billah (MDPMAMB)';
+                    setProfile(prev => ({ ...prev, qualificationType: item.id as any, school: newSchool }));
+                  }}
+                  className={`px-2.5 py-1 rounded-lg font-medium whitespace-nowrap cursor-pointer transition-all ${
+                    profile.qualificationType === item.id
+                      ? 'bg-amber-800 text-white font-semibold shadow-xs'
+                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Score Controls depending on selected stream */}
+            <div className="flex items-center gap-2 shrink-0">
+              {profile.qualificationType === 'IB' && (
+                <div className="flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-200">
+                  <span className="font-semibold text-purple-900">IB Score:</span>
+                  <select
+                    value={profile.ibPoints ?? 34}
+                    onChange={(e) => setProfile(prev => ({ ...prev, ibPoints: parseInt(e.target.value) }))}
+                    className="bg-white border border-purple-300 font-bold text-purple-950 rounded px-1.5 py-0.5"
+                  >
+                    {[45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 26, 24].map(pt => (
+                      <option key={pt} value={pt}>
+                        {pt} pts {pt >= 38 ? '(Medicine/AAA)' : pt >= 32 ? '(MoE General/BBB)' : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {profile.qualificationType === 'Politeknik-Diploma' && (
+                <div className="flex items-center gap-1.5 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">
+                  <span className="font-semibold text-blue-900">PB cGPA:</span>
+                  <select
+                    value={(profile.pbCgpa ?? 3.45).toFixed(2)}
+                    onChange={(e) => setProfile(prev => ({ ...prev, pbCgpa: parseFloat(e.target.value) }))}
+                    className="bg-white border border-blue-300 font-bold text-blue-950 rounded px-1.5 py-0.5"
+                  >
+                    <option value="3.90">3.90 (High Distinction - AAA equiv)</option>
+                    <option value="3.60">3.60 (Distinction - MoE Overseas 120+ equiv)</option>
+                    <option value="3.50">3.50 (Distinction - Min for MoE Overseas)</option>
+                    <option value="3.30">3.30 (Merit - Direct Year 2 UTB/UBD)</option>
+                    <option value="3.00">3.00 (Merit - Standard UTB)</option>
+                    <option value="2.80">2.80 (Merit - Min for Direct Year 2)</option>
+                    <option value="2.50">2.50 (Pass - Local Degree entry)</option>
+                  </select>
+                </div>
+              )}
+
+              {profile.qualificationType === 'HNTec-IBTE' && (
+                <div className="flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                  <span className="font-semibold text-amber-900">IBTE Level:</span>
+                  <select
+                    value={profile.ibteAward || 'Merit'}
+                    onChange={(e) => setProfile(prev => ({ ...prev, ibteAward: e.target.value as any }))}
+                    className="bg-white border border-amber-300 font-bold text-amber-950 rounded px-1.5 py-0.5"
+                  >
+                    <option value="Distinction">Distinction (cGPA ≥ 3.50)</option>
+                    <option value="Merit">Merit (cGPA 2.80 - 3.49)</option>
+                    <option value="Pass">Pass (cGPA 2.00 - 2.79)</option>
+                  </select>
+                </div>
+              )}
+
+              {profile.qualificationType === 'STPUB' && (
+                <div className="flex items-center gap-1.5 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                  <span className="font-semibold text-emerald-900">Pangkat:</span>
+                  <select
+                    value={profile.stpubGrade || 'Jayyid Jiddan'}
+                    onChange={(e) => setProfile(prev => ({ ...prev, stpubGrade: e.target.value as any }))}
+                    className="bg-white border border-emerald-300 font-bold text-emerald-950 rounded px-1.5 py-0.5"
+                  >
+                    <option value="Mumtaz">Mumtaz (Excellent - MoE Overseas)</option>
+                    <option value="Jayyid Jiddan">Jayyid Jiddan (Very Good - MoE Overseas & Double Degree)</option>
+                    <option value="Jayyid">Jayyid (Good - UNISSA entry)</option>
+                    <option value="Maqbul">Maqbul (Pass)</option>
+                  </select>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Readiness Cards Grid (5-column responsive) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 mt-6">
@@ -146,18 +268,44 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-[11px] font-semibold text-rose-700">
                   No BM Credit
                 </span>
+              ) : profile.qualificationType === 'IB' ? (
+                <span className="text-[11px] font-medium text-amber-700">
+                  {readiness.moeOverseas.gap} IB pts away
+                </span>
+              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+                <span className="text-[11px] font-medium text-amber-700">
+                  {readiness.moeOverseas.gap > 0 ? `${readiness.moeOverseas.gap} cGPA to 3.50` : 'Needs Distinction'}
+                </span>
+              ) : profile.qualificationType === 'HNTec-IBTE' ? (
+                <span className="text-[11px] font-medium text-slate-500">
+                  Via PB Diploma
+                </span>
               ) : (
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.moeOverseas.gap} pts away
                 </span>
               )}
             </div>
-            <div className="text-xs text-slate-600 mb-1.5">
-              120 pts (BBB) · Min Grade C
+            <div className="text-xs text-slate-600 mb-1.5 font-medium">
+              {profile.qualificationType === 'IB'
+                ? 'Min 32 IB pts · Yellow IC'
+                : profile.qualificationType === 'Politeknik-Diploma'
+                ? 'Distinction (cGPA ≥ 3.50)'
+                : profile.qualificationType === 'STPUB'
+                ? 'Mumtaz / Jayyid Jiddan'
+                : profile.qualificationType === 'HNTec-IBTE'
+                ? 'Progress to Level 5 First'
+                : '120 pts (BBB) · Min Grade C'}
             </div>
             <div className="text-[11px] text-slate-500 leading-relaxed">
               {!readiness.hasMalayCredit ? (
                 <span className="text-rose-700 font-medium">Requires Credit (C6) in O-Level Bahasa Melayu.</span>
+              ) : profile.qualificationType === 'IB' ? (
+                <span>Circular 14/2025: min 32 IB points in 1 sitting, age ≤ 26.</span>
+              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+                <span>Graduated within last 2 years with Distinction. Top 250 universities.</span>
+              ) : profile.qualificationType === 'HNTec-IBTE' ? (
+                <span>Articulate via Politeknik Brunei Diploma before overseas bachelor's.</span>
               ) : (
                 <span>1 sitting within 2 yrs, age ≤ 26. Top 250 QS/THE 2026.</span>
               )}
@@ -180,17 +328,29 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-[11px] font-semibold text-rose-700">
                   No BM Credit
                 </span>
+              ) : profile.qualificationType === 'IB' ? (
+                <span className="text-[11px] font-medium text-amber-700">
+                  {readiness.moeMedicineDentistry.gap} IB pts away
+                </span>
+              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'HNTec-IBTE' || profile.qualificationType === 'STPUB' ? (
+                <span className="text-[11px] font-medium text-slate-500">
+                  A-Level / IB track
+                </span>
               ) : (
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.moeMedicineDentistry.gap} pts away
                 </span>
               )}
             </div>
-            <div className="text-xs text-slate-600 mb-1.5">
-              144 pts (AAA) · Min Grade A
+            <div className="text-xs text-slate-600 mb-1.5 font-medium">
+              {profile.qualificationType === 'IB'
+                ? 'Min 38 IB pts (Para 1.1.1)'
+                : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'HNTec-IBTE'
+                ? 'A-Level / IB Required'
+                : '144 pts (AAA) · Min Grade A'}
             </div>
             <div className="text-[11px] text-slate-500 leading-relaxed">
-              <span>Para 1.1.1: O-Level English B3, 1 sitting in 2 yrs. IB: 38 pts.</span>
+              <span>Para 1.1.1: O-Level English B3, BM C6, UCAT &amp; MMI interview.</span>
             </div>
           </div>
 
@@ -206,17 +366,29 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Qualified
                 </span>
+              ) : profile.qualificationType === 'IB' ? (
+                <span className="text-[11px] font-medium text-amber-700">
+                  {readiness.bspScholarship.gap} IB pts away
+                </span>
+              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+                <span className="text-[11px] font-medium text-amber-700">
+                  Needs Distinction
+                </span>
               ) : (
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.bspScholarship.gap} pts away
                 </span>
               )}
             </div>
-            <div className="text-xs text-slate-600 mb-1.5">
-              128 pts threshold (ABB/AAB)
+            <div className="text-xs text-slate-600 mb-1.5 font-medium">
+              {profile.qualificationType === 'IB'
+                ? 'Min 34 IB pts threshold'
+                : profile.qualificationType === 'Politeknik-Diploma'
+                ? 'Distinction (cGPA ≥ 3.50)'
+                : '128 pts threshold (ABB/AAB)'}
             </div>
             <div className="text-[11px] text-slate-500 leading-relaxed">
-              Energy STEM focus, corporate fast-track & BSP attachment.
+              Energy STEM focus, corporate fast-track &amp; BSP attachment.
             </div>
           </div>
 
@@ -232,14 +404,20 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
                   <CheckCircle2 className="w-3.5 h-3.5" /> Elite Profile
                 </span>
+              ) : profile.qualificationType === 'IB' ? (
+                <span className="text-[11px] font-medium text-slate-500">
+                  {readiness.sultansScholar.gap} IB pts away
+                </span>
               ) : (
                 <span className="text-[11px] font-medium text-slate-500">
                   {readiness.sultansScholar.gap} pts away
                 </span>
               )}
             </div>
-            <div className="text-xs text-slate-600 mb-1.5">
-              152+ pts (A*AA/A*A*A)
+            <div className="text-xs text-slate-600 mb-1.5 font-medium">
+              {profile.qualificationType === 'IB'
+                ? 'Min 40+ IB pts (Elite)'
+                : '152+ pts (A*AA/A*A*A)'}
             </div>
             <div className="text-[11px] text-slate-500 leading-relaxed">
               Royal scholarship for top global universities (Oxbridge/Ivy).
@@ -260,21 +438,34 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 </span>
               ) : (
                 <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Scholarship
+                  <CheckCircle2 className="w-3.5 h-3.5" /> 
+                  {profile.qualificationType === 'Politeknik-Diploma' ? 'Direct Year 2' : profile.qualificationType === 'HNTec-IBTE' ? 'PB Entry' : 'Scholarship'}
                 </span>
               )}
             </div>
-            <div className="text-xs text-slate-600 mb-1.5">
-              64–112 pts via HECAS
+            <div className="text-xs text-slate-600 mb-1.5 font-medium">
+              {profile.qualificationType === 'Politeknik-Diploma'
+                ? 'UTB/UBD Direct Year 2 (cGPA ≥ 2.80)'
+                : profile.qualificationType === 'HNTec-IBTE'
+                ? 'PB Level 5 Diploma Entry'
+                : '64–112 pts via HECAS'}
             </div>
             <div className="text-[11px] leading-relaxed">
               {readiness.localGovtScholarship.isFeePaying ? (
                 <span className="text-rose-900 font-medium">
                   <strong>Fee-Paying:</strong> Lacks BM Credit. No $350 allowance.
                 </span>
+              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+                <span className="text-slate-600">
+                  Direct Year 2 into UTB/UBD degree with tuition-free status &amp; $350/mo allowance.
+                </span>
+              ) : profile.qualificationType === 'HNTec-IBTE' ? (
+                <span className="text-slate-600">
+                  Direct admission into Politeknik Brunei Level 5 Diploma (Tuition-free + $350/mo allowance for Yellow IC).
+                </span>
               ) : (
                 <span className="text-slate-500">
-                  Free tuition + BND $350/mo allowance for Yellow IC.
+                  Yellow IC citizens get 100% free tuition &amp; $350/mo allowance.
                 </span>
               )}
             </div>

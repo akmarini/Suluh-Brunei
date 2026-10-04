@@ -104,14 +104,15 @@ export function calculateTariffPoints(grades: { grade: string }[]): number {
 
 /**
  * Calculates effective entry tariff points and university progression equivalents
- * tailored for GCE A-Level, Politeknik Brunei Level 5 Diploma, IBTE HNTec, IB, and STPUB.
+ * tailored for GCE A-Level, Politeknik Brunei Level 5 Diploma, IBTE HNTec / Diploma, IB, and STPUB.
  */
 export function calculateStudentTariff(profile: StudentProfile): number {
   if (profile.qualificationType === 'Politeknik-Diploma') {
     const cgpa = typeof profile.pbCgpa === 'number' ? profile.pbCgpa : 3.45;
     // Politeknik Brunei Level 5 Diploma to University Equivalent (New UCAS Tariff Scale):
     if (cgpa >= 3.8) return 144; // High Distinction -> Direct Year 2 UTB/UBD + Overseas (equiv to AAA)
-    if (cgpa >= 3.5) return 128; // Distinction -> Direct Year 2 UTB/UBD (equiv to AAB)
+    if (cgpa >= 3.5) return 128; // Distinction -> Direct Year 2 UTB/UBD (equiv to AAB, qualifies for MoE Overseas 120+)
+    if (cgpa >= 3.2) return 120; // High Merit -> MoE Overseas 120 pts benchmark (equiv to BBB)
     if (cgpa >= 3.0) return 112; // Strong Merit -> Standard UTB Engineering & Computing Year 2 (equiv to BBC)
     if (cgpa >= 2.8) return 96;  // Merit -> UTB Year 2 eligible / UBD Computing (equiv to CCC)
     if (cgpa >= 2.5) return 80;  // Pass / Low Merit -> UBD/UTB standard entry (equiv to CDD)
@@ -120,8 +121,18 @@ export function calculateStudentTariff(profile: StudentProfile): number {
   }
 
   if (profile.qualificationType === 'HNTec-IBTE') {
+    const isDip = profile.ibteProgram?.toLowerCase().includes('diploma');
     const award = profile.ibteAward || 'Merit';
     const cgpa = typeof profile.ibteCgpa === 'number' ? profile.ibteCgpa : 3.2;
+
+    if (isDip) {
+      // IBTE Level 5 Diploma Progression:
+      if (cgpa >= 3.8 || award === 'Distinction') return 128; // Distinction -> Direct Year 2 UTB
+      if (cgpa >= 3.2) return 112;                           // Merit -> Direct Year 2 UTB
+      if (cgpa >= 2.8) return 96;                            // Pass with Merit
+      return 64;                                             // Pass
+    }
+
     // IBTE HNTec (BNQF Level 4) progression:
     if (award === 'Distinction' || cgpa >= 3.5) return 80; // High Merit / Distinction -> PB Level 5 & Private College entry
     if (award === 'Merit' || cgpa >= 2.8) return 64;       // Merit -> PB Level 5 Diploma & Private College Foundation/HND
@@ -130,19 +141,35 @@ export function calculateStudentTariff(profile: StudentProfile): number {
 
   if (profile.qualificationType === 'IB') {
     const points = typeof profile.ibPoints === 'number' ? profile.ibPoints : 34;
-    if (points >= 38) return 144; // AAA equivalent
-    if (points >= 34) return 128; // AAB equivalent (exceeds MOE Overseas 120 pts)
-    if (points >= 30) return 104; // BCC equivalent
-    if (points >= 26) return 80;  // CDD equivalent
-    return 64;                    // CC equivalent
+    // International Baccalaureate (IB) Diploma mapped directly to MoE Circular 14/2025:
+    // 40+ pts -> 160 pts (A*A*A* equivalent / Sultan's Scholar candidate)
+    // 38 pts  -> 144 pts (AAA equivalent / MoE Medicine & Dentistry benchmark - Para 1.1.1)
+    // 36 pts  -> 136 pts (A*AB equivalent)
+    // 34 pts  -> 128 pts (AAB equivalent / Shell BSP benchmark)
+    // 32 pts  -> 120 pts (BBB equivalent / MoE Overseas General benchmark - Circular 14/2025)
+    // 30 pts  -> 112 pts (BBC equivalent)
+    // 28 pts  -> 96 pts  (BCC equivalent)
+    // 26 pts  -> 80 pts  (CCC/CDD equivalent)
+    // 24 pts  -> 64 pts  (Standard IB Pass / Local Degree threshold)
+    if (points >= 40) return 160;
+    if (points >= 38) return 144;
+    if (points >= 36) return 136;
+    if (points >= 34) return 128;
+    if (points >= 32) return 120;
+    if (points >= 30) return 112;
+    if (points >= 28) return 96;
+    if (points >= 26) return 80;
+    if (points >= 24) return 64;
+    return 48;
   }
 
   if (profile.qualificationType === 'STPUB') {
     const grade = profile.stpubGrade || 'Jayyid Jiddan';
-    if (grade === 'Mumtaz') return 128;       // AAB equivalent (MOE Overseas)
-    if (grade === 'Jayyid Jiddan') return 104; // BCC equivalent (UNISSA Double Degree)
-    if (grade === 'Jayyid') return 80;        // CDD equivalent
-    return 64;                                // CC equivalent
+    if (grade === 'Mumtaz') return 136;       // High First Class / A*AA equivalent (MoE Overseas eligible)
+    if (grade === 'Jayyid Jiddan') return 120; // BBB equivalent (Qualified for MOE Overseas & UNISSA Double Degree)
+    if (grade === 'Jayyid') return 96;        // CCC equivalent (Direct local degree admission)
+    if (grade === 'Maqbul') return 64;        // Pass equivalent
+    return 48;
   }
 
   // Default GCE A-Level
@@ -154,9 +181,12 @@ export function getQualificationDetails(profile: StudentProfile) {
     const cgpa = typeof profile.pbCgpa === 'number' ? profile.pbCgpa : 3.45;
     const classification = cgpa >= 3.5 ? 'Distinction' : cgpa >= 3.0 ? 'Merit' : 'Pass';
     const isYear2Eligible = cgpa >= 2.8;
+    const tariff = calculateStudentTariff(profile);
     return {
       title: 'Politeknik Brunei (PB) Level 5 Diploma',
       scoreText: `cGPA ${cgpa.toFixed(2)} / 4.00 (${classification})`,
+      pointsDisplay: `cGPA ${cgpa.toFixed(2)} (${classification})`,
+      equivTariff: tariff,
       progressionText: isYear2Eligible 
         ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions, or Final-Year UK Degree Top-Up at LCB'
         : '✓ Eligible for Degree Admission into local and private universities (LCB Chester / KIGS Limkokwing)',
@@ -167,12 +197,29 @@ export function getQualificationDetails(profile: StudentProfile) {
   }
 
   if (profile.qualificationType === 'HNTec-IBTE') {
+    const isDip = profile.ibteProgram?.toLowerCase().includes('diploma');
     const award = profile.ibteAward || 'Merit';
     const cgpa = typeof profile.ibteCgpa === 'number' ? profile.ibteCgpa : 3.2;
+    const tariff = calculateStudentTariff(profile);
+
+    if (isDip) {
+      return {
+        title: 'IBTE Level 5 Diploma Programme',
+        scoreText: `${award} (cGPA ${cgpa.toFixed(2)} / 4.00)`,
+        pointsDisplay: `Level 5 Diploma (${award})`,
+        equivTariff: tariff,
+        progressionText: '✓ Direct Year 2 Entry into UTB BEng / BSc degree programmes with credit exemptions',
+        levelTag: 'BNQF Level 5 Diploma',
+        isPbEligible: true
+      };
+    }
+
     const isPbEligible = award === 'Distinction' || award === 'Merit' || cgpa >= 2.8;
     return {
-      title: 'IBTE Higher National Technical Education Certificate (HNTec)',
+      title: 'IBTE Technical Education Certificate (HNTec)',
       scoreText: `${award} (cGPA ${cgpa.toFixed(2)})`,
+      pointsDisplay: `${award} (cGPA ${cgpa.toFixed(2)})`,
+      equivTariff: tariff,
       progressionText: isPbEligible
         ? '✓ Direct progression into Politeknik Brunei Level 5 Diploma (3 Years) or Private College Pearson BTEC Level 5 HND with SBPP loan funding'
         : '✓ Eligible for Private College Foundation / Certificate or PB intake via interview',
@@ -183,20 +230,32 @@ export function getQualificationDetails(profile: StudentProfile) {
 
   if (profile.qualificationType === 'IB') {
     const pts = profile.ibPoints ?? 34;
+    const tariff = calculateStudentTariff(profile);
     return {
       title: 'International Baccalaureate (IB) Diploma',
-      scoreText: `${pts} / 45 points`,
-      progressionText: pts >= 30 ? 'Qualified for direct undergraduate entry into local & overseas universities' : 'Undergraduate pathway candidate',
+      scoreText: `${pts} / 45 IB points`,
+      pointsDisplay: `${pts} / 45 points`,
+      equivTariff: tariff,
+      progressionText: pts >= 32 
+        ? '✓ Meets MOE Overseas Scholarship benchmark (min 32 pts under Circular 14/2025)' 
+        : pts >= 24 
+        ? 'Qualified for direct undergraduate entry into local universities (UBD, UTB, UNISSA)' 
+        : 'Undergraduate pathway candidate',
       levelTag: 'IB Diploma'
     };
   }
 
   if (profile.qualificationType === 'STPUB') {
     const grade = profile.stpubGrade || 'Jayyid Jiddan';
+    const tariff = calculateStudentTariff(profile);
     return {
       title: 'Sijil Tinggi Pelajaran Ugama Brunei (STPUB)',
       scoreText: `Pangkat: ${grade}`,
-      progressionText: 'Direct entry into UNISSA Shariah & Law double degree, KUPU SB, or overseas Islamic universities (Al-Azhar / Yarmouk)',
+      pointsDisplay: `Pangkat ${grade}`,
+      equivTariff: tariff,
+      progressionText: grade === 'Mumtaz' || grade === 'Jayyid Jiddan'
+        ? '✓ Eligible for MOE Overseas Islamic scholarship or UNISSA Shariah & Law double degree'
+        : 'Direct entry into UNISSA, KUPU SB, or overseas Islamic universities (Al-Azhar / Yarmouk)',
       levelTag: 'STPUB'
     };
   }
@@ -206,6 +265,8 @@ export function getQualificationDetails(profile: StudentProfile) {
   return {
     title: 'GCE Advanced Level (A-Level)',
     scoreText: `${total} UCAS Points from ${profile.subjects.length} Subjects`,
+    pointsDisplay: `${total} UCAS pts`,
+    equivTariff: total,
     progressionText: total >= 120 
       ? 'Exceeds MOE Overseas Scholarship benchmark (120+ pts / BBB)' 
       : total >= 64 
@@ -218,10 +279,143 @@ export function getQualificationDetails(profile: StudentProfile) {
 export function evaluateScholarshipReadiness(
   tariffPoints: number, 
   icStatus: string,
-  oLevelMalayGrade: string = 'C6'
+  oLevelMalayGrade: string = 'C6',
+  profile?: StudentProfile
 ) {
   const isCitizen = icStatus.includes('Yellow');
   const hasMalayCredit = hasOLevelMalayCredit(oLevelMalayGrade);
+  const qualType = profile?.qualificationType || 'A-Level';
+
+  // --- 1. MOE Overseas General (Circular 14/2025) ---
+  let moeOverseasEligible = false;
+  let moeOverseasGap = 0;
+  let moeOverseasBenchmark = 'Min 120 points (3 subjects in 1 sitting, no grade < C) + Yellow IC + O-Level BM C6 (Circular 14/2025)';
+  let moeOverseasStatusNotice = '';
+
+  if (qualType === 'IB') {
+    const ibPts = profile?.ibPoints ?? 34;
+    moeOverseasEligible = isCitizen && hasMalayCredit && ibPts >= 32;
+    moeOverseasGap = Math.max(0, 32 - ibPts);
+    moeOverseasBenchmark = 'IB Diploma: Min 32 points in ONE sitting within 2 yrs + Yellow IC + BM C6 (Circular 14/2025)';
+    moeOverseasStatusNotice = !hasMalayCredit
+      ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+      : ibPts >= 32 ? 'Qualified (32+ IB pts meets Circular 14/2025)' : `${32 - ibPts} IB pts away from 32 threshold`;
+  } else if (qualType === 'Politeknik-Diploma') {
+    const cgpa = profile?.pbCgpa ?? 3.45;
+    moeOverseasEligible = isCitizen && hasMalayCredit && cgpa >= 3.50;
+    moeOverseasGap = cgpa >= 3.50 ? 0 : Number((3.50 - cgpa).toFixed(2));
+    moeOverseasBenchmark = 'Level 5 Diploma: Distinction (cGPA ≥ 3.50 / 120+ equiv pts) within 2 yrs + BM C6 (Circular 14/2025)';
+    moeOverseasStatusNotice = !hasMalayCredit
+      ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+      : cgpa >= 3.50 ? 'Qualified (Distinction cGPA ≥ 3.50)' : `Needs Distinction (cGPA ≥ 3.50, currently ${cgpa.toFixed(2)})`;
+  } else if (qualType === 'STPUB') {
+    const grade = profile?.stpubGrade || 'Jayyid Jiddan';
+    moeOverseasEligible = isCitizen && hasMalayCredit && (grade === 'Mumtaz' || grade === 'Jayyid Jiddan');
+    moeOverseasGap = moeOverseasEligible ? 0 : 1;
+    moeOverseasBenchmark = 'STPUB: Mumtaz / Jayyid Jiddan ranking + Yellow IC + BM C6 (Circular 14/2025)';
+    moeOverseasStatusNotice = !hasMalayCredit
+      ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+      : moeOverseasEligible ? 'Qualified (Mumtaz / Jayyid Jiddan)' : 'Requires Mumtaz or Jayyid Jiddan';
+  } else if (qualType === 'HNTec-IBTE') {
+    moeOverseasEligible = false;
+    moeOverseasGap = 0;
+    moeOverseasBenchmark = 'Requires BNQF Level 5 Diploma progression first (Politeknik Brunei / IBTE Diploma)';
+    moeOverseasStatusNotice = 'Articulate via Level 5 Diploma first (or SBPP loan for private college)';
+  } else {
+    // A-Level
+    moeOverseasEligible = isCitizen && tariffPoints >= 120 && hasMalayCredit;
+    moeOverseasGap = tariffPoints >= 120 ? 0 : 120 - tariffPoints;
+    moeOverseasBenchmark = 'Min 120 points (3 subjects in 1 sitting, no grade < C) + Yellow IC + O-Level BM C6 (Circular 14/2025)';
+    moeOverseasStatusNotice = !hasMalayCredit
+      ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+      : tariffPoints >= 120 ? 'Qualified' : `${120 - tariffPoints} pts away`;
+  }
+
+  // --- 2. MOE Medicine & Dentistry (Circular 14/2025 Para 1.1.1) ---
+  let moeMedEligible = false;
+  let moeMedGap = 0;
+  let moeMedBenchmark = 'Min 144 points (3 subjects in 1 sitting, no grade < A / AAA) + O-Level English B3 + BM C6 (Para 1.1.1)';
+  let moeMedStatusNotice = '';
+
+  if (qualType === 'IB') {
+    const ibPts = profile?.ibPoints ?? 34;
+    moeMedEligible = isCitizen && hasMalayCredit && ibPts >= 38;
+    moeMedGap = Math.max(0, 38 - ibPts);
+    moeMedBenchmark = 'IB Diploma: Min 38 points (Para 1.1.1) + O-Level English B3 & BM C6';
+    moeMedStatusNotice = !hasMalayCredit
+      ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+      : ibPts >= 38 ? 'Qualified (38+ IB pts)' : `${38 - ibPts} IB pts away from 38 threshold`;
+  } else if (qualType === 'Politeknik-Diploma' || qualType === 'HNTec-IBTE' || qualType === 'STPUB') {
+    moeMedEligible = false;
+    moeMedGap = 0;
+    moeMedBenchmark = 'Overseas Medicine / Dentistry requires GCE A-Level (144 pts / AAA) or IB (38 pts)';
+    moeMedStatusNotice = 'Requires GCE A-Level or IB Diploma pathway';
+  } else {
+    // A-Level
+    moeMedEligible = isCitizen && tariffPoints >= 144 && hasMalayCredit;
+    moeMedGap = tariffPoints >= 144 ? 0 : 144 - tariffPoints;
+    moeMedBenchmark = 'Min 144 points (3 subjects in 1 sitting, no grade < A / AAA) + O-Level English B3 + BM C6 (Para 1.1.1)';
+    moeMedStatusNotice = !hasMalayCredit
+      ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
+      : tariffPoints >= 144 ? 'Qualified' : `${144 - tariffPoints} pts away`;
+  }
+
+  // --- 3. BSP Shell Scholarship ---
+  let bspEligible = false;
+  let bspGap = 0;
+  if (qualType === 'IB') {
+    const ibPts = profile?.ibPoints ?? 34;
+    bspEligible = isCitizen && ibPts >= 34;
+    bspGap = Math.max(0, 34 - ibPts);
+  } else if (qualType === 'Politeknik-Diploma') {
+    const cgpa = profile?.pbCgpa ?? 3.45;
+    bspEligible = isCitizen && cgpa >= 3.50;
+    bspGap = cgpa >= 3.50 ? 0 : Number((3.50 - cgpa).toFixed(2));
+  } else {
+    bspEligible = isCitizen && tariffPoints >= 128;
+    bspGap = tariffPoints >= 128 ? 0 : 128 - tariffPoints;
+  }
+
+  // --- 4. Sultan's Scholar ---
+  let sultansEligible = false;
+  let sultansGap = 0;
+  if (qualType === 'IB') {
+    const ibPts = profile?.ibPoints ?? 34;
+    sultansEligible = isCitizen && ibPts >= 40;
+    sultansGap = Math.max(0, 40 - ibPts);
+  } else {
+    sultansEligible = isCitizen && tariffPoints >= 152;
+    sultansGap = tariffPoints >= 152 ? 0 : 152 - tariffPoints;
+  }
+
+  // --- 5. Local Government Higher Education (UBD, UTB, UNISSA, PB, IBTE) ---
+  let localGovtEligible = false;
+  let localGovtNotice = '';
+
+  if (qualType === 'Politeknik-Diploma') {
+    const cgpa = profile?.pbCgpa ?? 3.45;
+    localGovtEligible = isCitizen && hasMalayCredit && cgpa >= 2.0;
+    localGovtNotice = !hasMalayCredit
+      ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'
+      : cgpa >= 2.80 
+      ? 'Direct Year 2 UTB/UBD Degree with Full Scholarship + $350/mo allowance'
+      : 'Degree Admission Eligible (Tuition-free + $350/mo allowance)';
+  } else if (qualType === 'HNTec-IBTE') {
+    const award = profile?.ibteAward || 'Merit';
+    const cgpa = profile?.ibteCgpa ?? 3.2;
+    const isDip = profile?.ibteProgram?.toLowerCase().includes('diploma');
+    localGovtEligible = isCitizen && hasMalayCredit && (award === 'Distinction' || award === 'Merit' || cgpa >= 2.8);
+    localGovtNotice = !hasMalayCredit
+      ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'
+      : isDip 
+      ? 'Level 5 Diploma Qualified (Tuition-free + $350/mo allowance, articulates to UTB)' 
+      : 'Scholarship Qualified for PB Level 5 Diploma (Tuition-free + $350/mo allowance)';
+  } else {
+    localGovtEligible = isCitizen && tariffPoints >= 64 && hasMalayCredit;
+    localGovtNotice = !hasMalayCredit
+      ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'
+      : tariffPoints >= 64 ? 'Scholarship Qualified (Tuition Free + $350/mo allowance)' : `${64 - tariffPoints} pts away`;
+  }
 
   return {
     hasMalayCredit,
@@ -230,42 +424,36 @@ export function evaluateScholarshipReadiness(
       ? "Warning: Under Brunei Higher Education policy, all government institutions (UBD, UTB, UNISSA, Politeknik Brunei, IBTE, KUPU SB) require a Credit (C6 or better) in GCE 'O' Level Bahasa Melayu to be eligible for government scholarship and monthly living allowance. Without this credit, you will be admitted on a Fee-Paying status (Pelajar Berbayar)."
       : null,
     moeOverseas: {
-      eligible: isCitizen && tariffPoints >= 120 && hasMalayCredit,
-      gap: tariffPoints >= 120 ? 0 : 120 - tariffPoints,
+      eligible: moeOverseasEligible,
+      gap: moeOverseasGap,
       hasMalayCredit,
-      benchmark: 'Min 120 points (3 subjects in 1 sitting, no grade < C) + Yellow IC + O-Level BM C6 (Circular 14/2025)',
-      statusNotice: !hasMalayCredit
-        ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
-        : tariffPoints >= 120 ? 'Qualified' : `${120 - tariffPoints} pts away`
+      benchmark: moeOverseasBenchmark,
+      statusNotice: moeOverseasStatusNotice
     },
     moeMedicineDentistry: {
-      eligible: isCitizen && tariffPoints >= 144 && hasMalayCredit,
-      gap: tariffPoints >= 144 ? 0 : 144 - tariffPoints,
+      eligible: moeMedEligible,
+      gap: moeMedGap,
       hasMalayCredit,
-      benchmark: 'Min 144 points (3 subjects in 1 sitting, no grade < A / AAA) + O-Level English B3 + BM C6 (Circular 14/2025 Para 1.1.1)',
-      statusNotice: !hasMalayCredit
-        ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
-        : tariffPoints >= 144 ? 'Qualified' : `${144 - tariffPoints} pts away`
+      benchmark: moeMedBenchmark,
+      statusNotice: moeMedStatusNotice
     },
     sultansScholar: {
-      eligible: isCitizen && tariffPoints >= 152,
-      gap: tariffPoints >= 152 ? 0 : 152 - tariffPoints,
-      benchmark: 'Min 152 points (A*AA / A*A*A) + Yellow IC'
+      eligible: sultansEligible,
+      gap: sultansGap,
+      benchmark: qualType === 'IB' ? 'Min 40+ IB Points + Yellow IC' : 'Min 152 points (A*AA / A*A*A) + Yellow IC'
     },
     bspScholarship: {
-      eligible: isCitizen && tariffPoints >= 128,
-      gap: tariffPoints >= 128 ? 0 : 128 - tariffPoints,
-      benchmark: 'Min 128 points (ABB / AAB) + STEM focus'
+      eligible: bspEligible,
+      gap: bspGap,
+      benchmark: qualType === 'IB' ? 'Min 34 IB Points + STEM focus' : qualType === 'Politeknik-Diploma' ? 'Distinction (cGPA ≥ 3.50) in Engineering/IT' : 'Min 128 points (ABB / AAB) + STEM focus'
     },
     localGovtScholarship: {
-      eligible: isCitizen && tariffPoints >= 64 && hasMalayCredit,
+      eligible: localGovtEligible,
       isFeePaying: isCitizen && !hasMalayCredit,
       gap: tariffPoints >= 64 ? 0 : 64 - tariffPoints,
       hasMalayCredit,
-      benchmark: 'Min 64–112 pts + Yellow IC + Credit in O-Level Bahasa Melayu',
-      statusNotice: !hasMalayCredit
-        ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'
-        : tariffPoints >= 64 ? 'Scholarship Qualified (Tuition Free + $350/mo allowance)' : `${64 - tariffPoints} pts away`
+      benchmark: qualType === 'Politeknik-Diploma' ? 'Direct Year 2 UTB/UBD (cGPA ≥ 2.80) + BM Credit C6' : qualType === 'HNTec-IBTE' ? 'Direct PB Level 5 Entry with Merit/Distinction + BM Credit C6' : 'Min 64–112 pts + Yellow IC + Credit in O-Level Bahasa Melayu',
+      statusNotice: localGovtNotice
     }
   };
 }

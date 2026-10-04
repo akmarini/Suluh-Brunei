@@ -14,7 +14,6 @@ import { StudentProgressionDashboard } from './components/StudentProgressionDash
 import { ShareModal } from './components/ShareModal';
 import { OwnershipModal } from './components/OwnershipModal';
 import { Compass, Award, Calendar, Users, FileText, CheckCircle2, Shield, Heart, Share2, ShieldCheck } from 'lucide-react';
-import brandLogo from './assets/images/suluhbrunei_logo_1790999633328.jpg';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('pathways');
@@ -170,6 +169,7 @@ export default function App() {
         {activeTab === 'scholarships' && (
           <ScholarshipGuide
             profile={profile}
+            setProfile={setProfile}
             onBookAlumniForScholarship={handleBookAlumniForScholarship}
             onNavigateToDeadlines={() => {
               setActiveTab('deadlines');
@@ -220,13 +220,8 @@ export default function App() {
             {/* Col 1 */}
             <div className="space-y-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-amber-400/80 shadow-xs shrink-0 bg-slate-900 p-0.5">
-                  <img
-                    src={brandLogo}
-                    alt="SuluhBrunei Logo"
-                    className="w-full h-full object-cover rounded"
-                    referrerPolicy="no-referrer"
-                  />
+                <div className="w-8 h-8 rounded-lg overflow-hidden border border-amber-400/80 shadow-xs shrink-0 bg-slate-900 flex items-center justify-center">
+                  <Compass className="w-5 h-5 text-amber-400" />
                 </div>
                 <span className="font-architectural text-lg font-bold text-white tracking-wider">
                   Suluh Brunei

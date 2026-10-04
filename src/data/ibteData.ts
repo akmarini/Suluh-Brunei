@@ -485,9 +485,177 @@ export const IBTE_HNTEC_CATALOG: IbteHntecProgram[] = [
   }
 ];
 
-export const IBTE_PROGRAMMES_LIST: string[] = IBTE_HNTEC_CATALOG.map(p => p.name);
+// =========================================================================
+// LATEST IBTE LEVEL 5 DIPLOMA PROGRAMMES (BNQF / BDQF LEVEL 5)
+// =========================================================================
+export interface IbteDiplomaProgram {
+  id: string;
+  name: string;
+  shortCode: string;
+  school: string;
+  cluster: string;
+  bdqfLevel: number; // 5
+  duration: string;
+  overview: string;
+  keyCompetencies: string[];
+  utbDegreeTarget: string;
+  industryOpportunities: string[];
+  entryRequirements: string;
+}
 
-export function getIbteProgramByName(name: string): IbteHntecProgram | undefined {
+export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
+  {
+    id: 'ibte-dip-refinery-petrochemical',
+    name: 'Diploma in Refinery and Petrochemical',
+    shortCode: 'DRP',
+    school: 'School of Energy and Engineering',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma with industrial attachment at Pulau Muara Besar)',
+    overview: 'Flagship Level 5 Diploma joint training programme with Hengyi Industries. Prepares specialized plant chemical technicians and process operators for Brunei’s multibillion-dollar downstream petrochemical refinery at Pulau Muara Besar with conditional employment upon graduation.',
+    keyCompetencies: ['Petroleum refining processes', 'Distillation & cracking operations', 'Chemical plant safety & HAZOP', 'DCS control room monitoring'],
+    utbDegreeTarget: 'BEng (Hons) in Chemical Engineering (UTB Direct Year 2)',
+    industryOpportunities: ['Hengyi Industries (Pulau Muara Besar)', 'Brunei Fertilizer Industries (BFI)', 'Brunei Shell Petroleum (BSP)', 'Brunei LNG'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Chemistry, Physics or Combined Science, and pass in English.'
+  },
+  {
+    id: 'ibte-dip-control-automation',
+    name: 'Diploma in Control and Automation Engineering',
+    shortCode: 'DCAE',
+    school: 'School of Energy and Engineering',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'Comprehensive instrumentation and industrial automation engineering covering PLC programming, SCADA systems, industrial robotics, sensor calibration, and distributed control systems (DCS).',
+    keyCompetencies: ['PLC & SCADA programming', 'Instrumentation & valve calibration', 'Industrial IoT & robotics', 'Closed-loop process control'],
+    utbDegreeTarget: 'BEng (Hons) in Mechatronics / Electrical & Electronic Engineering',
+    industryOpportunities: ['Hengyi Industries', 'Brunei Shell Petroleum (BSP)', 'Brunei LNG', 'B-Mobile / UNN Infrastructure'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics / Combined Science, and pass in English.'
+  },
+  {
+    id: 'ibte-dip-mech-eng',
+    name: 'Diploma in Mechanical Engineering',
+    shortCode: 'DME',
+    school: 'School of Energy and Engineering',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'Industry-standard mechanical engineering qualification covering thermodynamics, fluid mechanics, CAD/CAM manufacturing, rotating equipment maintenance, and plant machinery inspection.',
+    keyCompetencies: ['CAD 3D modeling & FEA analysis', 'Pumps, compressors & turbine overhaul', 'Piping design & vibration analysis', 'Quality assurance & workshop safety'],
+    utbDegreeTarget: 'BEng (Hons) in Mechanical Engineering (UTB Direct Year 2)',
+    industryOpportunities: ['Brunei Shell Petroleum (BSP)', 'Brunei Gas Carriers (BGC)', 'Bangar / Muara Port engineering', 'Royal Brunei Airlines Engineering'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Combined Science, and pass in English.'
+  },
+  {
+    id: 'ibte-dip-elec-electronic',
+    name: 'Diploma in Electrical and Electronic Engineering',
+    shortCode: 'DEEE',
+    school: 'School of Energy and Engineering',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'Advanced study of power generation, electrical grid distribution, renewable solar PV systems, electronic circuit design, and microcontroller automation for Brunei national infrastructure.',
+    keyCompetencies: ['High voltage distribution & switchgear', 'Solar PV grid integration', 'Microcontroller embedded programming', 'Electrical installation & testing'],
+    utbDegreeTarget: 'BEng (Hons) in Electrical & Electronic Engineering (UTB Direct Year 2)',
+    industryOpportunities: ['Department of Electrical Services (DES)', 'Berakas Power Management Company (BPMC)', 'UNN', 'Petrochemical industrial complexes'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Combined Science, and pass in English.'
+  },
+  {
+    id: 'ibte-dip-culinary-ops',
+    name: 'Diploma in Culinary Operations',
+    shortCode: 'DCO',
+    school: 'School of Hospitality and Tourism',
+    cluster: 'Hospitality',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'Premier culinary and gastronomy diploma program training executive chefs, banquet sous chefs, and restaurant managers in modern culinary techniques, international cuisine, halal culinary governance, and kitchen fiscal management.',
+    keyCompetencies: ['Classical French & modern gastronomy', 'Halal food compliance & HACCP audit', 'Pastry, bakery & confectionery artistry', 'Kitchen financial budgeting & inventory control'],
+    utbDegreeTarget: 'BA (Hons) in Culinary Arts Management / International Hospitality Management',
+    industryOpportunities: ['The Empire Brunei', 'Royal Brunei Culinary (RBC)', 'Radisson Hotel Brunei', 'Fine dining & catering enterprises'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in English Language, Mathematics or Science, OR relevant HNTec in Culinary Operations with Merit.'
+  },
+  {
+    id: 'ibte-dip-hospitality-mgmt',
+    name: 'Diploma in Hospitality Management',
+    shortCode: 'DHM',
+    school: 'School of Hospitality and Tourism',
+    cluster: 'Hospitality',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'High-level hospitality leadership program covering 5-star hotel operational management, corporate event and conference planning, luxury resort hospitality, guest services excellence, and revenue optimization.',
+    keyCompetencies: ['Hotel property management systems (PMS)', 'MICE & corporate event planning', 'Hospitality financial accounting', 'Strategic guest relations & marketing'],
+    utbDegreeTarget: 'BA (Hons) in International Tourism and Hospitality Management',
+    industryOpportunities: ['The Empire Brunei Resort', 'Radisson Hotel Brunei Darussalam', 'The Rizqun International Hotel', 'International luxury hotel groups'],
+    entryRequirements: 'Minimum 4 GCE O-Levels including English Language and Mathematics, OR HNTec in Hospitality Operations with Merit.'
+  },
+  {
+    id: 'ibte-dip-marine-eng',
+    name: 'Diploma in Marine Engineering',
+    shortCode: 'DME-MAR',
+    school: 'Brunei Maritime Academy (BMA)',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma - STCW Compliant)',
+    overview: 'Conducted under the Brunei Maritime Academy (BMA) in partnership with Brunei Gas Carriers (BGC). Prepares marine engineer officers for commercial LNG carriers, container vessels, and offshore support ships in compliance with IMO STCW standards.',
+    keyCompetencies: ['Marine diesel propulsion & auxiliary engines', 'Shipboard electrical & automation systems', 'Maritime safety, firefighting & survival at sea', 'STCW Officer in Charge of Engineering Watch (OICEW) certification'],
+    utbDegreeTarget: 'BEng (Hons) in Marine Technology / Mechanical Engineering',
+    industryOpportunities: ['Brunei Gas Carriers (BGC LNG Fleet)', 'Brunei Shell Petroleum (Marine Dept)', 'Muara Port Company', 'International shipping lines'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Combined Science, and English (medical fitness required).'
+  },
+  {
+    id: 'ibte-dip-nautical-studies',
+    name: 'Diploma in Nautical Studies',
+    shortCode: 'DNS',
+    school: 'Brunei Maritime Academy (BMA)',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma - Deck Cadet / Navigation)',
+    overview: 'Prepares licensed Deck Officers (Officer of the Watch - OOW) and navigation specialists for global maritime shipping, LNG carriers, and port operations under international STCW convention guidelines.',
+    keyCompetencies: ['Celestial & ECDIS electronic navigation', 'Ship stability, cargo loading & stowage', 'Collision regulations (COLREGs)', 'Bridge resource management & radar plotting'],
+    utbDegreeTarget: 'BSc (Hons) in Maritime Business / Nautical Science (Overseas articulation)',
+    industryOpportunities: ['Brunei Gas Carriers (BGC)', 'Maritime and Port Authority of Brunei Darussalam (MPABD)', 'Offshore supply vessel operators'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics, and English (including color vision clearance).'
+  },
+  {
+    id: 'ibte-dip-it',
+    name: 'Diploma in Information Technology',
+    shortCode: 'DIT',
+    school: 'School of Information and Communication Technology (ICT)',
+    cluster: 'ICT',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'Advanced Level 5 computing diploma delivering deep competencies in full-stack web and mobile application engineering, cloud infrastructure, cybersecurity essentials, data analytics, and software project management.',
+    keyCompetencies: ['Full-stack JavaScript/Python web engineering', 'Cloud architecture & containerization', 'Relational & NoSQL database management', 'Cybersecurity defense principles'],
+    utbDegreeTarget: 'BSc (Hons) in Computer Science / Software Engineering (Direct Year 2 UTB)',
+    industryOpportunities: ['Dynamik Technologies', 'Unified National Networks (UNN)', 'EVYD Technology', 'Fintech & banking IT departments'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Science / Commerce, and pass in English, OR HNTec in IT with Merit.'
+  },
+  {
+    id: 'ibte-dip-building-services',
+    name: 'Diploma in Building Services Engineering',
+    shortCode: 'DBSE',
+    school: 'School of Building Technology Services',
+    cluster: 'Engineering',
+    bdqfLevel: 5,
+    duration: '3 Years (Level 5 Diploma)',
+    overview: 'Specialized diploma in modern HVAC air-conditioning, electrical reticulation, fire detection and suppression, plumbing, and green energy management for commercial and industrial structures.',
+    keyCompetencies: ['HVAC design & energy auditing', 'Building Management Systems (BMS)', 'Fire protection & life safety engineering', 'BIM MEP modeling'],
+    utbDegreeTarget: 'BEng (Hons) in Building Services / Civil Engineering',
+    industryOpportunities: ['Jabatan Kerja Raya (JKR Brunei)', 'Leading MEP engineering contractors', 'Facilities management at Brunei airports & shopping complexes'],
+    entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Science, and pass in English, OR HNTec in Building Services with Merit.'
+  }
+];
+
+export const IBTE_PROGRAMMES_LIST: string[] = [
+  ...IBTE_DIPLOMA_CATALOG.map(p => p.name),
+  ...IBTE_HNTEC_CATALOG.map(p => p.name)
+];
+
+export function getIbteProgramByName(name: string): IbteHntecProgram | IbteDiplomaProgram | undefined {
+  const matchDip = IBTE_DIPLOMA_CATALOG.find(p => p.name.toLowerCase() === name.toLowerCase()) ||
+                   IBTE_DIPLOMA_CATALOG.find(p => name.toLowerCase().includes(p.name.toLowerCase()) || p.name.toLowerCase().includes(name.toLowerCase()));
+  if (matchDip) return matchDip;
+
   return IBTE_HNTEC_CATALOG.find(p => p.name.toLowerCase() === name.toLowerCase()) ||
          IBTE_HNTEC_CATALOG.find(p => name.toLowerCase().includes(p.name.toLowerCase()) || p.name.toLowerCase().includes(name.toLowerCase()));
 }
