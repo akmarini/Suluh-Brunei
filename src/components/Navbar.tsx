@@ -9,6 +9,7 @@ import {
   Share2,
   ShieldCheck 
 } from 'lucide-react';
+import suluhLogo from '../assets/images/suluhbrunei_logo_1790999633328.jpg';
 
 interface NavbarProps {
   activeTab: string;
@@ -51,7 +52,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2.5 text-left group cursor-pointer focus:outline-none"
             >
               <div className="w-9 h-9 rounded-lg overflow-hidden border border-amber-400/90 shadow-sm shrink-0 bg-slate-950 flex items-center justify-center group-hover:border-amber-500 transition-colors">
-                <Compass className="w-5 h-5 text-amber-400" />
+                <img 
+                  src={suluhLogo} 
+                  alt="Suluh Brunei Logo" 
+                  className="w-full h-full object-cover object-center" 
+                />
               </div>
               <span className="font-architectural text-xl sm:text-2xl font-bold tracking-wider text-slate-900 group-hover:text-amber-800 transition-colors">
                 Suluh Brunei

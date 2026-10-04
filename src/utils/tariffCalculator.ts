@@ -1,4 +1,4 @@
-import { StudentProfile } from '../types';
+import { StudentProfile, QualificationType } from '../types';
 import { IBTE_PROGRAMMES_LIST, IBTE_CAMPUSES_OFFICIAL } from '../data/ibteData';
 
 export const A_LEVEL_TARIFF_MAP: Record<string, number> = {
@@ -488,4 +488,59 @@ export function evaluateScholarshipReadiness(
       statusNotice: localGovtNotice
     }
   };
+}
+
+/**
+ * Returns higher-level program categories than the student's current qualification according
+ * to the Brunei Darussalam National Qualifications Framework (BDQF / BNQF):
+ * - HNTec (BDQF Level 4): Progresses to Level 5 (Diploma / HND) or Level 6 (Undergraduate Degree).
+ * - Politeknik Brunei Diploma & IBTE Diploma (BDQF Level 5): Progresses to Level 6 (Undergraduate Degree).
+ * - GCE A-Level, IB Diploma, STPUB (Pre-University terminal): Progresses to Level 6 (Undergraduate Degree).
+ */
+export function getHigherProgramLevels(qualType: QualificationType): ('Undergraduate Degree' | 'Diploma / HND' | 'Foundation / Pre-University')[] {
+  switch (qualType) {
+    case 'HNTec-IBTE':
+      return ['Diploma / HND', 'Undergraduate Degree'];
+
+    case 'Politeknik-Diploma':
+    case 'IBTE-Diploma':
+      return ['Undergraduate Degree'];
+
+    case 'A-Level':
+    case 'IB':
+    case 'STPUB':
+    default:
+      return ['Undergraduate Degree'];
+  }
+}
+
+/**
+ * Checks whether a given program level represents a higher qualification than the student's current qualification.
+ */
+export function isHigherLevelProgram(programLevel: string | undefined, qualType: QualificationType): boolean {
+  if (!programLevel) return false;
+  const higherLevels = getHigherProgramLevels(qualType);
+  return higherLevels.includes(programLevel as any);
+}
+
+/**
+ * Returns user-friendly summary of the higher level progression for the current qualification.
+ */
+export function getHigherLevelsDescription(qualType: QualificationType): string {
+  switch (qualType) {
+    case 'HNTec-IBTE':
+      return 'Level 5 Diplomas & Level 6 Degrees';
+    case 'Politeknik-Diploma':
+      return 'Level 6 Undergraduate Degrees (Direct Year 2 / Top-Up)';
+    case 'IBTE-Diploma':
+      return 'Level 6 Undergraduate Degrees (Direct Year 2 / Top-Up)';
+    case 'A-Level':
+      return 'Undergraduate Degrees (Level 6)';
+    case 'IB':
+      return 'Undergraduate Degrees (Level 6)';
+    case 'STPUB':
+      return 'Undergraduate Degrees (Level 6)';
+    default:
+      return 'Undergraduate Degrees (Level 6)';
+  }
 }

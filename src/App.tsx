@@ -13,6 +13,7 @@ import { EssayStudio } from './components/EssayStudio';
 import { StudentProgressionDashboard } from './components/StudentProgressionDashboard';
 import { ShareModal } from './components/ShareModal';
 import { OwnershipModal } from './components/OwnershipModal';
+import suluhLogo from './assets/images/suluhbrunei_logo_1790999633328.jpg';
 import { Compass, Award, Calendar, Users, FileText, CheckCircle2, Shield, Heart, Share2, ShieldCheck } from 'lucide-react';
 
 export default function App() {
@@ -221,7 +222,11 @@ export default function App() {
             <div className="space-y-3">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-lg overflow-hidden border border-amber-400/80 shadow-xs shrink-0 bg-slate-900 flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-amber-400" />
+                  <img 
+                    src={suluhLogo} 
+                    alt="Suluh Brunei Logo" 
+                    className="w-full h-full object-cover object-center" 
+                  />
                 </div>
                 <span className="font-architectural text-lg font-bold text-white tracking-wider">
                   Suluh Brunei
