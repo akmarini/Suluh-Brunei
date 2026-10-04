@@ -132,7 +132,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               </div>
               {profile.qualificationType !== 'A-Level' && (
                 <div className="text-[10px] text-slate-500">
-                  {profile.qualificationType === 'Politeknik-Diploma' && 'MoE Overseas evaluates Distinction (cGPA ≥ 3.50 / 120+ pts) within 2 yrs'}
+                  {(profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma') && 'MoE Overseas evaluates Distinction (cGPA ≥ 3.50 / 120+ pts) within 2 yrs'}
                   {profile.qualificationType === 'IB' && 'MoE evaluates min 32 pts (General) or 38 pts (Medicine/Dentistry)'}
                   {profile.qualificationType === 'STPUB' && 'Evaluates Mumtaz / Jayyid Jiddan ranking'}
                   {profile.qualificationType === 'HNTec-IBTE' && 'BNQF Level 4 mapped to Higher Diploma & Degree progression'}
@@ -152,7 +152,8 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               {[
                 { id: 'A-Level', label: '🎓 GCE A-Level' },
                 { id: 'Politeknik-Diploma', label: '🏛️ Politeknik Brunei' },
-                { id: 'HNTec-IBTE', label: '⚙️ IBTE' },
+                { id: 'IBTE-Diploma', label: '📜 IBTE Diploma' },
+                { id: 'HNTec-IBTE', label: '⚙️ IBTE HNTec' },
                 { id: 'IB', label: '🌐 IB Diploma' },
                 { id: 'STPUB', label: '🕌 STPUB' }
               ].map((item) => (
@@ -161,7 +162,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                   onClick={() => {
                     let newSchool = profile.school;
                     if (item.id === 'Politeknik-Diploma') newSchool = 'Politeknik Brunei (PB)';
-                    else if (item.id === 'HNTec-IBTE') newSchool = 'IBTE (Institute of Brunei Technical Education)';
+                    else if (item.id === 'IBTE-Diploma' || item.id === 'HNTec-IBTE') newSchool = 'IBTE (Institute of Brunei Technical Education)';
                     else if (item.id === 'IB') newSchool = 'Jerudong International School (JIS)';
                     else if (item.id === 'STPUB') newSchool = 'Sekolah Menengah Arab Laki-Laki Hassanal Bolkiah (SMALHB)';
                     else newSchool = 'Maktab Duli Pengiran Muda Al-Muhtadee Billah (MDPMAMB)';
@@ -204,6 +205,25 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                     value={(profile.pbCgpa ?? 3.45).toFixed(2)}
                     onChange={(e) => setProfile(prev => ({ ...prev, pbCgpa: parseFloat(e.target.value) }))}
                     className="bg-white border border-blue-300 font-bold text-blue-950 rounded px-1.5 py-0.5"
+                  >
+                    <option value="3.90">3.90 (High Distinction - AAA equiv)</option>
+                    <option value="3.60">3.60 (Distinction - MoE Overseas 120+ equiv)</option>
+                    <option value="3.50">3.50 (Distinction - Min for MoE Overseas)</option>
+                    <option value="3.30">3.30 (Merit - Direct Year 2 UTB/UBD)</option>
+                    <option value="3.00">3.00 (Merit - Standard UTB)</option>
+                    <option value="2.80">2.80 (Merit - Min for Direct Year 2)</option>
+                    <option value="2.50">2.50 (Pass - Local Degree entry)</option>
+                  </select>
+                </div>
+              )}
+
+              {profile.qualificationType === 'IBTE-Diploma' && (
+                <div className="flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                  <span className="font-semibold text-amber-900">IBTE cGPA:</span>
+                  <select
+                    value={(profile.ibteCgpa ?? 3.40).toFixed(2)}
+                    onChange={(e) => setProfile(prev => ({ ...prev, ibteCgpa: parseFloat(e.target.value) }))}
+                    className="bg-white border border-amber-300 font-bold text-amber-950 rounded px-1.5 py-0.5"
                   >
                     <option value="3.90">3.90 (High Distinction - AAA equiv)</option>
                     <option value="3.60">3.60 (Distinction - MoE Overseas 120+ equiv)</option>
@@ -272,7 +292,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.moeOverseas.gap} IB pts away
                 </span>
-              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? (
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.moeOverseas.gap > 0 ? `${readiness.moeOverseas.gap} cGPA to 3.50` : 'Needs Distinction'}
                 </span>
@@ -289,7 +309,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
             <div className="text-xs text-slate-600 mb-1.5 font-medium">
               {profile.qualificationType === 'IB'
                 ? 'Min 32 IB pts · Yellow IC'
-                : profile.qualificationType === 'Politeknik-Diploma'
+                : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma'
                 ? 'Distinction (cGPA ≥ 3.50)'
                 : profile.qualificationType === 'STPUB'
                 ? 'Mumtaz / Jayyid Jiddan'
@@ -302,7 +322,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-rose-700 font-medium">Requires Credit (C6) in O-Level Bahasa Melayu.</span>
               ) : profile.qualificationType === 'IB' ? (
                 <span>Circular 14/2025: min 32 IB points in 1 sitting, age ≤ 26.</span>
-              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? (
                 <span>Graduated within last 2 years with Distinction. Top 250 universities.</span>
               ) : profile.qualificationType === 'HNTec-IBTE' ? (
                 <span>Articulate via Politeknik Brunei Diploma before overseas bachelor's.</span>
@@ -332,7 +352,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.moeMedicineDentistry.gap} IB pts away
                 </span>
-              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'HNTec-IBTE' || profile.qualificationType === 'STPUB' ? (
+              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' || profile.qualificationType === 'HNTec-IBTE' || profile.qualificationType === 'STPUB' ? (
                 <span className="text-[11px] font-medium text-slate-500">
                   A-Level / IB track
                 </span>
@@ -345,7 +365,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
             <div className="text-xs text-slate-600 mb-1.5 font-medium">
               {profile.qualificationType === 'IB'
                 ? 'Min 38 IB pts (Para 1.1.1)'
-                : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'HNTec-IBTE'
+                : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' || profile.qualificationType === 'HNTec-IBTE'
                 ? 'A-Level / IB Required'
                 : '144 pts (AAA) · Min Grade A'}
             </div>
@@ -370,7 +390,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-[11px] font-medium text-amber-700">
                   {readiness.bspScholarship.gap} IB pts away
                 </span>
-              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? (
                 <span className="text-[11px] font-medium text-amber-700">
                   Needs Distinction
                 </span>
@@ -383,7 +403,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
             <div className="text-xs text-slate-600 mb-1.5 font-medium">
               {profile.qualificationType === 'IB'
                 ? 'Min 34 IB pts threshold'
-                : profile.qualificationType === 'Politeknik-Diploma'
+                : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma'
                 ? 'Distinction (cGPA ≥ 3.50)'
                 : '128 pts threshold (ABB/AAB)'}
             </div>
@@ -439,12 +459,12 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               ) : (
                 <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
                   <CheckCircle2 className="w-3.5 h-3.5" /> 
-                  {profile.qualificationType === 'Politeknik-Diploma' ? 'Direct Year 2' : profile.qualificationType === 'HNTec-IBTE' ? 'PB Entry' : 'Scholarship'}
+                  {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? 'Direct Year 2' : profile.qualificationType === 'HNTec-IBTE' ? 'PB Entry' : 'Scholarship'}
                 </span>
               )}
             </div>
             <div className="text-xs text-slate-600 mb-1.5 font-medium">
-              {profile.qualificationType === 'Politeknik-Diploma'
+              {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma'
                 ? 'UTB/UBD Direct Year 2 (cGPA ≥ 2.80)'
                 : profile.qualificationType === 'HNTec-IBTE'
                 ? 'PB Level 5 Diploma Entry'
@@ -455,7 +475,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 <span className="text-rose-900 font-medium">
                   <strong>Fee-Paying:</strong> Lacks BM Credit. No $350 allowance.
                 </span>
-              ) : profile.qualificationType === 'Politeknik-Diploma' ? (
+              ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? (
                 <span className="text-slate-600">
                   Direct Year 2 into UTB/UBD degree with tuition-free status &amp; $350/mo allowance.
                 </span>

@@ -120,6 +120,19 @@ export function calculateStudentTariff(profile: StudentProfile): number {
     return 48;                   // Foundation / Bridging (equiv to DD)
   }
 
+  if (profile.qualificationType === 'IBTE-Diploma') {
+    const cgpa = typeof profile.ibteCgpa === 'number' ? profile.ibteCgpa : 3.40;
+    // IBTE Level 5 Diploma to University Equivalent (BNQF Level 5 Diploma):
+    if (cgpa >= 3.8) return 144; // High Distinction -> Direct Year 2 UTB/UBD + Overseas eligible (equiv to AAA)
+    if (cgpa >= 3.5) return 128; // Distinction -> Direct Year 2 UTB/UBD (equiv to AAB, qualifies for MoE Overseas 120+)
+    if (cgpa >= 3.2) return 120; // High Merit -> MoE Overseas 120 pts benchmark (equiv to BBB)
+    if (cgpa >= 3.0) return 112; // Strong Merit -> Standard UTB Engineering & Computing Year 2 (equiv to BBC)
+    if (cgpa >= 2.8) return 96;  // Merit -> UTB Year 2 eligible / UBD Computing (equiv to CCC)
+    if (cgpa >= 2.5) return 80;  // Pass / Low Merit -> UBD/UTB standard entry (equiv to CDD)
+    if (cgpa >= 2.0) return 64;  // Pass -> Private College Degree Top-up (equiv to CC)
+    return 48;                   // Foundation / Bridging
+  }
+
   if (profile.qualificationType === 'HNTec-IBTE') {
     const isDip = profile.ibteProgram?.toLowerCase().includes('diploma');
     const award = profile.ibteAward || 'Merit';
@@ -190,6 +203,25 @@ export function getQualificationDetails(profile: StudentProfile) {
       progressionText: isYear2Eligible 
         ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions, or Final-Year UK Degree Top-Up at LCB'
         : '✓ Eligible for Degree Admission into local and private universities (LCB Chester / KIGS Limkokwing)',
+      levelTag: 'BNQF Level 5 Diploma',
+      classification,
+      isYear2Eligible
+    };
+  }
+
+  if (profile.qualificationType === 'IBTE-Diploma') {
+    const cgpa = typeof profile.ibteCgpa === 'number' ? profile.ibteCgpa : 3.40;
+    const classification = cgpa >= 3.5 ? 'Distinction' : cgpa >= 3.0 ? 'Merit' : 'Pass';
+    const isYear2Eligible = cgpa >= 2.8;
+    const tariff = calculateStudentTariff(profile);
+    return {
+      title: 'IBTE Level 5 Diploma',
+      scoreText: `cGPA ${cgpa.toFixed(2)} / 4.00 (${classification})`,
+      pointsDisplay: `cGPA ${cgpa.toFixed(2)} (${classification})`,
+      equivTariff: tariff,
+      progressionText: isYear2Eligible 
+        ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions'
+        : '✓ Eligible for Degree Admission into local and private universities',
       levelTag: 'BNQF Level 5 Diploma',
       classification,
       isYear2Eligible
@@ -300,8 +332,8 @@ export function evaluateScholarshipReadiness(
     moeOverseasStatusNotice = !hasMalayCredit
       ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
       : ibPts >= 32 ? 'Qualified (32+ IB pts meets Circular 14/2025)' : `${32 - ibPts} IB pts away from 32 threshold`;
-  } else if (qualType === 'Politeknik-Diploma') {
-    const cgpa = profile?.pbCgpa ?? 3.45;
+  } else if (qualType === 'Politeknik-Diploma' || qualType === 'IBTE-Diploma') {
+    const cgpa = qualType === 'IBTE-Diploma' ? (profile?.ibteCgpa ?? 3.40) : (profile?.pbCgpa ?? 3.45);
     moeOverseasEligible = isCitizen && hasMalayCredit && cgpa >= 3.50;
     moeOverseasGap = cgpa >= 3.50 ? 0 : Number((3.50 - cgpa).toFixed(2));
     moeOverseasBenchmark = 'Level 5 Diploma: Distinction (cGPA ≥ 3.50 / 120+ equiv pts) within 2 yrs + BM C6 (Circular 14/2025)';
@@ -345,7 +377,7 @@ export function evaluateScholarshipReadiness(
     moeMedStatusNotice = !hasMalayCredit
       ? 'Ineligible: Requires Credit (C6) in GCE O-Level Bahasa Melayu'
       : ibPts >= 38 ? 'Qualified (38+ IB pts)' : `${38 - ibPts} IB pts away from 38 threshold`;
-  } else if (qualType === 'Politeknik-Diploma' || qualType === 'HNTec-IBTE' || qualType === 'STPUB') {
+  } else if (qualType === 'Politeknik-Diploma' || qualType === 'IBTE-Diploma' || qualType === 'HNTec-IBTE' || qualType === 'STPUB') {
     moeMedEligible = false;
     moeMedGap = 0;
     moeMedBenchmark = 'Overseas Medicine / Dentistry requires GCE A-Level (144 pts / AAA) or IB (38 pts)';
@@ -367,8 +399,8 @@ export function evaluateScholarshipReadiness(
     const ibPts = profile?.ibPoints ?? 34;
     bspEligible = isCitizen && ibPts >= 34;
     bspGap = Math.max(0, 34 - ibPts);
-  } else if (qualType === 'Politeknik-Diploma') {
-    const cgpa = profile?.pbCgpa ?? 3.45;
+  } else if (qualType === 'Politeknik-Diploma' || qualType === 'IBTE-Diploma') {
+    const cgpa = qualType === 'IBTE-Diploma' ? (profile?.ibteCgpa ?? 3.40) : (profile?.pbCgpa ?? 3.45);
     bspEligible = isCitizen && cgpa >= 3.50;
     bspGap = cgpa >= 3.50 ? 0 : Number((3.50 - cgpa).toFixed(2));
   } else {
@@ -392,8 +424,8 @@ export function evaluateScholarshipReadiness(
   let localGovtEligible = false;
   let localGovtNotice = '';
 
-  if (qualType === 'Politeknik-Diploma') {
-    const cgpa = profile?.pbCgpa ?? 3.45;
+  if (qualType === 'Politeknik-Diploma' || qualType === 'IBTE-Diploma') {
+    const cgpa = qualType === 'IBTE-Diploma' ? (profile?.ibteCgpa ?? 3.40) : (profile?.pbCgpa ?? 3.45);
     localGovtEligible = isCitizen && hasMalayCredit && cgpa >= 2.0;
     localGovtNotice = !hasMalayCredit
       ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'

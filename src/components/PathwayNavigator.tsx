@@ -77,8 +77,24 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
     let newSchool = profile.school;
     if (newQual === 'Politeknik-Diploma') {
       newSchool = 'Politeknik Brunei (PB)';
+    } else if (newQual === 'IBTE-Diploma') {
+      newSchool = 'IBTE (Institute of Brunei Technical Education)';
+      setProfile(prev => ({
+        ...prev,
+        qualificationType: newQual,
+        school: newSchool,
+        ibteProgram: prev.ibteProgram && prev.ibteProgram.toLowerCase().includes('diploma') ? prev.ibteProgram : IBTE_DIPLOMA_CATALOG[0].name
+      }));
+      return;
     } else if (newQual === 'HNTec-IBTE') {
       newSchool = 'IBTE (Institute of Brunei Technical Education)';
+      setProfile(prev => ({
+        ...prev,
+        qualificationType: newQual,
+        school: newSchool,
+        ibteProgram: prev.ibteProgram && !prev.ibteProgram.toLowerCase().includes('diploma') ? prev.ibteProgram : IBTE_HNTEC_CATALOG[0].name
+      }));
+      return;
     } else if (newQual === 'STPUB') {
       newSchool = 'Sekolah Menengah Arab Laki-Laki Hassanal Bolkiah (SMALHB)';
     } else if (newQual === 'IB') {
@@ -220,6 +236,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
             <p className="text-sm text-slate-600 mt-1">
               {profile.qualificationType === 'Politeknik-Diploma'
                 ? 'Input your Politeknik Brunei (PB) Level 5 Diploma cGPA to evaluate direct Year 2 entry into UTB/UBD and degree pathways.'
+                : profile.qualificationType === 'IBTE-Diploma'
+                ? 'Input your IBTE Level 5 Diploma cGPA to evaluate direct Year 2 entry into UTB/UBD, MoE Overseas and degree pathways.'
                 : profile.qualificationType === 'HNTec-IBTE'
                 ? 'Input your IBTE HNTec certification and award level to evaluate Politeknik Brunei and higher diploma / degree progression.'
                 : 'Input your actual or predicted academic qualifications to calculate equivalent entry points and unlock matching university pathways.'}
@@ -232,6 +250,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
               <div className="text-xs text-slate-500 font-medium">
                 {profile.qualificationType === 'Politeknik-Diploma'
                   ? 'PB Diploma cGPA'
+                  : profile.qualificationType === 'IBTE-Diploma'
+                  ? 'IBTE Diploma cGPA'
                   : profile.qualificationType === 'HNTec-IBTE'
                   ? 'IBTE HNTec Award'
                   : profile.qualificationType === 'IB'
@@ -243,6 +263,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
               <div className="text-2xl sm:text-3xl font-bold font-mono text-slate-900 tabular-nums">
                 {profile.qualificationType === 'Politeknik-Diploma'
                   ? `${(profile.pbCgpa ?? 3.45).toFixed(2)}`
+                  : profile.qualificationType === 'IBTE-Diploma'
+                  ? `${(profile.ibteCgpa ?? 3.40).toFixed(2)}`
                   : profile.qualificationType === 'HNTec-IBTE'
                   ? `${profile.ibteAward || 'Merit'}`
                   : profile.qualificationType === 'IB'
@@ -251,7 +273,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                   ? `${profile.stpubGrade || 'Jayyid Jiddan'}`
                   : `${tariffPoints}`}
                 <span className="text-xs sm:text-sm font-normal text-slate-500 ml-1">
-                  {profile.qualificationType === 'Politeknik-Diploma' ? '/ 4.00' : profile.qualificationType === 'IB' ? '/ 45' : profile.qualificationType === 'A-Level' ? 'pts' : ''}
+                  {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? '/ 4.00' : profile.qualificationType === 'IB' ? '/ 45' : profile.qualificationType === 'A-Level' ? 'pts' : ''}
                 </span>
               </div>
               <div className="text-[11px] font-semibold text-emerald-800">
@@ -260,17 +282,17 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
             </div>
             <div className="h-12 w-px bg-slate-200" />
             <div className="text-xs space-y-1">
-              {profile.qualificationType === 'Politeknik-Diploma' ? (
+              {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? (
                 <>
                   <div className="flex items-center gap-1.5">
-                    <span className={`w-2 h-2 rounded-full ${(profile.pbCgpa ?? 3.45) >= 2.8 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-                    <span className={(profile.pbCgpa ?? 3.45) >= 2.8 ? 'text-emerald-800 font-semibold' : 'text-slate-500'}>
+                    <span className={`w-2 h-2 rounded-full ${((profile.qualificationType === 'IBTE-Diploma' ? (profile.ibteCgpa ?? 3.40) : (profile.pbCgpa ?? 3.45))) >= 2.8 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+                    <span className={((profile.qualificationType === 'IBTE-Diploma' ? (profile.ibteCgpa ?? 3.40) : (profile.pbCgpa ?? 3.45))) >= 2.8 ? 'text-emerald-800 font-semibold' : 'text-slate-500'}>
                       UTB Year 2 Direct
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className={`w-2 h-2 rounded-full ${(profile.pbCgpa ?? 3.45) >= 2.0 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
-                    <span className={(profile.pbCgpa ?? 3.45) >= 2.0 ? 'text-emerald-800 font-semibold' : 'text-slate-500'}>
+                    <span className={`w-2 h-2 rounded-full ${((profile.qualificationType === 'IBTE-Diploma' ? (profile.ibteCgpa ?? 3.40) : (profile.pbCgpa ?? 3.45))) >= 2.0 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
+                    <span className={((profile.qualificationType === 'IBTE-Diploma' ? (profile.ibteCgpa ?? 3.40) : (profile.pbCgpa ?? 3.45))) >= 2.0 ? 'text-emerald-800 font-semibold' : 'text-slate-500'}>
                       Degree Top-Up / SBPP
                     </span>
                   </div>
@@ -318,6 +340,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
           {[
             { id: 'A-Level', label: '🎓 GCE A-Level' },
             { id: 'Politeknik-Diploma', label: '🏛️ Politeknik Brunei (Level 5 Diploma)' },
+            { id: 'IBTE-Diploma', label: '📜 IBTE (Level 5 Diploma)' },
             { id: 'HNTec-IBTE', label: '⚙️ IBTE (HNTec Technical Certificate)' },
             { id: 'IB', label: '🌐 International Baccalaureate (IB)' },
             { id: 'STPUB', label: '🕌 STPUB (Sijil Tinggi Agama)' }
@@ -349,7 +372,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 const newSchool = e.target.value;
                 let newQual = profile.qualificationType;
                 if (newSchool.includes('Politeknik')) newQual = 'Politeknik-Diploma';
-                else if (newSchool.includes('IBTE')) newQual = 'HNTec-IBTE';
+                else if (newSchool.includes('IBTE')) newQual = profile.qualificationType === 'IBTE-Diploma' ? 'IBTE-Diploma' : 'HNTec-IBTE';
                 else if (newSchool.includes('JIS') || newSchool.includes('ISB')) newQual = 'IB';
                 else if (newSchool.includes('SMALHB') || newSchool.includes('Tahfiz')) newQual = 'STPUB';
                 else newQual = 'A-Level';
@@ -377,7 +400,8 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
             >
               <option value="A-Level">GCE A-Level</option>
               <option value="Politeknik-Diploma">Politeknik Brunei (Level 5 Diploma)</option>
-              <option value="HNTec-IBTE">IBTE (HNTec Level 4 Certificate)</option>
+              <option value="IBTE-Diploma">IBTE (Level 5 Diploma)</option>
+              <option value="HNTec-IBTE">IBTE (HNTec Level 4 Technical Certificate)</option>
               <option value="IB">International Baccalaureate (IB)</option>
               <option value="STPUB">STPUB (Sijil Tinggi Agama)</option>
             </select>
@@ -607,7 +631,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 </div>
               </div>
             </div>
-          ) : profile.qualificationType === 'HNTec-IBTE' ? (
+          ) : profile.qualificationType === 'HNTec-IBTE' || profile.qualificationType === 'IBTE-Diploma' ? (
             /* IBTE (LEVEL 5 DIPLOMA & HNTEC LEVEL 4) PANEL */
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -622,7 +646,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300">
-                    {profile.ibteProgram?.toLowerCase().includes('diploma') ? 'BNQF Level 5 Diploma' : 'BNQF Level 4 Technical'}
+                    {profile.qualificationType === 'IBTE-Diploma' || profile.ibteProgram?.toLowerCase().includes('diploma') ? 'BNQF Level 5 Diploma' : 'BNQF Level 4 Technical'}
                   </span>
                 </div>
               </div>
@@ -634,12 +658,20 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                     Programme Level
                   </label>
                   <select
-                    value={profile.ibteProgram?.toLowerCase().includes('diploma') ? 'Diploma' : 'HNTec'}
+                    value={profile.qualificationType === 'IBTE-Diploma' || profile.ibteProgram?.toLowerCase().includes('diploma') ? 'Diploma' : 'HNTec'}
                     onChange={(e) => {
                       if (e.target.value === 'Diploma') {
-                        setProfile(prev => ({ ...prev, ibteProgram: IBTE_DIPLOMA_CATALOG[0].name }));
+                        setProfile(prev => ({ 
+                          ...prev, 
+                          qualificationType: 'IBTE-Diploma',
+                          ibteProgram: IBTE_DIPLOMA_CATALOG[0].name 
+                        }));
                       } else {
-                        setProfile(prev => ({ ...prev, ibteProgram: IBTE_HNTEC_CATALOG[0].name }));
+                        setProfile(prev => ({ 
+                          ...prev, 
+                          qualificationType: 'HNTec-IBTE',
+                          ibteProgram: IBTE_HNTEC_CATALOG[0].name 
+                        }));
                       }
                     }}
                     className="w-full text-xs font-bold text-amber-950 bg-white border border-amber-300 rounded-lg px-2.5 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
@@ -658,9 +690,11 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                     value={profile.ibteProgram || IBTE_DIPLOMA_CATALOG[0].name}
                     onChange={(e) => {
                       const newProg = e.target.value;
+                      const isDip = newProg.toLowerCase().includes('diploma');
                       setProfile(prev => ({ 
                         ...prev, 
-                        ibteProgram: newProg
+                        ibteProgram: newProg,
+                        qualificationType: isDip ? 'IBTE-Diploma' : 'HNTec-IBTE'
                       }));
                     }}
                     className="w-full text-xs font-medium text-slate-900 bg-white border border-slate-300 rounded-lg px-2.5 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
@@ -833,7 +867,9 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                     <span>Fast-Track to Degree</span>
                   </div>
                   <span className="text-[11px] text-amber-900">
-                    Step 1: IBTE HNTec → Step 2: PB Diploma (or BTEC HND) → Step 3: Direct Year 2 at UTB or 1-Year Top-up UK Degree!
+                    {profile.qualificationType === 'IBTE-Diploma' || profile.ibteProgram?.toLowerCase().includes('diploma')
+                      ? 'IBTE Level 5 Diploma → Direct Year 2 Entry into UTB & UBD Degree Programmes (or 1-Year Top-up UK Degree)!'
+                      : 'Step 1: IBTE HNTec → Step 2: PB Diploma (or BTEC HND) → Step 3: Direct Year 2 at UTB or 1-Year Top-up UK Degree!'}
                   </span>
                 </div>
               </div>

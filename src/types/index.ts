@@ -1,4 +1,4 @@
-export type QualificationType = 'A-Level' | 'IB' | 'Politeknik-Diploma' | 'STPUB' | 'HNTec-IBTE';
+export type QualificationType = 'A-Level' | 'IB' | 'Politeknik-Diploma' | 'IBTE-Diploma' | 'HNTec-IBTE' | 'STPUB';
 
 export type ICStatus = 'Yellow IC (Citizen)' | 'Red IC (Permanent Resident)' | 'Green IC / International';
 
