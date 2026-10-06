@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Scholarship, StudentProfile } from '../types';
+import { Scholarship, StudentProfile, UniversityProgram } from '../types';
 import { SCHOLARSHIPS_DATA } from '../data/scholarships';
 import { MOE_CIRCULAR_14_2025, MoePriorityCourse } from '../data/moeCircularData';
+import { UNIVERSITY_PROGRAMS } from '../data/pathways';
 import { 
   calculateTariffPoints, 
   calculateStudentTariff, 
   getQualificationDetails, 
-  evaluateScholarshipReadiness 
+  evaluateScholarshipReadiness,
+  checkProgramEligibility 
 } from '../utils/tariffCalculator';
 import { 
   Award, 
@@ -30,7 +32,10 @@ import {
   Stethoscope,
   Briefcase,
   ChevronRight,
-  Filter
+  Filter,
+  Layers,
+  MapPin,
+  Compass
 } from 'lucide-react';
 
 interface ScholarshipGuideProps {
@@ -52,6 +57,8 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
   const [showCircularModal, setShowCircularModal] = useState<boolean>(false);
   const [courseCategoryFilter, setCourseCategoryFilter] = useState<'all' | 'A' | 'B' | 'C'>('all');
   const [courseSearchQuery, setCourseSearchQuery] = useState<string>('');
+  const [diplomaInstFilter, setDiplomaInstFilter] = useState<'all' | 'UTB' | 'UBD' | 'UNISSA' | 'Private'>('all');
+  const [diplomaSearch, setDiplomaSearch] = useState<string>('');
 
   // Document checklist state (stored in local component state)
   const [checkedDocs, setCheckedDocs] = useState<Record<string, boolean>>({
@@ -88,6 +95,30 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
         course.field.toLowerCase().includes(q) ||
         course.degreeType.toLowerCase().includes(q) ||
         course.careerOutcomes.some(c => c.toLowerCase().includes(q));
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  const isLevel5Student = profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma';
+  const diplomaCgpa = profile.qualificationType === 'Politeknik-Diploma'
+    ? (profile.pbCgpa ?? 3.45)
+    : (profile.ibteCgpa ?? 3.40);
+
+  // Verified local university degree programmes accepting BNQF Level 5 Diplomas
+  const eligibleLocalDiplomasPrograms = UNIVERSITY_PROGRAMS.filter(prog => {
+    if (prog.campusCountry !== 'Brunei' || prog.programLevel !== 'Undergraduate Degree') return false;
+    if (!prog.acceptsDiplomaLevel5) return false;
+    if (diplomaInstFilter === 'UTB' && !prog.institution.includes('UTB')) return false;
+    if (diplomaInstFilter === 'UBD' && !prog.institution.includes('UBD')) return false;
+    if (diplomaInstFilter === 'UNISSA' && !prog.institution.includes('UNISSA')) return false;
+    if (diplomaInstFilter === 'Private' && (prog.institution.includes('UTB') || prog.institution.includes('UBD') || prog.institution.includes('UNISSA'))) return false;
+    if (diplomaSearch.trim()) {
+      const q = diplomaSearch.toLowerCase();
+      const match = prog.name.toLowerCase().includes(q) ||
+        prog.institution.toLowerCase().includes(q) ||
+        prog.field.toLowerCase().includes(q) ||
+        (prog.diplomaLevel5Details?.notes && prog.diplomaLevel5Details.notes.toLowerCase().includes(q));
       if (!match) return false;
     }
     return true;
@@ -314,7 +345,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 : profile.qualificationType === 'STPUB'
                 ? 'Mumtaz / Jayyid Jiddan'
                 : profile.qualificationType === 'HNTec-IBTE'
-                ? 'Progress to Level 5 First'
+                ? 'Progress to Advanced / Technical Diploma First'
                 : '120 pts (BBB) · Min Grade C'}
             </div>
             <div className="text-[11px] text-slate-500 leading-relaxed">
@@ -467,7 +498,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma'
                 ? 'UTB/UBD Direct Year 2 (cGPA ≥ 2.80)'
                 : profile.qualificationType === 'HNTec-IBTE'
-                ? 'PB Level 5 Diploma Entry'
+                ? 'PB Advanced Diploma Entry'
                 : '64–112 pts via HECAS'}
             </div>
             <div className="text-[11px] leading-relaxed">
@@ -481,7 +512,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 </span>
               ) : profile.qualificationType === 'HNTec-IBTE' ? (
                 <span className="text-slate-600">
-                  Direct admission into Politeknik Brunei Level 5 Diploma (Tuition-free + $350/mo allowance for Yellow IC).
+                  Direct admission into Politeknik Brunei Advanced Diploma (Tuition-free + $350/mo allowance for Yellow IC).
                 </span>
               ) : (
                 <span className="text-slate-500">
@@ -515,6 +546,253 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
             <div>
               <strong className="text-rose-300 block mb-0.5">Fee-Paying Status Condition (Pelajar Berbayar):</strong>
               Applicants who meet degree academic points but <strong>DO NOT possess a Credit in O-Level Bahasa Melayu</strong> are admitted strictly on a <strong>Fee-Paying status</strong>. They must pay full tuition fees and will not receive any government living allowance unless/until a Credit in O-Level BM is obtained.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 1.5: BNQF Level 5 Diploma (IBTE & PB) Progression & Scholarship Coordination Hub */}
+      <section className="bg-white rounded-xl border border-blue-200/90 p-6 md:p-8 shadow-sm">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-6 border-b border-blue-100">
+          <div>
+            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-900 mb-1.5">
+              <span className="px-2 py-0.5 bg-blue-100 text-blue-900 rounded font-bold">
+                DIPLOMA PROGRESSION FRAMEWORK
+              </span>
+              <span aria-hidden="true">·</span>
+              <span className="font-semibold text-slate-700">IBTE Diploma &amp; Politeknik Brunei</span>
+              <span aria-hidden="true">·</span>
+              <span className="text-emerald-700 font-semibold">Local University Degree Progression</span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+              Advanced Diploma &amp; IBTE Diploma Progression Hub
+            </h2>
+            <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed">
+              <strong>Official BDQF/BNQF Equivalence:</strong> IBTE Diploma is certified as a <strong>BNQF Level 5 qualification</strong> (equivalent to Politeknik Brunei Advanced Diplomas and Pearson BTEC Higher National Diplomas). Structured for UTB Direct Year 2 entry, UBD advanced standing, UNISSA Islamic Finance, government tuition-free scholarships, and BND $350/mo living allowances.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="p-3 bg-blue-50/80 border border-blue-200 rounded-xl text-xs space-y-1">
+              <div className="text-[11px] font-semibold text-blue-950 flex items-center gap-1.5">
+                <GraduationCap className="w-4 h-4 text-blue-700" />
+                <span>Active Profile Evaluation:</span>
+              </div>
+              <div className="text-slate-700 text-xs font-medium">
+                {isLevel5Student ? (
+                  <span>
+                    <strong className="text-blue-900">{profile.qualificationType === 'IBTE-Diploma' ? 'IBTE Diploma' : 'Politeknik Brunei Advanced Diploma'}</strong> (cGPA: <strong className="text-slate-900">{diplomaCgpa.toFixed(2)}</strong>)
+                  </span>
+                ) : (
+                  <span>Evaluating for <strong className="text-slate-900">{qualDetails.title}</strong></span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 4 Diploma Policy Framework Pillars */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 text-xs">
+          {/* Pillar 1 */}
+          <div className="p-4 bg-blue-50/60 rounded-xl border border-blue-200/80 space-y-2">
+            <div className="font-bold text-blue-950 flex items-center gap-1.5">
+              <Award className="w-4 h-4 text-blue-800 shrink-0" />
+              <span>1. BDQF / BNQF Technical Standing</span>
+            </div>
+            <p className="text-slate-700 leading-relaxed text-[11px]">
+              IBTE Diploma and Politeknik Brunei Advanced Diploma share certified higher technical qualification standing. Both confer higher vocational status enabling direct university transfer and credit exemptions.
+            </p>
+            <div className="text-[10px] text-blue-900 font-semibold bg-blue-100/70 px-2 py-0.5 rounded inline-block">
+              BDQF / BNQF Certified
+            </div>
+          </div>
+
+          {/* Pillar 2 */}
+          <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200/80 space-y-2">
+            <div className="font-bold text-emerald-950 flex items-center gap-1.5">
+              <DollarSign className="w-4 h-4 text-emerald-800 shrink-0" />
+              <span>2. Local Govt Scholarship ($350/mo)</span>
+            </div>
+            <p className="text-slate-700 leading-relaxed text-[11px]">
+              Yellow IC citizens entering local degrees (UTB, UBD, UNISSA) receive <strong>100% free tuition</strong> and <strong>BND $350/mo allowance</strong>. Mandatory: Credit (C6+) in O-Level Bahasa Melayu.
+            </p>
+            <div className="text-[10px] text-emerald-900 font-semibold bg-emerald-100/70 px-2 py-0.5 rounded inline-block">
+              Free Tuition + Allowance
+            </div>
+          </div>
+
+          {/* Pillar 3 */}
+          <div className="p-4 bg-purple-50/60 rounded-xl border border-purple-200/80 space-y-2">
+            <div className="font-bold text-purple-950 flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-purple-800 shrink-0" />
+              <span>3. UTB Direct Year 2 Entry</span>
+            </div>
+            <p className="text-slate-700 leading-relaxed text-[11px]">
+              UTB formally accepts PB Advanced Diploma and IBTE Diploma graduates with <strong>cGPA ≥ 2.80 (Merit)</strong> for <strong>Direct Year 2 Entry</strong> in Civil, Petroleum, Mechanical, and Computing degrees!
+            </p>
+            <div className="text-[10px] text-purple-900 font-semibold bg-purple-100/70 px-2 py-0.5 rounded inline-block">
+              Save 1 Year (Graduate in 2 Yrs)
+            </div>
+          </div>
+
+          {/* Pillar 4 */}
+          <div className="p-4 bg-amber-50/60 rounded-xl border border-amber-200/80 space-y-2">
+            <div className="font-bold text-amber-950 flex items-center gap-1.5">
+              <Plane className="w-4 h-4 text-amber-800 shrink-0" />
+              <span>4. MOE Overseas &amp; BSP</span>
+            </div>
+            <p className="text-slate-700 leading-relaxed text-[11px]">
+              Distinction diploma holders (cGPA ≥ 3.50 within last 2 yrs) qualify for <strong>MOE Overseas Scholarship (Circ. 14/2025)</strong> at Top 250 universities in priority courses, or corporate BSP scholarships.
+            </p>
+            <div className="text-[10px] text-amber-900 font-semibold bg-amber-100/70 px-2 py-0.5 rounded inline-block">
+              Distinction Track (cGPA ≥ 3.50)
+            </div>
+          </div>
+        </div>
+
+        {/* Local University Degree Programmes Browser Accepting Level 5 Diplomas */}
+        <div className="mt-8 pt-6 border-t border-blue-100">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 bg-blue-900 text-white font-mono text-[10px] font-bold rounded">
+                  OFFICIAL DIRECTORY
+                </span>
+                <h3 className="text-base font-bold text-slate-900">
+                  Accredited Local Degree Programmes Accepting Advanced &amp; IBTE Diplomas
+                </h3>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Verified entry requirements, articulation standing, and government scholarship coverage.
+              </p>
+            </div>
+
+            {/* Institution Filter Pills */}
+            <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg text-xs overflow-x-auto max-w-full">
+              {[
+                { id: 'all', label: `All Local (${eligibleLocalDiplomasPrograms.length})` },
+                { id: 'UTB', label: 'UTB (Direct Year 2)' },
+                { id: 'UBD', label: 'UBD' },
+                { id: 'UNISSA', label: 'UNISSA' },
+                { id: 'Private', label: 'Private (LCB / KIGS / MIC)' }
+              ].map(f => (
+                <button
+                  key={f.id}
+                  onClick={() => setDiplomaInstFilter(f.id as any)}
+                  className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+                    diplomaInstFilter === f.id
+                      ? 'bg-white text-slate-900 shadow-2xs font-semibold'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Search bar */}
+          <div className="relative mb-4">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={diplomaSearch}
+              onChange={(e) => setDiplomaSearch(e.target.value)}
+              placeholder="Search local degree programmes accepting Advanced &amp; IBTE Diplomas (e.g. Civil, Computing, AI, Accounting, UTB, UBD)..."
+              className="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:outline-hidden focus:ring-1 focus:ring-blue-500 focus:bg-white transition-colors"
+            />
+          </div>
+
+          {/* Local Programmes Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+            {eligibleLocalDiplomasPrograms.map((prog) => {
+              const minCgpa = prog.diplomaLevel5Details?.minCgpa ?? 2.80;
+              const isEligibleWithStudentCgpa = diplomaCgpa >= minCgpa;
+              const entryYear = prog.diplomaLevel5Details?.entryYear || 'Direct Degree Entry';
+
+              return (
+                <div
+                  key={prog.id}
+                  className="p-4 rounded-xl border border-slate-200/90 bg-white hover:border-blue-400 hover:shadow-xs transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Top tags */}
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="font-semibold text-[10px] px-2 py-0.5 rounded bg-blue-100 text-blue-900">
+                        {entryYear}
+                      </span>
+                      {isLevel5Student && (
+                        isEligibleWithStudentCgpa ? (
+                          <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Eligible (cGPA {diplomaCgpa.toFixed(2)})
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1 text-[10px] font-medium text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
+                            <AlertCircle className="w-3 h-3 text-amber-600" /> Needs cGPA ≥ {minCgpa.toFixed(2)}
+                          </span>
+                        )
+                      )}
+                    </div>
+
+                    <h4 className="text-xs font-bold text-slate-900 leading-snug">
+                      {prog.name}
+                    </h4>
+
+                    <div className="text-[11px] text-slate-500 mt-1 flex items-center gap-1.5">
+                      <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                      <span className="font-medium text-slate-700">{prog.institution}</span>
+                    </div>
+
+                    {/* Diploma Specific Notes */}
+                    <div className="mt-2.5 p-2 bg-blue-50/60 rounded-lg border border-blue-100 text-[11px] text-blue-950 leading-relaxed">
+                      <strong className="text-blue-900 block font-semibold mb-0.5">
+                        Diploma Articulation Criteria:
+                      </strong>
+                      <span>{prog.diplomaLevel5Details?.notes || prog.polytechnicAcceptance}</span>
+                    </div>
+
+                    {/* Accepted Disciplines */}
+                    {prog.diplomaLevel5Details?.relevantDisciplines && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {prog.diplomaLevel5Details.relevantDisciplines.map((disc, idx) => (
+                          <span key={idx} className="text-[10px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded">
+                            {disc}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Bottom Scholarship Info */}
+                  <div className="mt-3 pt-2.5 border-t border-slate-100 text-[11px] space-y-1">
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span>Minimum cGPA:</span>
+                      <strong className="text-slate-900 font-mono">{minCgpa.toFixed(2)} / 4.00</strong>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span>Scholarship Funding:</span>
+                      <span className="font-semibold text-emerald-800 text-[10px]">
+                        {prog.institutionType === 'Government University'
+                          ? '100% Free Tuition + $350/mo'
+                          : 'SBPP Education Loan Scheme'}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Educational Warning on Strictly Non-Accepted Programmes */}
+          <div className="mt-5 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950 flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <strong className="text-amber-900 font-bold block">
+                Official Admission Advisory: Faculties Strictly Requiring GCE A-Levels / IB
+              </strong>
+              <p className="text-[11px] text-amber-900 leading-relaxed">
+                Please note that <strong>UBD PAPRSB Institute of Health Sciences (BHSc Medicine &amp; Dentistry)</strong> and <strong>UNISSA Faculty of Shariah &amp; Law (LL.B &amp; BSL)</strong> strictly require GCE A-Levels (minimum AAA / 144 points with Chemistry &amp; Biology) or IB (38 points) / STPUB (Mumtaz), and <strong>do NOT consider</strong> technical or vocational diplomas despite meeting numerical points. Candidates holding Advanced or IBTE Diplomas should focus on UTB Engineering/Computing, UBD Science/Computing/Business, UNISSA Islamic Finance, or private college degree top-ups.
+              </p>
             </div>
           </div>
         </div>
@@ -560,7 +838,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               <span>1.1 First Degree (Umum)</span>
             </div>
             <div className="text-slate-700 leading-relaxed text-[11px]">
-              Min <strong>120 UCAS tariff (300 old)</strong> across 3 A-Levels in <strong>ONE sitting within 2 years</strong> with <strong>no grade &lt; C</strong>. (IB: 32 pts; HND/Level 5: Distinction/Grade A).
+              Min <strong>120 UCAS tariff (300 old)</strong> across 3 A-Levels in <strong>ONE sitting within 2 years</strong> with <strong>no grade &lt; C</strong>. (IB: 32 pts; Advanced Diploma / HND: Distinction/Grade A).
             </div>
           </div>
 
@@ -997,6 +1275,19 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
         </div>
       </section>
 
+      {/* Official Advisory & Non-Endorsement Disclaimer Notice */}
+      <div className="p-4 bg-amber-50/80 rounded-xl border border-amber-200/90 text-xs text-amber-950 flex items-start gap-3 shadow-2xs">
+        <AlertCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+        <div className="space-y-1">
+          <h4 className="font-bold text-amber-900 text-xs uppercase tracking-wider">
+            Official Advisory &amp; Institutional Verification Disclaimer
+          </h4>
+          <p className="text-amber-950/90 leading-relaxed text-[11px]">
+            SuluhBrunei is an independent academic advisory portal and is <strong>not officially endorsed</strong> by or affiliated with the Ministry of Education (MOE) Brunei Darussalam, Brunei Shell Petroleum (BSP), Yayasan Sultan Haji Hassanal Bolkiah, or any government agency. Scholarship guidelines, MOE circulars (including Surat Pemberitahuan 14/2025), allowance tiers, and university quotas are subject to change by respective sponsors. Candidates must verify all criteria directly with official Ministry of Education circulars and sponsoring bodies prior to applying.
+          </p>
+        </div>
+      </div>
+
       {/* Scholarship In-Depth Details Modal */}
       {activeScholarshipModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
@@ -1176,7 +1467,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span><strong>Kelayakan Lain:</strong> IB Diploma minima 32 mata / Diploma Lanjutan atau Level 5 Diploma dengan Distinction / Gred A.</span>
+                        <span><strong>Kelayakan Lain:</strong> IB Diploma minima 32 mata / Diploma Lanjutan (Advanced Diploma) atau BTEC HND dengan Distinction / Gred A.</span>
                       </li>
                     </ul>
                   </div>

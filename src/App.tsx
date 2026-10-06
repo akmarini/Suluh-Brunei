@@ -13,7 +13,7 @@ import { EssayStudio } from './components/EssayStudio';
 import { StudentProgressionDashboard } from './components/StudentProgressionDashboard';
 import { ShareModal } from './components/ShareModal';
 import { OwnershipModal } from './components/OwnershipModal';
-import suluhLogo from './assets/images/suluhbrunei_logo_1790999633328.jpg';
+import { SuluhLogo } from './components/SuluhLogo';
 import { Compass, Award, Calendar, Users, FileText, CheckCircle2, Shield, Heart, Share2, ShieldCheck } from 'lucide-react';
 
 export default function App() {
@@ -39,7 +39,7 @@ export default function App() {
       oLevelEnglishGrade: 'B3',
       oLevelMalayGrade: 'B3', // Credit (Mandatory for Govt Institutions scholarship / non fee-paying)
       hasMedicalInterest: false,
-      pbDiplomaProgram: 'Level 5 Diploma in Information Technology',
+      pbDiplomaProgram: 'Advanced Diploma in Information Technology',
       pbCgpa: 3.45,
       ibteSchool: 'IBTE Sultan Saiful Rijal Campus',
       ibteProgram: 'HNTec in Information Technology',
@@ -221,13 +221,7 @@ export default function App() {
             {/* Col 1 */}
             <div className="space-y-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg overflow-hidden border border-amber-400/80 shadow-xs shrink-0 bg-slate-900 flex items-center justify-center">
-                  <img 
-                    src={suluhLogo} 
-                    alt="Suluh Brunei Logo" 
-                    className="w-full h-full object-cover object-center" 
-                  />
-                </div>
+                <SuluhLogo size="sm" />
                 <span className="font-architectural text-lg font-bold text-white tracking-wider">
                   Suluh Brunei
                 </span>
@@ -289,6 +283,17 @@ export default function App() {
                 </button>
               </div>
             </div>
+          </div>
+
+          {/* Official Academic Disclaimer Banner on page */}
+          <div className="my-6 p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-400 space-y-1.5">
+            <div className="flex items-center gap-2 text-amber-400 font-semibold uppercase tracking-wider text-[11px]">
+              <Shield className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>Official Non-Endorsement &amp; Academic Guidance Disclaimer</span>
+            </div>
+            <p className="leading-relaxed text-[11px] text-slate-300">
+              SuluhBrunei is an independent academic pathway guidance platform created for Bruneian students and is <strong>not an officially endorsed site</strong> by or affiliated with the Ministry of Education (MOE) Brunei Darussalam, HECAS, BDNAC, or any featured educational institutions or scholarship agencies. While requirements and guidelines are curated from official publications, university entry criteria, tariff equivalencies, and government policies are subject to ongoing updates. Students and parents must always verify all entry requirements, quotas, and circulars directly with the relevant institutions and government agencies before applying.
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 pt-4 border-t border-slate-800/80">

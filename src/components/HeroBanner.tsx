@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Compass, Award, Calendar, Users, GraduationCap, Building2 } from 'lucide-react';
 import heroImg from '../assets/images/hero_brunei_students_1790996845553.jpg';
-import suluhLogo from '../assets/images/suluhbrunei_logo_1790999633328.jpg';
+import { SuluhLogo } from './SuluhLogo';
 
 interface HeroBannerProps {
   onNavigate: (tab: string) => void;
@@ -30,13 +30,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onNavigate, calculatedPo
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-16">
         {/* Domain-specific context kicker with Official Vector Emblem */}
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 rounded-xl overflow-hidden border-2 border-amber-400/90 shadow-md shrink-0 bg-slate-950 flex items-center justify-center">
-            <img 
-              src={suluhLogo} 
-              alt="Suluh Brunei Logo" 
-              className="w-full h-full object-cover object-center" 
-            />
-          </div>
+          <SuluhLogo size="lg" />
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-400">
               <span className="font-architectural text-sm font-bold text-amber-300 tracking-wider">Suluh Brunei</span>

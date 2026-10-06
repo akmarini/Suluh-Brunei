@@ -12,7 +12,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     bondYears: 5,
     bondEmployer: "Government of His Majesty The Sultan and Yang Di-Pertuan of Brunei Darussalam",
     minPoints: 120,
-    minGradesDescription: 'Surat Pemberitahuan Bil. 14/2025 (Sesi 2026/2027): Minimum 120 UCAS tariff points from 3 A-Level subjects in ONE sitting within the last 2 years, with NO subject lower than Grade C (A*=56, A=48, B=40, C=32). Medicine/Dentistry requires min 144 pts (AAA) with no grade < A. IB: min 32 pts (Medicine 38 pts). Level 5 Diploma / HND: Distinction or Grade A.',
+    minGradesDescription: 'Surat Pemberitahuan Bil. 14/2025 (Sesi 2026/2027): Minimum 120 UCAS tariff points from 3 A-Level subjects in ONE sitting within the last 2 years, with NO subject lower than Grade C (A*=56, A=48, B=40, C=32). Medicine/Dentistry requires min 144 pts (AAA) with no grade < A. IB: min 32 pts (Medicine 38 pts). Level 5 Diplomas (Politeknik Brunei & IBTE Diploma / HND): Distinction or Grade A (cGPA ≥ 3.50) within the last 2 years.',
     citizenshipRequirement: 'Rakyat Kebawah Duli Yang Maha Mulia yang memegang Kad Pengenalan Berwarna Kuning (Brunei Yellow IC only). Umur tidak melebihi 26 tahun pada 01/09/2026.',
     monthlyAllowanceEstimate: 'Approx. £1,150 – £1,350/mo (UK) or AUD $1,600 – $1,850/mo (Australia) plus warm clothing and book allowances',
     benefits: [
@@ -186,7 +186,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     bondYears: 4,
     bondEmployer: 'Brunei Shell Petroleum (BSP) or affiliate Brunei Shell Joint Ventures (BSJV)',
     minPoints: 320,
-    minGradesDescription: 'Minimum grades of ABB or AAB at A-Levels (Mathematics and Physics or Chemistry usually mandatory) or equivalent IB/Diploma with high distinction',
+    minGradesDescription: 'Minimum grades of ABB or AAB at A-Levels (Mathematics and Physics or Chemistry usually mandatory), or equivalent IB (min 34 pts), or BNQF Level 5 Diploma (Politeknik Brunei or IBTE Diploma) with Distinction (cGPA ≥ 3.50)',
     citizenshipRequirement: 'Citizens of Brunei Darussalam (Brunei Yellow IC holders only)',
     monthlyAllowanceEstimate: 'Competitive corporate stipend (GBP £1,200/mo UK, or BND $650/mo local) + paid industrial attachments',
     benefits: [
@@ -286,7 +286,7 @@ export const SCHOLARSHIPS_DATA: Scholarship[] = [
     bondYears: 3,
     bondEmployer: 'Public or Private Sector in Brunei Darussalam',
     minPoints: 64,
-    minGradesDescription: 'Varies by programme: from 48–64 points for Diplomas and select Arts / Private degrees, 80–112 points for Business / Computing / Engineering, up to 144 points for UBD Medicine. MANDATORY: Credit (C6 or better) in GCE O-Level Bahasa Melayu.',
+    minGradesDescription: 'Varies by programme: 48–64 points for Diplomas/Private degrees, 80–112 points for Business/Computing/Engineering, and up to 144 points for UBD Medicine. BNQF LEVEL 5 DIPLOMAS: Fully covers Politeknik Brunei Diploma and IBTE Level 5 Diploma graduates entering degree programmes at UTB (Direct Year 2 with cGPA ≥ 2.80), UBD, or UNISSA. MANDATORY: Credit (C6 or better) in GCE O-Level Bahasa Melayu.',
     citizenshipRequirement: 'Citizens of Brunei Darussalam (Yellow IC holders)',
     monthlyAllowanceEstimate: 'BND $300 – $350 monthly living allowance + book/thesis subsidies (For Scholarship holders only; Fee-Paying students receive no allowance)',
     benefits: [

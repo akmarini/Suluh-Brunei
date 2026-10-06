@@ -42,18 +42,28 @@ export const POLITEKNIK_SCHOOLS = [
 ];
 
 export const POLITEKNIK_DIPLOMAS = [
-  'Level 5 Diploma in Information Technology',
-  'Level 5 Diploma in Information Systems',
-  'Level 5 Diploma in Business Accounting and Finance',
-  'Level 5 Diploma in Business Studies (Marketing & Management)',
-  'Level 5 Diploma in Civil Engineering',
-  'Level 5 Diploma in Electrical and Electronic Engineering',
-  'Level 5 Diploma in Mechanical Engineering',
-  'Level 5 Diploma in Telecommunications & Systems Engineering',
-  'Level 5 Diploma in Health Sciences (Nursing / Paramedic)',
-  'Level 5 Diploma in Architecture & Interior Design',
-  'Level 5 Diploma in Library & Information Management'
-];
+  'Advanced Diploma in Information Technology',
+  'Advanced Diploma in Information Systems',
+  'Advanced Diploma in Network Security',
+  'Advanced Diploma in Web Development',
+  'Advanced Diploma in Digital Media',
+  'Advanced Diploma in Business Accounting and Finance',
+  'Advanced Diploma in Business Studies',
+  'Advanced Diploma in Human Resource Management',
+  'Advanced Diploma in Marketing',
+  'Advanced Diploma in Civil Engineering',
+  'Advanced Diploma in Electrical and Electronic Engineering',
+  'Advanced Diploma in Mechanical Engineering',
+  'Advanced Diploma in Telecommunications & Systems Engineering',
+  'Advanced Diploma in Petroleum Engineering',
+  'Advanced Diploma in Chemical Engineering',
+  'Advanced Diploma in Architecture',
+  'Advanced Diploma in Interior Design',
+  'Advanced Diploma in Health Sciences (Nursing)',
+  'Advanced Diploma in Health Sciences (Paramedic)',
+  'Advanced Diploma in Health Sciences (Midwifery)',
+  'Advanced Diploma in Library & Information Management'
+] as const;
 
 export const IBTE_PROGRAMMES = IBTE_PROGRAMMES_LIST;
 
@@ -196,14 +206,14 @@ export function getQualificationDetails(profile: StudentProfile) {
     const isYear2Eligible = cgpa >= 2.8;
     const tariff = calculateStudentTariff(profile);
     return {
-      title: 'Politeknik Brunei (PB) Level 5 Diploma',
+      title: 'Politeknik Brunei (PB) Advanced Diploma',
       scoreText: `cGPA ${cgpa.toFixed(2)} / 4.00 (${classification})`,
       pointsDisplay: `cGPA ${cgpa.toFixed(2)} (${classification})`,
       equivTariff: tariff,
       progressionText: isYear2Eligible 
         ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions, or Final-Year UK Degree Top-Up at LCB'
         : '✓ Eligible for Degree Admission into local and private universities (LCB Chester / KIGS Limkokwing)',
-      levelTag: 'BNQF Level 5 Diploma',
+      levelTag: 'Advanced Diploma',
       classification,
       isYear2Eligible
     };
@@ -215,14 +225,14 @@ export function getQualificationDetails(profile: StudentProfile) {
     const isYear2Eligible = cgpa >= 2.8;
     const tariff = calculateStudentTariff(profile);
     return {
-      title: 'IBTE Level 5 Diploma',
+      title: 'IBTE Diploma',
       scoreText: `cGPA ${cgpa.toFixed(2)} / 4.00 (${classification})`,
       pointsDisplay: `cGPA ${cgpa.toFixed(2)} (${classification})`,
       equivTariff: tariff,
       progressionText: isYear2Eligible 
         ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions'
         : '✓ Eligible for Degree Admission into local and private universities',
-      levelTag: 'BNQF Level 5 Diploma',
+      levelTag: 'Diploma',
       classification,
       isYear2Eligible
     };
@@ -236,12 +246,12 @@ export function getQualificationDetails(profile: StudentProfile) {
 
     if (isDip) {
       return {
-        title: 'IBTE Level 5 Diploma Programme',
+        title: 'IBTE Diploma Programme',
         scoreText: `${award} (cGPA ${cgpa.toFixed(2)} / 4.00)`,
-        pointsDisplay: `Level 5 Diploma (${award})`,
+        pointsDisplay: `Diploma (${award})`,
         equivTariff: tariff,
         progressionText: '✓ Direct Year 2 Entry into UTB BEng / BSc degree programmes with credit exemptions',
-        levelTag: 'BNQF Level 5 Diploma',
+        levelTag: 'Diploma',
         isPbEligible: true
       };
     }
@@ -543,4 +553,414 @@ export function getHigherLevelsDescription(qualType: QualificationType): string 
     default:
       return 'Undergraduate Degrees (Level 6)';
   }
+}
+
+export interface ProgramEligibilityResult {
+  isEligible: boolean;
+  qualificationAccepted: boolean;
+  disciplineMatched: boolean;
+  status: 'Eligible' | 'Conditional' | 'Not Accepted' | 'Tariff Gap' | 'Discipline Mismatch';
+  reason: string;
+  entryYear?: string;
+  minCgpaRequired?: number;
+  requiredDisciplinesText?: string;
+}
+
+export type DiplomaDiscipline = 'computing' | 'civil' | 'mechanical_petroleum' | 'business' | 'hospitality' | 'health_science' | 'design_media' | 'agritech_life_science' | 'general';
+
+/**
+ * Returns all academic discipline clusters that a vocational or technical diploma satisfies.
+ */
+export function getDiplomaDisciplines(diplomaName?: string): DiplomaDiscipline[] {
+  if (!diplomaName) return ['general'];
+  const d = diplomaName.toLowerCase();
+  const list: DiplomaDiscipline[] = [];
+
+  // Digital Media / Graphic Design
+  if (d.includes('digital media') || d.includes('multimedia') || d.includes('animation') || d.includes('graphic')) {
+    list.push('design_media');
+    list.push('computing');
+  }
+
+  // Computing, IT, Software & Information Systems
+  if (
+    d.includes('information technology') ||
+    d.includes('web development') ||
+    d.includes('information systems') ||
+    d.includes('network') ||
+    d.includes('cyber') ||
+    d.includes('computer') ||
+    d.includes('software') ||
+    d.includes('data analytics') ||
+    d.includes('data science') ||
+    d.includes('cloud') ||
+    d.includes('library')
+  ) {
+    if (!list.includes('computing')) list.push('computing');
+  }
+
+  // Civil, Construction & Architecture
+  if (d.includes('architecture') || d.includes('interior design')) {
+    list.push('civil');
+    if (!list.includes('design_media')) list.push('design_media');
+  } else if (
+    d.includes('civil') ||
+    d.includes('building services') ||
+    d.includes('construction') ||
+    d.includes('draughting') ||
+    d.includes('geomatics') ||
+    d.includes('quantity surveying') ||
+    d.includes('surveying')
+  ) {
+    list.push('civil');
+  }
+
+  // Mechanical, Petroleum, Chemical, Electrical & Marine
+  if (
+    d.includes('mechanical') ||
+    d.includes('petroleum') ||
+    d.includes('chemical') ||
+    d.includes('refinery') ||
+    d.includes('control and automation') ||
+    d.includes('electrical') ||
+    d.includes('electronic') ||
+    d.includes('marine') ||
+    d.includes('nautical') ||
+    d.includes('telecommunication') ||
+    d.includes('plant engineering') ||
+    d.includes('mechatronics') ||
+    d.includes('instrumentation') ||
+    d.includes('aircraft') ||
+    d.includes('aviation') ||
+    d.includes('automotive') ||
+    d.includes('heavy vehicle')
+  ) {
+    list.push('mechanical_petroleum');
+  }
+
+  // Business, Accounting & Finance
+  if (
+    d.includes('accounting') ||
+    d.includes('finance') ||
+    d.includes('business') ||
+    d.includes('human resource') ||
+    d.includes('marketing') ||
+    d.includes('commerce') ||
+    d.includes('logistics') ||
+    d.includes('supply chain') ||
+    (d.includes('management') && !d.includes('hospitality') && !d.includes('culinary') && !d.includes('tourism') && !d.includes('event'))
+  ) {
+    list.push('business');
+  }
+
+  // Hospitality, Tourism & Culinary Operations
+  if (
+    d.includes('culinary') ||
+    d.includes('hospitality') ||
+    d.includes('tourism') ||
+    d.includes('hotel') ||
+    d.includes('catering') ||
+    d.includes('event') ||
+    d.includes('bakery') ||
+    d.includes('pastry')
+  ) {
+    list.push('hospitality');
+  }
+
+  // Health & Life Sciences (Clinical & Laboratory)
+  if (
+    d.includes('nursing') ||
+    d.includes('health') ||
+    d.includes('midwifery') ||
+    d.includes('laboratory') ||
+    d.includes('biomedical') ||
+    d.includes('science laboratory') ||
+    d.includes('pharmacy')
+  ) {
+    list.push('health_science');
+  }
+
+  // Agro-Technology, Food Science, Veterinary & Aquatic Life Sciences
+  if (
+    d.includes('agro') ||
+    d.includes('agrotechnology') ||
+    d.includes('food science') ||
+    d.includes('veterinary') ||
+    d.includes('aquaculture') ||
+    d.includes('aquatic') ||
+    d.includes('animal') ||
+    d.includes('crop')
+  ) {
+    list.push('agritech_life_science');
+  }
+
+  return list.length > 0 ? list : ['general'];
+}
+
+/**
+ * Returns the primary discipline of a diploma for backwards compatibility.
+ */
+export function getDiplomaDiscipline(diplomaName?: string): DiplomaDiscipline {
+  const disciplines = getDiplomaDisciplines(diplomaName);
+  return disciplines[0] || 'general';
+}
+
+/**
+ * Returns the acceptable diploma discipline clusters for a university degree programme.
+ * Calibrated specifically for Brunei universities (UBD, UTB, UNISSA, LCB, KIGS, Micronet).
+ */
+export function getProgramDisciplineRequirements(program: any): DiplomaDiscipline[] {
+  const pId = (program.id || '').toLowerCase();
+  const pField = (program.field || '').toLowerCase();
+
+  // 1. Specific degree ID calibration:
+  if (
+    pId === 'utb-software-dev' || 
+    pId === 'ubd-comp-sci' || 
+    pId === 'lcb-computer-science' ||
+    pId === 'lcb-software-engineering' ||
+    pId === 'kigs-bsc-information-technology' ||
+    pId === 'micronet-bsc-computing' ||
+    pId.includes('computer-science') || 
+    pId.includes('software-engineering') || 
+    pId.includes('computing') || 
+    pId.includes('information-technology')
+  ) {
+    return ['computing'];
+  }
+
+  if (pId === 'kigs-ba-graphic-design') {
+    return ['design_media'];
+  }
+
+  if (pId === 'kigs-ba-creative-multimedia') {
+    return ['design_media', 'computing'];
+  }
+
+  if (pId === 'utb-civil-eng' || pId.includes('civil')) {
+    return ['civil'];
+  }
+
+  if (pId === 'utb-petroleum-eng' || pId.includes('petroleum') || pId.includes('mechanical') || pId.includes('chemical-eng')) {
+    return ['mechanical_petroleum'];
+  }
+
+  // Strict Business, Accounting & Finance degrees require Business/Accounting diplomas
+  if (
+    pId === 'ubd-business-accounting' || 
+    pId === 'unissa-islamic-finance' || 
+    pId === 'lcb-accounting-finance' ||
+    pId === 'lcb-business-admin' ||
+    pId === 'kigs-bba-business-admin' ||
+    pId.includes('accounting') || 
+    pId.includes('business-admin')
+  ) {
+    return ['business'];
+  }
+
+  if (pId === 'lcb-tourism-management') {
+    return ['hospitality', 'business'];
+  }
+
+  if (pId === 'ubd-nursing-midwifery') {
+    return ['health_science'];
+  }
+
+  if (pId === 'ubd-environmental-biology') {
+    return ['health_science', 'mechanical_petroleum', 'agritech_life_science']; // Science Lab Tech / Chemical / Agro-Technology
+  }
+
+  // Fallback by Field of Interest:
+  if (pField.includes('computer') || pField.includes('ai')) return ['computing'];
+  if (pField.includes('civil') || pField.includes('architecture')) return ['civil'];
+  if (pField.includes('engineering')) return ['mechanical_petroleum', 'civil'];
+  if (pField.includes('business') || pField.includes('finance') || pField.includes('economics')) return ['business'];
+  if (pField.includes('health') || pField.includes('medicine')) return ['health_science'];
+
+  return ['computing', 'civil', 'mechanical_petroleum', 'business', 'hospitality', 'health_science', 'design_media', 'agritech_life_science'];
+}
+
+/**
+ * Human-readable description of discipline requirement
+ */
+export function getDisciplineRequirementLabel(disciplines: DiplomaDiscipline[]): string {
+  const map: Record<DiplomaDiscipline, string> = {
+    computing: 'Computing, IT, or Software Engineering',
+    civil: 'Civil Engineering, Building Services, or Architecture',
+    mechanical_petroleum: 'Mechanical, Petroleum, Chemical, or Electrical Engineering',
+    business: 'Business, Accounting, or Finance',
+    hospitality: 'Hospitality, Culinary, or Tourism',
+    health_science: 'Health Sciences, Nursing, or Laboratory Technology',
+    design_media: 'Graphic Design, Creative Multimedia, or Digital Media',
+    agritech_life_science: 'Agro-Technology, Food Science, or Applied Life Sciences',
+    general: 'Relevant Technical Field'
+  };
+  return disciplines.map(d => map[d] || d).join(' OR ');
+}
+
+/**
+ * Calibrates and evaluates whether a specific university degree programme considers
+ * and accepts the student's qualification (especially BNQF Level 5 Politeknik & IBTE Diplomas),
+ * AND ensures that the student's specific diploma program matches the degree requirements!
+ */
+export function checkProgramEligibility(
+  program: any,
+  profile: StudentProfile,
+  studentTariff: number
+): ProgramEligibilityResult {
+  const isHigher = isHigherLevelProgram(program.programLevel, profile.qualificationType);
+
+  // LEVEL 5 DIPLOMA STREAM: Politeknik Brunei & IBTE Diploma
+  if (profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma') {
+    // If the program is not a higher level (e.g. diploma or foundation), not target progression
+    if (!isHigher) {
+      return {
+        isEligible: false,
+        qualificationAccepted: false,
+        disciplineMatched: false,
+        status: 'Not Accepted',
+        reason: 'Current qualification is already at BNQF Level 5 (Higher Diploma).'
+      };
+    }
+
+    // Check calibrated boolean flag on whether the degree accepts Level 5 Diplomas
+    const acceptsL5 = program.acceptsDiplomaLevel5 === true || 
+      (program.polytechnicAcceptance && !program.polytechnicAcceptance.toLowerCase().includes('not accepted') && !program.polytechnicAcceptance.toLowerCase().includes('a-level required'));
+
+    if (!acceptsL5) {
+      return {
+        isEligible: false,
+        qualificationAccepted: false,
+        disciplineMatched: false,
+        status: 'Not Accepted',
+        reason: program.institution.includes('PAPRSB') || program.name.includes('Medicine') || program.name.includes('Dentistry')
+          ? 'University strictly requires GCE A-Levels (min AAA/144 pts) or IB (38 pts). Technical/engineering diplomas are NOT accepted for Clinical Medicine/Dentistry.'
+          : program.institution.includes('Shariah') || program.name.includes('Shariah')
+          ? 'Strictly requires STPUB (Mumtaz/Jayyid Jiddan) or Arabic religious pre-university qualifications.'
+          : program.campusCountry !== 'Brunei'
+          ? 'Overseas university requires standard GCE A-Levels / IB for direct entry. Does not provide direct Level 5 diploma articulation.'
+          : 'This faculty / programme strictly requires GCE A-Levels or IB and does not articulate Level 5 Diplomas.'
+      };
+    }
+
+    // Program accepts Level 5 Diplomas in general.
+    // NOW CHECK SPECIFIC DIPLOMA-TO-DEGREE DISCIPLINE MATCH!
+    const studentDiplomaName = profile.qualificationType === 'Politeknik-Diploma'
+      ? (profile.pbDiplomaProgram || 'Advanced Diploma in Information Technology')
+      : (profile.ibteProgram || 'Diploma in Information Technology');
+
+    const studentDisciplines = getDiplomaDisciplines(studentDiplomaName);
+    const requiredDiscs = getProgramDisciplineRequirements(program);
+    const isDisciplineMatch = requiredDiscs.some(req => studentDisciplines.includes(req));
+    const requiredDisciplinesText = getDisciplineRequirementLabel(requiredDiscs);
+
+    const minCgpa = program.diplomaLevel5Details?.minCgpa ?? (
+      program.institution.includes('UTB') ? 2.80 :
+      program.institution.includes('UBD') ? 3.00 :
+      program.institution.includes('UNISSA') ? 2.80 : 2.50
+    );
+
+    const entryYear = program.diplomaLevel5Details?.entryYear || (
+      program.institution.includes('UTB') ? 'Direct Year 2' :
+      program.institution.includes('LCB') ? 'Final Year Top-Up (Year 3)' :
+      'Direct Degree Entry'
+    );
+
+    // If diploma discipline does NOT match the degree program requirements:
+    if (!isDisciplineMatch) {
+      return {
+        isEligible: false,
+        qualificationAccepted: true,
+        disciplineMatched: false,
+        status: 'Discipline Mismatch',
+        entryYear,
+        minCgpaRequired: minCgpa,
+        requiredDisciplinesText,
+        reason: `Discipline Mismatch: This degree requires a Level 5 Diploma in ${requiredDisciplinesText}. (Your diploma is in ${studentDiplomaName}).`
+      };
+    }
+
+    // Discipline matches! Now evaluate cGPA threshold:
+    const studentCgpa = profile.qualificationType === 'Politeknik-Diploma'
+      ? (profile.pbCgpa ?? 3.45)
+      : (profile.ibteCgpa ?? 3.40);
+
+    if (studentCgpa >= minCgpa) {
+      return {
+        isEligible: true,
+        qualificationAccepted: true,
+        disciplineMatched: true,
+        status: 'Eligible',
+        entryYear,
+        minCgpaRequired: minCgpa,
+        requiredDisciplinesText,
+        reason: `Matches discipline requirement! Accepts your ${studentDiplomaName} for ${entryYear} (Your cGPA ${studentCgpa.toFixed(2)} ≥ required ${minCgpa.toFixed(2)}).`
+      };
+    } else {
+      return {
+        isEligible: false,
+        qualificationAccepted: true,
+        disciplineMatched: true,
+        status: 'Tariff Gap',
+        entryYear,
+        minCgpaRequired: minCgpa,
+        requiredDisciplinesText,
+        reason: `Matches degree discipline (${studentDiplomaName}), but requires minimum cGPA ${minCgpa.toFixed(2)} for ${entryYear} (Your cGPA: ${studentCgpa.toFixed(2)}).`
+      };
+    }
+  }
+
+  // HNTEC STREAM: BNQF Level 4
+  if (profile.qualificationType === 'HNTec-IBTE') {
+    if (program.programLevel === 'Diploma / HND') {
+      const acceptsHntec = !!program.ibteAcceptance || program.institution.includes('Politeknik');
+      if (acceptsHntec) {
+        return {
+          isEligible: true,
+          qualificationAccepted: true,
+          disciplineMatched: true,
+          status: 'Eligible',
+          entryYear: 'Year 1 Diploma',
+          reason: 'Eligible for direct admission into Politeknik Brunei Level 5 Diploma / Private College with IBTE HNTec award.'
+        };
+      }
+    }
+    return {
+      isEligible: false,
+      qualificationAccepted: false,
+      disciplineMatched: false,
+      status: 'Not Accepted',
+      reason: 'Undergraduate degrees require completing a BNQF Level 5 Diploma (Politeknik Brunei or IBTE Diploma) first.'
+    };
+  }
+
+  // STPUB STREAM: Islamic Religious Pre-University
+  if (profile.qualificationType === 'STPUB') {
+    const isIslamicOrLaw = program.field === 'Law & Shariah' || program.field === 'Islamic Studies & Education' || program.institution.includes('UNISSA');
+    if (isIslamicOrLaw) {
+      const grade = profile.stpubGrade || 'Jayyid Jiddan';
+      const meets = grade === 'Mumtaz' || grade === 'Jayyid Jiddan';
+      return {
+        isEligible: meets,
+        qualificationAccepted: true,
+        disciplineMatched: true,
+        status: meets ? 'Eligible' : 'Tariff Gap',
+        reason: meets
+          ? `Meets STPUB criteria with Pangkat ${grade}.`
+          : `Requires Pangkat Jayyid Jiddan or Mumtaz for admission (Your grade: ${grade}).`
+      };
+    }
+  }
+
+  // GCE A-LEVEL & IB STREAMS: Standard Tariff Points Evaluation
+  const meetsTariff = studentTariff >= program.minPoints;
+  return {
+    isEligible: meetsTariff,
+    qualificationAccepted: true,
+    disciplineMatched: true,
+    status: meetsTariff ? 'Eligible' : 'Tariff Gap',
+    reason: meetsTariff
+      ? `Meets entry tariff of ${program.minPoints} pts (Your score: ${studentTariff} pts).`
+      : `Tariff points gap: currently ${studentTariff} pts vs required ${program.minPoints} pts.`
+  };
 }

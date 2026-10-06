@@ -14,6 +14,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Strictly requires GCE A-Levels (AAA/144 pts) or IB (38 pts) with Chemistry and Biology. Technical Diplomas (PB & IBTE) are NOT accepted for Clinical Medicine.'
+    },
     duration: '6 Years (3 Yrs UBD + 3 Yrs Partner Medical School: Aberdeen/Glasgow/ANU)',
     minPoints: 144,
     gradeRequirementText: 'Minimum 144 UCAS tariff points with grades AAA or A*AB. Mandatory Grade A in Chemistry plus Grade A in Biology, Physics, or Mathematics. O-Level English Grade B4 or IELTS 7.0.',
@@ -38,6 +46,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Strictly requires GCE A-Levels (AAA/144 pts) or IB (38 pts) with Chemistry and Biology. Technical Diplomas (PB & IBTE) are NOT accepted for Clinical Dentistry.'
+    },
     duration: '5 - 6 Years (3 Yrs UBD + Partner Dental School abroad)',
     minPoints: 144,
     gradeRequirementText: 'Minimum 144 UCAS points with grades AAA or A*AB. Mandatory Grade A in Chemistry plus Grade A in Biology, Physics, or Mathematics. O-Level English Grade B4/B3 or IELTS 7.0.',
@@ -62,6 +78,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Strictly requires GCE A-Levels (BBC/104 pts) with Chemistry and Biology. Technical/engineering diplomas are NOT accepted.'
+    },
     duration: '4 Years (Includes 1 Year Discovery Year abroad/research attachment)',
     minPoints: 104,
     gradeRequirementText: 'Minimum 104 UCAS points (approx. BBC / ABB at A-Level) with Chemistry and Biology. Full Brunei Government Scholarship for Yellow IC with BM Credit.',
@@ -86,6 +110,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Strictly requires GCE A-Levels (BBB/120 pts) with Chemistry and Biology/Maths. Technical/engineering diplomas are NOT accepted.'
+    },
     duration: '4 Years (Twinning / Articulation option)',
     minPoints: 120,
     gradeRequirementText: 'Minimum 120 UCAS points (BBB at A-Level) with Chemistry and Biology/Mathematics. Full Government Scholarship for Yellow IC with BM Credit (C6).',
@@ -110,6 +142,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Year 1',
+      relevantDisciplines: ["Health Sciences","Nursing"],
+      notes: 'Accepts PB Level 5 Health Sciences Diploma with cGPA >= 2.50. Full government scholarship and monthly allowance ($350/mo) for Yellow IC with BM Credit.'
+    },
     duration: '4 Years (Includes clinical hospital rotations)',
     minPoints: 80,
     gradeRequirementText: 'Minimum 80 UCAS points from at least 2 A-Levels (e.g. CDD / CCD) in Science subjects, or PB Health Sciences Diploma with cGPA ≥ 2.50. Full government scholarship and monthly allowance ($350/mo) for Yellow IC with BM Credit.',
@@ -134,6 +174,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Computer Science & AI',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Year 1 (Advanced Standing)',
+      relevantDisciplines: ["Information Technology","Computer Science"],
+      notes: 'Accepts PB Level 5 Diploma in IT / Computing or IBTE Level 5 Diploma in IT with cGPA >= 2.80 (Merit) + O-Level English C6. Year 1 entry with module exemptions.'
+    },
     duration: '4 Years (Includes 1 Year Discovery Year abroad/internship)',
     minPoints: 88,
     polytechnicAcceptance: 'Accepts PB Level 5 Diploma in IT / Computing with cGPA ≥ 2.80 (Merit) + O-Level English C6. Direct Year 1 entry with module exemptions.',
@@ -160,6 +208,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Business, Economics & Finance',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Year 1',
+      relevantDisciplines: ["Business Accounting","Finance","Business Studies"],
+      notes: 'Accepts PB Level 5 Diploma in Business / Accounting or IBTE Level 5 Diploma in Business / Finance with cGPA >= 2.80-3.00.'
+    },
     duration: '4 Years (with Discovery Year)',
     minPoints: 80,
     polytechnicAcceptance: 'Accepts PB Level 5 Diploma in Business Accounting & Finance or Business Studies with cGPA ≥ 2.80.',
@@ -186,6 +242,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Natural & Environmental Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Year 1',
+      relevantDisciplines: ["Applied Sciences","Laboratory Science","Biotechnology"],
+      notes: 'Accepts relevant PB Level 5 Diploma in Science / Applied Sciences with cGPA >= 2.80.'
+    },
     duration: '4 Years',
     minPoints: 72,
     polytechnicAcceptance: 'Accepts relevant PB Diploma in Science / Applied Sciences with cGPA ≥ 2.50.',
@@ -213,6 +277,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Computer Science & AI',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Direct Year 2',
+      relevantDisciplines: ["Information Technology","Computer Science","Cybersecurity","Software Engineering"],
+      notes: 'Direct Year 2 Entry into UTB BSc Computing for PB Level 5 Diploma or IBTE Level 5 Diploma (e.g. Diploma in IT) holders with cGPA >= 2.80. Complete bachelor degree in 2 years!'
+    },
     duration: '3 Years (Option for UTB Experience+ industry placement)',
     minPoints: 96,
     polytechnicAcceptance: 'Direct Year 2 Entry (Advanced Standing) for PB Level 5 Diploma in IT / Computing with cGPA ≥ 2.80! Complete degree in just 2 years.',
@@ -239,6 +311,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Engineering & Technology',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Direct Year 2',
+      relevantDisciplines: ["Civil Engineering","Building Services Engineering","Construction"],
+      notes: 'Direct Year 2 Entry for PB Level 5 Diploma in Civil Engineering or IBTE Level 5 Diploma in Building Services / Engineering with cGPA >= 2.80. cGPA 2.50-2.79 accepted for Year 1.'
+    },
     duration: '4 Years',
     minPoints: 104,
     polytechnicAcceptance: 'Direct Year 2 Entry for PB Level 5 Diploma in Civil Engineering with cGPA ≥ 2.80 (saves 1 year of study). cGPA 2.50 - 2.79 accepted for Year 1.',
@@ -265,6 +345,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Engineering & Technology',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Direct Year 2',
+      relevantDisciplines: ["Chemical Engineering","Petroleum Engineering","Mechanical Engineering","Refinery and Petrochemical"],
+      notes: 'Direct Year 2 Entry for PB Level 5 Diploma in Chemical/Petroleum Engineering or IBTE Level 5 Diploma in Refinery & Petrochemical / Mechanical with cGPA >= 2.80.'
+    },
     duration: '4 Years',
     minPoints: 112,
     polytechnicAcceptance: 'Direct Year 2 Entry for PB Level 5 Diploma in Petrochemical / Mechanical Engineering with cGPA ≥ 3.00.',
@@ -293,6 +381,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Law & Shariah',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Strictly requires STPUB (Mumtaz/Jayyid Jiddan) or Arabic religious A-Levels. Technical diplomas are NOT accepted.'
+    },
     duration: '5 Years',
     minPoints: 104,
     gradeRequirementText: 'Minimum 104 UCAS points from 3 A-Levels (e.g. BCC) or Mumtaz in STPUB. Minimum Grade C in English O-Level and Arabic proficiency.',
@@ -317,6 +413,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Business, Economics & Finance',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Government University',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.8,
+      entryYear: 'Year 1',
+      relevantDisciplines: ["Islamic Finance","Business Accounting","Information Technology"],
+      notes: 'Accepts PB Level 5 Diploma in Business/Accounting or IBTE Level 5 Diploma in Business/Finance/IT with cGPA >= 2.80 and O-Level BM Credit.'
+    },
     duration: '4 Years',
     minPoints: 80,
     gradeRequirementText: 'Minimum 80 UCAS points from 2 A-Levels (e.g. CDD or BB) with credit in O-Level Mathematics.',
@@ -337,7 +441,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
   // --- Politeknik Brunei (PB) & IBTE Technical Qualifications ---
   {
     id: 'pb-it-diploma',
-    name: 'Level 5 Diploma in Information Technology',
+    name: 'Advanced Diploma in Information Technology',
     institution: 'Politeknik Brunei (School of ICT, Ong Sum Ping)',
     campusCountry: 'Brunei',
     field: 'Computer Science & AI',
@@ -363,7 +467,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
   },
   {
     id: 'pb-civil-diploma',
-    name: 'Level 5 Diploma in Civil Engineering',
+    name: 'Advanced Diploma in Civil Engineering',
     institution: 'Politeknik Brunei (School of Science & Engineering, Lumut Campus)',
     campusCountry: 'Brunei',
     field: 'Engineering & Technology',
@@ -389,7 +493,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
   },
   {
     id: 'pb-business-diploma',
-    name: 'Level 5 Diploma in Business Accounting and Finance',
+    name: 'Advanced Diploma in Business Accounting and Finance',
     institution: 'Politeknik Brunei (School of Business, Ong Sum Ping)',
     campusCountry: 'Brunei',
     field: 'Business, Economics & Finance',
@@ -894,7 +998,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
   },
   {
     id: 'lcb-btec-hnd-computing',
-    name: 'Pearson BTEC Level 5 Higher National Diploma (HND) in Computing',
+    name: 'Pearson BTEC Higher National Diploma (HND) in Computing',
     institution: 'Laksamana College of Business (LCB Brunei)',
     campusCountry: 'Brunei',
     field: 'Computer Science & AI',
@@ -931,6 +1035,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'University of Chester (United Kingdom)',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Final Year Top-Up (Year 3)',
+      
+            relevantDisciplines: ["Information Technology","Computer Science","Cybersecurity","Software Engineering"],
+notes: 'Guaranteed Direct Final-Year (Year 3 Top-Up) entry for PB Level 5 Diploma and IBTE Level 5 Diploma holders with cGPA >= 2.50. Earn UK University of Chester degree in 1 year! SBPP loan eligible.'
+    },
     duration: '3 Years (or 1-Year Final-Year Top-Up for PB Diploma holders)',
     minPoints: 64,
     tuitionFeeLocal: 'BND $21,000 total (BND $7,000/yr, 100% SBPP Loan eligible)',
@@ -958,6 +1071,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'University of Chester (United Kingdom)',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Final Year Top-Up (Year 3)',
+      
+            relevantDisciplines: ["Information Technology","Computer Science","Software Engineering","Web Development"],
+notes: 'Guaranteed Direct Final-Year (Year 3 Top-Up) entry for PB Level 5 Diploma and IBTE Level 5 Diploma holders with cGPA >= 2.50. Earn UK University of Chester degree in 1 year! SBPP loan eligible.'
+    },
     duration: '3 Years (or 1-Year Final-Year Top-Up for PB Diploma holders)',
     minPoints: 64,
     tuitionFeeLocal: 'BND $21,000 total (BND $7,000/yr, 100% SBPP Loan eligible)',
@@ -985,6 +1107,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'University of Chester (United Kingdom)',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Final Year Top-Up (Year 3)',
+      
+            relevantDisciplines: ["Business Accounting","Finance","Business Studies"],
+notes: 'Guaranteed Direct Final-Year (Year 3 Top-Up) entry for PB Level 5 Diploma and IBTE Level 5 Diploma holders with cGPA >= 2.50. Earn UK University of Chester degree in 1 year! SBPP loan eligible.'
+    },
     duration: '3 Years (or 1-Year Top-Up for PB Business Diploma)',
     minPoints: 64,
     tuitionFeeLocal: 'BND $19,500 total (BND $6,500/yr, 100% SBPP Loan eligible)',
@@ -1012,6 +1143,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'University of Essex (United Kingdom)',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Final Year Top-Up (Year 3)',
+      
+            relevantDisciplines: ["Business Studies","Business Administration","Marketing","Human Resource Management","Accounting"],
+notes: 'Guaranteed Direct Final-Year (Year 3 Top-Up) entry for PB Level 5 Diploma and IBTE Level 5 Diploma holders with cGPA >= 2.50. Earn UK University of Chester degree in 1 year! SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $20,000 total (100% SBPP Loan eligible)',
@@ -1037,6 +1177,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'University of Chester (United Kingdom)',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Final Year Top-Up (Year 3)',
+      
+            relevantDisciplines: ["Hospitality Management","Culinary Operations","Tourism","Business Studies"],
+notes: 'Guaranteed Direct Final-Year (Year 3 Top-Up) entry for PB Level 5 Diploma and IBTE Level 5 Diploma holders with cGPA >= 2.50. Earn UK University of Chester degree in 1 year! SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $19,500 total (100% SBPP Loan eligible)',
@@ -1118,6 +1267,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'Limkokwing University of Creative Technology',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Year 1 (Advanced Standing)',
+      
+            relevantDisciplines: ["Digital Media","Web Development","Design","Creative Multimedia"],
+notes: 'Accepts PB Level 5 and IBTE Level 5 Diplomas with advanced standing into Limkokwing bachelor degrees at KIGS. SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $18,000 total (BND $6,000/yr, 100% SBPP Loan eligible)',
@@ -1143,6 +1301,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'Limkokwing University of Creative Technology',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Year 1 (Advanced Standing)',
+      
+            relevantDisciplines: ["Digital Media","Web Development","Creative Multimedia","Information Technology"],
+notes: 'Accepts PB Level 5 and IBTE Level 5 Diplomas with advanced standing into Limkokwing bachelor degrees at KIGS. SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $18,000 total (BND $6,000/yr, 100% SBPP Loan eligible)',
@@ -1168,6 +1335,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'Limkokwing University of Creative Technology',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Year 1 (Advanced Standing)',
+      
+            relevantDisciplines: ["Information Technology","Computer Science","Network & Security","Web Development"],
+notes: 'Accepts PB Level 5 and IBTE Level 5 Diplomas with advanced standing into Limkokwing bachelor degrees at KIGS. SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $18,000 total (100% SBPP Loan eligible)',
@@ -1193,6 +1369,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'Limkokwing University of Creative Technology',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Year 1 (Advanced Standing)',
+      
+            relevantDisciplines: ["Business Studies","Business Administration","Marketing","Accounting"],
+notes: 'Accepts PB Level 5 and IBTE Level 5 Diplomas with advanced standing into Limkokwing bachelor degrees at KIGS. SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $18,000 total (100% SBPP Loan eligible)',
@@ -1239,7 +1424,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
   },
   {
     id: 'ccct-hnd-business-management',
-    name: 'Pearson BTEC Level 5 HND in Business Management',
+    name: 'Pearson BTEC Higher National Diploma (HND) in Business Management',
     institution: 'Cosmopolitan College of Commerce & Technology (CCCT Brunei)',
     campusCountry: 'Brunei',
     field: 'Business, Economics & Finance',
@@ -1300,6 +1485,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     programLevel: 'Undergraduate Degree',
     institutionType: 'Private College',
     partnerUniversity: 'University of Salford (Greater Manchester, UK)',
+    acceptsDiplomaLevel5: true,
+    diplomaLevel5Details: {
+      acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
+      minCgpa: 2.5,
+      entryYear: 'Final Year Top-Up (Year 3)',
+      
+            relevantDisciplines: ["Information Technology","Computer Science","Network & Security","Software Engineering"],
+notes: 'Accepts PB Level 5 and IBTE Level 5 IT Diplomas directly into Final Year Top-Up for University of Salford UK degree. SBPP loan eligible.'
+    },
     duration: '3 Years',
     minPoints: 64,
     tuitionFeeLocal: 'BND $20,400 total (BND $6,800/yr, 100% SBPP Loan eligible)',
@@ -1388,6 +1582,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years (Direct entry or 3 Yrs Clinical Partner for UBD PAPRSB IHS)',
     minPoints: 144,
     gradeRequirementText: 'Minimum 144 UCAS points (AAA at GCE A-Level in ONE sitting within 2 years with no grade below A). Mandatory Chemistry and one of Biology, Physics, or Mathematics. O-Level English Credit B3 or IELTS 7.0. Approved under MOE Overseas Scholarship (Circular 14/2025 Para 1.1.1) and top official partner of UBD PAPRSB IHS.',
@@ -1411,6 +1613,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years (Official Partner for UBD PAPRSB IHS Twinning)',
     minPoints: 144,
     gradeRequirementText: 'Minimum 144 UCAS points (AAA at A-Level in ONE sitting within 2 years, no grade below A) including Chemistry and Biology/Maths. O-Level English Credit B3. Fully approved under MOE Overseas Scholarship Circular 14/2025 Para 1.1.1.',
@@ -1434,6 +1644,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years',
     minPoints: 152,
     gradeRequirementText: 'A*AA to AAA at A-Level (144–152 UCAS points) including Chemistry and Biology. UCAT required. O-Level English Credit B3. Approved under MOE Overseas Scholarship Circular 14/2025 Para 1.1.1 and Sultan’s Scholar.',
@@ -1457,6 +1675,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years',
     minPoints: 144,
     gradeRequirementText: 'AAA at A-Level (144 UCAS points in ONE sitting within 2 years, no grade below A) including Chemistry and Biology. O-Level English Credit B3. Priority Course #2 under MOE Overseas Circular 14/2025.',
@@ -1480,6 +1706,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years',
     minPoints: 144,
     gradeRequirementText: 'AAA at A-Level (144 UCAS points) with Chemistry and Biology. Consistently ranked #1 in the UK for Dentistry. Approved under MOE Overseas Scholarship Circular 14/2025 Priority Course #2.',
@@ -1503,6 +1737,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '4 Years',
     minPoints: 120,
     gradeRequirementText: 'BBB at A-Level (120 UCAS points in ONE sitting within 2 years, no grade below C) with Chemistry and Biology/Maths. O-Level English C6. MOE Overseas Scholarship Circular 14/2025 Priority Course #3.',
@@ -1526,6 +1768,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 - 4 Years',
     minPoints: 120,
     gradeRequirementText: 'BBB at A-Level (120 UCAS points, no grade below C) with at least one Science subject (Biology, Chemistry, Physics, or Psychology). MOE Overseas Scholarship Circular 14/2025 Priority Course #5.',
@@ -1549,6 +1799,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 Years',
     minPoints: 120,
     gradeRequirementText: 'BBB at A-Level (120 UCAS points in ONE sitting, no grade below C) with Biology or Health Sciences. MOE Overseas Scholarship Circular 14/2025 Priority Course #6.',
@@ -1572,6 +1830,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '4 Years (with integrated clinical placements)',
     minPoints: 120,
     gradeRequirementText: 'BBB at A-Level (120 UCAS points, no grade below C) with Chemistry and Biology. British Dietetic Association (BDA) accredited. MOE Overseas Scholarship Circular 14/2025 Priority Course #7.',
@@ -1595,6 +1861,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 Years',
     minPoints: 120,
     gradeRequirementText: 'BBB at A-Level (120 UCAS points, no grade below C) with at least two Sciences (Biology, Physics, Chemistry, or Maths). MOE Overseas Scholarship Circular 14/2025 Priority Courses #8 & #9.',
@@ -1618,6 +1892,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 Years (50% clinical ambulance service placement)',
     minPoints: 120,
     gradeRequirementText: 'BBB at A-Level (120 UCAS points, no grade below C) with Biology or Science. MOE Overseas Scholarship Circular 14/2025 Priority Course #11.',
@@ -1641,6 +1923,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '4 Years',
     minPoints: 136,
     gradeRequirementText: 'AAB at A-Level (136 UCAS points in ONE sitting, no grade below C) with Chemistry and Biology. Top 20 World University (QSWU 2026). MOE Overseas Scholarship Circular 14/2025 Priority Course #14.',
@@ -1664,6 +1954,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '6 Years (Integrated Bachelor of Science)',
     minPoints: 152,
     gradeRequirementText: 'A*AA at A-Level (152 UCAS points in ONE sitting, with no grade below A) including Chemistry and Biology. UCAT required. O-Level English B3. MOE Overseas Scholarship Circular 14/2025 Para 1.1.1 and Sultan’s Scholar.',
@@ -1687,6 +1985,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '6 Years (Integrated BSc)',
     minPoints: 152,
     gradeRequirementText: 'A*AA at A-Level (152 UCAS points in ONE sitting, no grade below A) including Chemistry and Biology. O-Level English Credit B3. MOE Overseas Scholarship Circular 14/2025 Para 1.1.1 and Sultan’s Scholar eligible.',
@@ -1710,6 +2016,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '6 Years (3 Yrs Pre-clinical BA + 3 Yrs Clinical BM BCh)',
     minPoints: 152,
     gradeRequirementText: 'A*AA at A-Level (152 UCAS points in ONE sitting within 2 years, no grade below A). Chemistry mandatory plus at least one of Biology, Physics, or Mathematics. UCAT required. O-Level English Credit B3. Approved under Sultan’s Scholar and MOE Overseas Scholarship Circular 14/2025 Para 1.1.1.',
@@ -1733,6 +2047,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '6 Years (3 Yrs Pre-clinical BA + 3 Yrs Clinical MB, BChir)',
     minPoints: 160,
     gradeRequirementText: 'A*A*A at A-Level (160 UCAS points in ONE sitting within 2 years). Chemistry and one of Biology/Physics/Mathematics mandatory. Admissions assessment required. O-Level English Credit B3. Approved under Sultan’s Scholar and MOE Overseas Scholarship Circular 14/2025 Para 1.1.1.',
@@ -1756,6 +2078,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years',
     minPoints: 144,
     gradeRequirementText: 'AAA at A-Level (144 UCAS points in ONE sitting within 2 years, no grade below A) including Chemistry and Biology. UCAT required. O-Level English Credit B3. Priority Course #1 under MOE Overseas Circular 14/2025. Historic high-reputation choice for Brunei scholarship recipients.',
@@ -1779,6 +2109,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years',
     minPoints: 144,
     gradeRequirementText: 'AAA at A-Level (144 UCAS points in ONE sitting within 2 years, no grade below A) including Chemistry and Biology. UCAT required. O-Level English Credit B3. Priority Course #2 under MOE Overseas Circular 14/2025.',
@@ -1802,6 +2140,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '6 Years (Includes intercalated honours year)',
     minPoints: 144,
     gradeRequirementText: 'AAA at A-Level (144 UCAS points in ONE sitting, no grade below A) with Chemistry and one of Biology, Mathematics, or Physics. UCAT required. O-Level English Credit B3. MOE Overseas Circular 14/2025 Priority Course #1 and Sultan’s Scholar approved.',
@@ -1825,6 +2171,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '5 Years',
     minPoints: 144,
     gradeRequirementText: 'AAA at A-Level (144 UCAS points in ONE sitting within 2 years, no grade below A) with Chemistry and Biology. UCAT required. O-Level English Credit B3. Priority Course #2 under MOE Overseas Scholarship Circular 14/2025.',
@@ -1850,6 +2204,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Computer Science & AI',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '4 Years (Integrated Master)',
     minPoints: 160,
     gradeRequirementText: 'A*A*A to A*AAA at A-Level (152–160+ UCAS points), with A* in Mathematics and A in Further Mathematics strongly recommended. Approved under MOE Overseas Scholarship, Sultan’s Scholar, and SBPP.',
@@ -1873,6 +2235,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Engineering & Technology',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 - 4 Years',
     minPoints: 136,
     gradeRequirementText: 'A*AA to AAA at A-Level (136–144 UCAS points) including Mathematics and Physics. Approved under MOE Overseas Scholarship, BSP Scholarship, and SBPP.',
@@ -1896,6 +2266,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Architecture & Built Environment',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 Years (RIBA Part 1)',
     minPoints: 136,
     gradeRequirementText: 'AAB at A-Level (136 UCAS points) plus portfolio assessment. MOE Overseas Scholarship priority subject for sustainable urban design; fully SBPP approved.',
@@ -1921,6 +2299,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Computer Science & AI',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '3 Years',
     minPoints: 128,
     gradeRequirementText: 'ABB to AAB at A-Level (128–136 UCAS points, approx ATAR 88-92 equivalent), including Mathematics. MOE Overseas Scholarship & SBPP eligible.',
@@ -1946,6 +2332,14 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Medicine & Health Sciences',
     programLevel: 'Undergraduate Degree',
     institutionType: 'Overseas University',
+    acceptsDiplomaLevel5: false,
+    diplomaLevel5Details: {
+      acceptedInstitutions: [],
+      minCgpa: 4,
+      entryYear: 'Year 1',
+      
+      notes: 'Overseas degree programme strictly requires GCE A-Levels or IB for direct undergraduate admission. Does not accept direct Level 5 diploma articulation.'
+    },
     duration: '4 Years',
     minPoints: 120,
     gradeRequirementText: 'Minimum 120 UCAS points (approx BBB at A-Level) with Chemistry and Biology/Maths. Accredited by MKPK and Brunei Pharmacy Board.',

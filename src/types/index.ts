@@ -89,6 +89,14 @@ export interface UniversityProgram {
   foundationProgression?: string;  // e.g. "Direct progression to Year 1 BA (Hons) or BSc (Hons) degrees"
   polytechnicAcceptance?: string;  // e.g. "Accepts PB Level 5 Diploma (cGPA 2.80+ / Merit) with credit exemption / direct Year 2 entry"
   ibteAcceptance?: string;         // e.g. "Direct entry with IBTE HNTec with Merit / Distinction into PB Diploma or Private College"
+  acceptsDiplomaLevel5?: boolean;  // Calibrated: explicitly flags whether this degree program considers/accepts BNQF Level 5 Diplomas (Politeknik Brunei Diploma and IBTE Diploma Level 5)
+  diplomaLevel5Details?: {
+    acceptedInstitutions: ('Politeknik Brunei' | 'IBTE' | 'All Level 5 Diplomas')[];
+    minCgpa: number;               // e.g. 2.80 for direct Year 2 UTB, 3.00 for UBD SBE, 2.50 for Year 1 / Private
+    entryYear: 'Direct Year 2' | 'Year 1 (Advanced Standing)' | 'Year 1' | 'Final Year Top-Up (Year 3)';
+    relevantDisciplines?: string[]; // e.g. ["Information Technology", "Mechanical Engineering", "Civil Engineering"]
+    notes: string;                 // Detailed admission advice & faculty rules
+  };
   duration: string;
   minPoints: number;
   gradeRequirementText: string;
