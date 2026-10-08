@@ -211,7 +211,7 @@ export function getQualificationDetails(profile: StudentProfile) {
       pointsDisplay: `cGPA ${cgpa.toFixed(2)} (${classification})`,
       equivTariff: tariff,
       progressionText: isYear2Eligible 
-        ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions, or Final-Year UK Degree Top-Up at LCB'
+        ? '✓ Eligible to apply for Direct Year 2 Entry into UTB (case-to-case basis) & UBD Degree Programmes with Credit Exemptions, or Final-Year UK Degree Top-Up at LCB'
         : '✓ Eligible for Degree Admission into local and private universities (LCB Chester / KIGS Limkokwing)',
       levelTag: 'Advanced Diploma',
       classification,
@@ -230,7 +230,7 @@ export function getQualificationDetails(profile: StudentProfile) {
       pointsDisplay: `cGPA ${cgpa.toFixed(2)} (${classification})`,
       equivTariff: tariff,
       progressionText: isYear2Eligible 
-        ? '✓ Eligible for Direct Year 2 Entry into UTB & UBD Degree Programmes with Credit Exemptions'
+        ? '✓ Eligible to apply for Direct Year 2 Entry into UTB (case-to-case basis) & UBD Degree Programmes with Credit Exemptions'
         : '✓ Eligible for Degree Admission into local and private universities',
       levelTag: 'Diploma',
       classification,
@@ -250,7 +250,7 @@ export function getQualificationDetails(profile: StudentProfile) {
         scoreText: `${award} (cGPA ${cgpa.toFixed(2)} / 4.00)`,
         pointsDisplay: `Diploma (${award})`,
         equivTariff: tariff,
-        progressionText: '✓ Direct Year 2 Entry into UTB BEng / BSc degree programmes with credit exemptions',
+        progressionText: '✓ Direct Year 2 Entry into UTB BEng / BSc degree programmes considered on a case-to-case basis with credit exemptions',
         levelTag: 'Diploma',
         isPbEligible: true
       };
@@ -440,7 +440,7 @@ export function evaluateScholarshipReadiness(
     localGovtNotice = !hasMalayCredit
       ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'
       : cgpa >= 2.80 
-      ? 'Direct Year 2 UTB/UBD Degree with Full Scholarship + $350/mo allowance'
+      ? 'UTB Direct Year 2 (Case-by-Case) / UBD Degree with Full Scholarship + $350/mo allowance'
       : 'Degree Admission Eligible (Tuition-free + $350/mo allowance)';
   } else if (qualType === 'HNTec-IBTE') {
     const award = profile?.ibteAward || 'Merit';
@@ -450,7 +450,7 @@ export function evaluateScholarshipReadiness(
     localGovtNotice = !hasMalayCredit
       ? 'Fee-Paying Status: Admitted without scholarship allowance due to missing BM Credit (C6)'
       : isDip 
-      ? 'Level 5 Diploma Qualified (Tuition-free + $350/mo allowance, articulates to UTB)' 
+      ? 'Level 5 Diploma Qualified (Tuition-free + $350/mo allowance, articulates to UTB on case-to-case basis)' 
       : 'Scholarship Qualified for PB Level 5 Diploma (Tuition-free + $350/mo allowance)';
   } else {
     localGovtEligible = isCitizen && tariffPoints >= 64 && hasMalayCredit;
@@ -494,7 +494,7 @@ export function evaluateScholarshipReadiness(
       isFeePaying: isCitizen && !hasMalayCredit,
       gap: tariffPoints >= 64 ? 0 : 64 - tariffPoints,
       hasMalayCredit,
-      benchmark: qualType === 'Politeknik-Diploma' ? 'Direct Year 2 UTB/UBD (cGPA ≥ 2.80) + BM Credit C6' : qualType === 'HNTec-IBTE' ? 'Direct PB Level 5 Entry with Merit/Distinction + BM Credit C6' : 'Min 64–112 pts + Yellow IC + Credit in O-Level Bahasa Melayu',
+      benchmark: qualType === 'Politeknik-Diploma' || qualType === 'IBTE-Diploma' ? 'UTB Year 2 (Case-by-Case, cGPA ≥ 2.80) / UBD + BM Credit C6' : qualType === 'HNTec-IBTE' ? 'Direct PB Entry with Merit/Distinction + BM Credit C6' : 'Min 64–112 pts + Yellow IC + Credit in O-Level Bahasa Melayu',
       statusNotice: localGovtNotice
     }
   };
@@ -861,7 +861,7 @@ export function checkProgramEligibility(
     );
 
     const entryYear = program.diplomaLevel5Details?.entryYear || (
-      program.institution.includes('UTB') ? 'Direct Year 2' :
+      program.institution.includes('UTB') ? 'Direct Year 2 (Case-by-Case)' :
       program.institution.includes('LCB') ? 'Final Year Top-Up (Year 3)' :
       'Direct Degree Entry'
     );
@@ -876,7 +876,7 @@ export function checkProgramEligibility(
         entryYear,
         minCgpaRequired: minCgpa,
         requiredDisciplinesText,
-        reason: `Discipline Mismatch: This degree requires a Level 5 Diploma in ${requiredDisciplinesText}. (Your diploma is in ${studentDiplomaName}).`
+        reason: `Discipline Mismatch: This degree requires a Diploma in ${requiredDisciplinesText}. (Your diploma is in ${studentDiplomaName}).`
       };
     }
 
@@ -884,6 +884,8 @@ export function checkProgramEligibility(
     const studentCgpa = profile.qualificationType === 'Politeknik-Diploma'
       ? (profile.pbCgpa ?? 3.45)
       : (profile.ibteCgpa ?? 3.40);
+
+    const isUtbYear2 = program.institution.includes('UTB') && entryYear.includes('Year 2');
 
     if (studentCgpa >= minCgpa) {
       return {
@@ -894,7 +896,9 @@ export function checkProgramEligibility(
         entryYear,
         minCgpaRequired: minCgpa,
         requiredDisciplinesText,
-        reason: `Matches discipline requirement! Accepts your ${studentDiplomaName} for ${entryYear} (Your cGPA ${studentCgpa.toFixed(2)} ≥ required ${minCgpa.toFixed(2)}).`
+        reason: isUtbYear2
+          ? `Matches discipline requirement! Meets minimum cGPA ${minCgpa.toFixed(2)} to be considered for UTB Direct Year 2 on a case-to-case basis (final Year 2 entry depends on faculty curriculum mapping and credit exemptions).`
+          : `Matches discipline requirement! Accepts your ${studentDiplomaName} for ${entryYear} (Your cGPA ${studentCgpa.toFixed(2)} ≥ required ${minCgpa.toFixed(2)}).`
       };
     } else {
       return {
@@ -905,7 +909,9 @@ export function checkProgramEligibility(
         entryYear,
         minCgpaRequired: minCgpa,
         requiredDisciplinesText,
-        reason: `Matches degree discipline (${studentDiplomaName}), but requires minimum cGPA ${minCgpa.toFixed(2)} for ${entryYear} (Your cGPA: ${studentCgpa.toFixed(2)}).`
+        reason: isUtbYear2
+          ? `Matches degree discipline (${studentDiplomaName}), but requires minimum cGPA ${minCgpa.toFixed(2)} to be considered for UTB Direct Year 2 on a case-to-case basis (Your cGPA: ${studentCgpa.toFixed(2)}). Applicants below ${minCgpa.toFixed(2)} may be considered for Year 1.`
+          : `Matches degree discipline (${studentDiplomaName}), but requires minimum cGPA ${minCgpa.toFixed(2)} for ${entryYear} (Your cGPA: ${studentCgpa.toFixed(2)}).`
       };
     }
   }

@@ -514,7 +514,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma with industrial attachment at Pulau Muara Besar)',
     overview: 'Flagship Level 5 Diploma joint training programme with Hengyi Industries. Prepares specialized plant chemical technicians and process operators for Brunei’s multibillion-dollar downstream petrochemical refinery at Pulau Muara Besar with conditional employment upon graduation.',
     keyCompetencies: ['Petroleum refining processes', 'Distillation & cracking operations', 'Chemical plant safety & HAZOP', 'DCS control room monitoring'],
-    utbDegreeTarget: 'BEng (Hons) in Chemical Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Chemical Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Hengyi Industries (Pulau Muara Besar)', 'Brunei Fertilizer Industries (BFI)', 'Brunei Shell Petroleum (BSP)', 'Brunei LNG'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Chemistry, Physics or Combined Science, and pass in English.'
   },
@@ -528,7 +528,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Comprehensive instrumentation and industrial automation engineering covering PLC programming, SCADA systems, industrial robotics, sensor calibration, and distributed control systems (DCS).',
     keyCompetencies: ['PLC & SCADA programming', 'Instrumentation & valve calibration', 'Industrial IoT & robotics', 'Closed-loop process control'],
-    utbDegreeTarget: 'BEng (Hons) in Mechatronics / Electrical & Electronic Engineering',
+    utbDegreeTarget: 'BEng (Hons) in Mechatronics / Electrical & Electronic Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Hengyi Industries', 'Brunei Shell Petroleum (BSP)', 'Brunei LNG', 'B-Mobile / UNN Infrastructure'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics / Combined Science, and pass in English.'
   },
@@ -542,7 +542,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Industry-standard mechanical engineering qualification covering thermodynamics, fluid mechanics, CAD/CAM manufacturing, rotating equipment maintenance, and plant machinery inspection.',
     keyCompetencies: ['CAD 3D modeling & FEA analysis', 'Pumps, compressors & turbine overhaul', 'Piping design & vibration analysis', 'Quality assurance & workshop safety'],
-    utbDegreeTarget: 'BEng (Hons) in Mechanical Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Mechanical Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Brunei Shell Petroleum (BSP)', 'Brunei Gas Carriers (BGC)', 'Bangar / Muara Port engineering', 'Royal Brunei Airlines Engineering'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Combined Science, and pass in English.'
   },
@@ -556,7 +556,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Advanced study of power generation, electrical grid distribution, renewable solar PV systems, electronic circuit design, and microcontroller automation for Brunei national infrastructure.',
     keyCompetencies: ['High voltage distribution & switchgear', 'Solar PV grid integration', 'Microcontroller embedded programming', 'Electrical installation & testing'],
-    utbDegreeTarget: 'BEng (Hons) in Electrical & Electronic Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Electrical & Electronic Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Department of Electrical Services (DES)', 'Berakas Power Management Company (BPMC)', 'UNN', 'Petrochemical industrial complexes'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Combined Science, and pass in English.'
   },
@@ -654,7 +654,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'In-depth qualification in structural analysis, geotechnical site investigation, highway and transportation engineering, hydraulic drainage design, and concrete technology for Brunei national infrastructure projects.',
     keyCompetencies: ['AutoCAD & Civil 3D infrastructure modeling', 'Concrete, soil & asphalt lab testing', 'Structural steel & reinforced concrete detailing', 'Site surveying & project management'],
-    utbDegreeTarget: 'BEng (Hons) in Civil Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Civil Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Jabatan Kerja Raya (JKR)', 'Daelim / Swee Construction', 'Jururoto Konsultant', 'Leading civil engineering contractors'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics or Combined Science, and pass in English, OR HNTec in Construction with Merit.'
   },
@@ -710,7 +710,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Cutting-edge diploma addressing national digital transformation priorities: Python data science, Power BI business intelligence, SQL data warehousing, machine learning fundamentals, and AWS/Azure cloud computing.',
     keyCompetencies: ['Python & R statistical data analysis', 'Power BI & Tableau interactive dashboards', 'Cloud infrastructure setup (AWS/Azure)', 'ETL pipelines & SQL warehousing'],
-    utbDegreeTarget: 'BSc (Hons) in Computing (Data Analytics / AI) (UTB Direct Year 2)',
+    utbDegreeTarget: 'BSc (Hons) in Computing (Data Analytics / AI) (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Unified National Networks (UNN)', 'Dynamik Technologies', 'Brunei Innovation Lab (BIL)', 'Fintech, banks & government data units'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Science / Commerce, and pass in English, OR HNTec in IT / Computer Systems with Merit.'
   },
@@ -724,7 +724,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Network infrastructure engineering, Cisco routing and switching, firewall defense, vulnerability assessment, ethical hacking concepts, and digital forensics aligned with international security certifications.',
     keyCompetencies: ['Cisco CCNA enterprise routing & switching', 'Firewall, VPN & IPS configuration', 'Vulnerability scanning & penetration testing', 'Incident response & security monitoring'],
-    utbDegreeTarget: 'BSc (Hons) in Computing (Cyber Security) (UTB Direct Year 2)',
+    utbDegreeTarget: 'BSc (Hons) in Computing (Cyber Security) (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Cyber Security Brunei (CSB / BruCERT)', 'UNN Security Operations Center (SOC)', 'Telecommunication operators', 'Financial banking institutions'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Science, and pass in English, OR HNTec in IT Networking with Merit.'
   },
@@ -738,7 +738,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Creative frontend and backend web engineering, UI/UX prototyping with Figma, React/JavaScript application development, 2D/3D digital motion design, and mobile app programming.',
     keyCompetencies: ['React, JavaScript & responsive web design', 'UI/UX interface prototyping in Figma', 'Motion graphics & video editing', 'Cross-platform mobile app development'],
-    utbDegreeTarget: 'BSc (Hons) in Digital Media (UTB Direct Year 2) / BA (Hons) Creative Multimedia',
+    utbDegreeTarget: 'BSc (Hons) in Digital Media (UTB Year 2 Direct - Case-by-Case Basis) / BA (Hons) Creative Multimedia',
     industryOpportunities: ['Creative digital agencies', 'Software houses & startups', 'RTB media production', 'Corporate communications & marketing teams'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Art / Science, and pass in English, OR HNTec in Digital Media with Merit.'
   },
@@ -920,7 +920,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Heavy industrial plant operations, steam generation boilers, high-pressure piping, gas turbines, process plant safety, and rotating machinery monitoring for energy and manufacturing complexes.',
     keyCompetencies: ['Boiler operation & steam cycle thermodynamics', 'Pressure vessel & piping inspection', 'Condition monitoring & vibration analysis', 'Process safety management (PSM)'],
-    utbDegreeTarget: 'BEng (Hons) in Mechanical / Chemical Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Mechanical / Chemical Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Brunei LNG (BLNG)', 'Brunei Fertilizer Industries (BFI)', 'Hengyi Industries', 'Power generation plants (DES/BPMC)'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics / Combined Science, and pass in English.'
   },
@@ -934,7 +934,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Industrial unit operations, heat and mass transfer, reaction engineering, chemical process control, effluent treatment, and petrochemical plant economics.',
     keyCompetencies: ['Mass & energy balance calculation', 'Chemical reactor operation & monitoring', 'Effluent treatment & hazardous waste handling', 'Laboratory analytical chemistry & GC-MS'],
-    utbDegreeTarget: 'BEng (Hons) in Chemical Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Chemical Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Brunei Fertilizer Industries (BFI)', 'Hengyi Industries (PMB)', 'Brunei Shell Petroleum (BSP)', 'Industrial water treatment plants'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Chemistry, Physics / Science, and pass in English.'
   },
@@ -948,7 +948,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Fiber optic transmission infrastructure, 5G cellular wireless networks, microwave links, IP telephony, and telecommunication satellite communications for Unified National Networks (UNN).',
     keyCompetencies: ['Fiber optic OTDR testing & fusion splicing', '5G / 4G base station commissioning & RF testing', 'IP telecommunications & VOIP routing', 'Telecom power & battery backup systems'],
-    utbDegreeTarget: 'BEng (Hons) in Telecommunications / Electrical & Electronic Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Telecommunications / Electrical & Electronic Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Unified National Networks (UNN)', 'Progresif / DST / imagine', 'Offshore telecom maintenance contractors', 'Authority for Info-communications Technology Industry (AITI)'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics / Science, and pass in English.'
   },
@@ -962,7 +962,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Analog and digital signal processing, RF wireless communications, microelectronics and PCB fabrication, embedded IoT sensor systems, and biomedical instrumentation servicing.',
     keyCompetencies: ['PCB layout design & surface mount soldering', 'RF signal spectrum analysis & troubleshooting', 'Microcontroller firmware development (C/C++)', 'Electronic device repair & calibration'],
-    utbDegreeTarget: 'BEng (Hons) in Electrical and Electronic Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Electrical and Electronic Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['UNN transmission teams', 'Biomedical engineering at RIPAS Hospital', 'Industrial electronics service providers', 'Royal Brunei Armed Forces electronics unit'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics / Science, and pass in English.'
   },
@@ -976,7 +976,7 @@ export const IBTE_DIPLOMA_CATALOG: IbteDiplomaProgram[] = [
     duration: '3 Years (Level 5 Diploma)',
     overview: 'Precision process instrumentation, pressure/temperature/flow transmitter calibration, smart control valves, Safety Instrumented Systems (SIS), and industrial process loop tuning.',
     keyCompetencies: ['HART communicator calibration & loop testing', 'Control valve overhaul & positioner setup', 'Triconex / Emerson DeltaV DCS monitoring', 'Hazardous area Ex-equipment certification'],
-    utbDegreeTarget: 'BEng (Hons) in Mechatronics / Electrical Engineering (UTB Direct Year 2)',
+    utbDegreeTarget: 'BEng (Hons) in Mechatronics / Electrical Engineering (UTB Year 2 Direct - Case-by-Case Basis)',
     industryOpportunities: ['Brunei Shell Petroleum (BSP Instrument Dept)', 'Brunei LNG', 'Hengyi Industries', 'Specialist instrumentation service vendors'],
     entryRequirements: 'Minimum 4 GCE O-Levels with credits in Mathematics, Physics / Science, and pass in English.'
   },

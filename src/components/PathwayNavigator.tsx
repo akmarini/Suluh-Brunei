@@ -245,9 +245,9 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
             </h2>
             <p className="text-sm text-slate-600 mt-1">
               {profile.qualificationType === 'Politeknik-Diploma'
-                ? 'Input your Politeknik Brunei (PB) Advanced Diploma cGPA to evaluate direct Year 2 entry into UTB/UBD and degree pathways.'
+                ? 'Input your Politeknik Brunei (PB) Advanced Diploma cGPA to evaluate degree pathways and direct Year 2 entry into UTB (case-to-case basis) / UBD.'
                 : profile.qualificationType === 'IBTE-Diploma'
-                ? 'Input your IBTE Diploma cGPA to evaluate direct Year 2 entry into UTB/UBD, MoE Overseas and degree pathways.'
+                ? 'Input your IBTE Diploma cGPA to evaluate degree pathways and direct Year 2 entry into UTB (case-to-case basis) / UBD, MoE Overseas.'
                 : profile.qualificationType === 'HNTec-IBTE'
                 ? 'Input your IBTE HNTec certification and award level to evaluate Politeknik Brunei and higher diploma / degree progression.'
                 : 'Input your actual or predicted academic qualifications to calculate equivalent entry points and unlock matching university pathways.'}
@@ -297,7 +297,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                   <div className="flex items-center gap-1.5">
                     <span className={`w-2 h-2 rounded-full ${((profile.qualificationType === 'IBTE-Diploma' ? (profile.ibteCgpa ?? 3.40) : (profile.pbCgpa ?? 3.45))) >= 2.8 ? 'bg-emerald-500' : 'bg-slate-300'}`} />
                     <span className={((profile.qualificationType === 'IBTE-Diploma' ? (profile.ibteCgpa ?? 3.40) : (profile.pbCgpa ?? 3.45))) >= 2.8 ? 'text-emerald-800 font-semibold' : 'text-slate-500'}>
-                      UTB Year 2 Direct
+                      UTB Year 2 (Case-by-Case)
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -613,15 +613,15 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 }`}>
                   <div className="flex items-center gap-1.5 font-bold mb-1">
                     <CheckCircle2 className={`w-3.5 h-3.5 ${(profile.pbCgpa ?? 3.45) >= 2.80 ? 'text-emerald-600' : 'text-slate-400'}`} />
-                    <span>UTB Direct Year 2 Entry</span>
+                    <span>UTB Year 2 (Case-by-Case)</span>
                   </div>
                   {(profile.pbCgpa ?? 3.45) >= 2.80 ? (
                     <span className="text-[11px] text-emerald-800">
-                      <strong>Qualified!</strong> Receive advanced standing and full 1-year credit exemptions into UTB Computing or Engineering degrees.
+                      <strong>Threshold Met (cGPA ≥ 2.80):</strong> Eligible to apply for Direct Year 2. Note: Direct Year 2 admission is granted on a <strong>case-to-case basis</strong> subject to faculty syllabus mapping &amp; module exemptions; otherwise Year 1 admission applies.
                     </span>
                   ) : (
                     <span className="text-[11px] text-slate-500">
-                      Requires cGPA 2.80+ (or department interview) for Year 2 direct entry.
+                      Requires cGPA 2.80+ to be considered for Year 2 direct entry (granted on a case-to-case basis). Applicants below 2.80 are considered for Year 1.
                     </span>
                   )}
                 </div>
@@ -977,12 +977,12 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                 <div className="p-3 rounded-lg border bg-amber-50/80 border-amber-200 text-amber-950 leading-relaxed">
                   <div className="flex items-center gap-1.5 font-bold mb-1">
                     <Sparkles className="w-3.5 h-3.5 text-amber-700" />
-                    <span>Fast-Track to Degree</span>
+                    <span>Degree Progression</span>
                   </div>
                   <span className="text-[11px] text-amber-900">
                     {profile.qualificationType === 'IBTE-Diploma' || profile.ibteProgram?.toLowerCase().includes('diploma')
-                      ? 'IBTE Diploma → Direct Year 2 Entry into UTB & UBD Degree Programmes (or 1-Year Top-up UK Degree)!'
-                      : 'Step 1: IBTE HNTec → Step 2: PB Advanced Diploma (or BTEC HND) → Step 3: Direct Year 2 at UTB or 1-Year Top-up UK Degree!'}
+                      ? 'IBTE Diploma → Eligible for Direct Year 2 at UTB (case-to-case basis) & UBD degree programmes (or 1-Year Top-up UK Degree)!'
+                      : 'Step 1: IBTE HNTec → Step 2: PB Advanced Diploma (or BTEC HND) → Step 3: UTB Year 2 (case-to-case) or 1-Year Top-up UK Degree!'}
                   </span>
                 </div>
               </div>
@@ -1626,7 +1626,13 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                       {isEligible ? (
                         <span className="flex items-center gap-1 text-emerald-700 font-semibold whitespace-nowrap bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-[11px]">
                           <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
-                          <span>{eligibility.entryYear ? `${eligibility.entryYear} Eligible` : 'Eligible'}</span>
+                          <span>
+                            {eligibility.entryYear
+                              ? eligibility.entryYear.includes('Case-by-Case')
+                                ? eligibility.entryYear
+                                : `${eligibility.entryYear} Eligible`
+                              : 'Eligible'}
+                          </span>
                         </span>
                       ) : !eligibility.qualificationAccepted ? (
                         <span className="flex items-center gap-1 text-slate-700 font-semibold whitespace-nowrap bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-[11px]">
@@ -1681,7 +1687,7 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                               <span>Diploma Articulation ({prog.diplomaLevel5Details?.entryYear || 'Direct Degree Entry'})</span>
                               {isEligible ? (
                                 <span className="bg-emerald-200 text-emerald-950 text-[10px] px-2 py-0.5 rounded font-semibold">
-                                  ✓ Qualified (cGPA Satisfied)
+                                  {prog.institution.includes('UTB') ? '✓ Threshold Met (Case-by-Case Entry)' : '✓ Qualified (cGPA Satisfied)'}
                                 </span>
                               ) : (
                                 <span className="bg-amber-100 text-amber-900 border border-amber-200 text-[10px] px-2 py-0.5 rounded font-semibold">
@@ -1692,6 +1698,11 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                             <div className="text-emerald-800 text-[11px] mt-1">
                               {prog.diplomaLevel5Details?.notes || prog.polytechnicAcceptance || 'Recognized for direct advanced entry.'}
                             </div>
+                            {prog.institution.includes('UTB') && (
+                              <div className="text-[10px] font-semibold text-amber-800 bg-amber-100/80 px-1.5 py-0.5 rounded mt-1.5 inline-block">
+                                ⚠️ Note: Direct Year 2 entry is evaluated strictly on a case-to-case basis by UTB faculty.
+                              </div>
+                            )}
                           </div>
                         </div>
                       ) : (
@@ -1968,6 +1979,11 @@ export const PathwayNavigator: React.FC<PathwayNavigatorProps> = ({
                       <p className="leading-relaxed text-xs">
                         {activeModalProgram.diplomaLevel5Details?.notes || activeModalProgram.polytechnicAcceptance}
                       </p>
+                      {activeModalProgram.institution.includes('UTB') && (
+                        <div className="mt-1.5 p-2 rounded-lg bg-amber-100/80 border border-amber-300 text-amber-950 text-[11px] leading-relaxed">
+                          <strong>⚠️ UTB Admission Regulation:</strong> Direct entry into UTB Year 2 is evaluated strictly on a <strong>case-to-case basis</strong> by the university faculty board. Fulfilling the minimum cGPA requirement (≥ 2.80) permits application review, but admission into Year 2 depends on detailed diploma course mapping and module credit exemptions. Where credit exemptions are insufficient, applicants are offered entry into Year 1.
+                        </div>
+                      )}
                       {isLevel5Student && !modalElig.disciplineMatched && (
                         <div className="mt-1 text-[11px] text-amber-900 font-medium bg-amber-100/70 p-2 rounded border border-amber-200">
                           <strong>Prerequisite Notice:</strong> This degree program requires a relevant diploma in <strong>{modalElig.requiredDisciplinesText || getDisciplineRequirementLabel(getProgramDisciplineRequirements(activeModalProgram))}</strong>. Your diploma ({studentDipName}) does not satisfy this specific entry requirement.

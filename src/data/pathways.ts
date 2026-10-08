@@ -281,15 +281,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     diplomaLevel5Details: {
       acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
       minCgpa: 2.8,
-      entryYear: 'Direct Year 2',
+      entryYear: 'Direct Year 2 (Case-by-Case)',
       relevantDisciplines: ["Information Technology","Computer Science","Cybersecurity","Software Engineering"],
-      notes: 'Direct Year 2 Entry into UTB BSc Computing for PB Level 5 Diploma or IBTE Level 5 Diploma (e.g. Diploma in IT) holders with cGPA >= 2.80. Complete bachelor degree in 2 years!'
+      notes: 'Direct Year 2 Entry into UTB BSc Computing for PB Advanced Diploma or IBTE Diploma (e.g. Diploma in IT) holders with cGPA >= 2.80 is strictly on a case-to-case basis (subject to faculty syllabus mapping and module exemptions; otherwise Year 1 admission applies).'
     },
     duration: '3 Years (Option for UTB Experience+ industry placement)',
     minPoints: 96,
-    polytechnicAcceptance: 'Direct Year 2 Entry (Advanced Standing) for PB Level 5 Diploma in IT / Computing with cGPA ≥ 2.80! Complete degree in just 2 years.',
-    ibteAcceptance: 'Graduates with IBTE HNTec in IT / Networking with Merit progress to PB Level 5 Diploma, which unlocks UTB Year 2 Direct.',
-    gradeRequirementText: 'Minimum 96 UCAS points across 3 A-Levels (e.g. CCC) or 80 across 2 A-Levels, OR Politeknik Brunei Level 5 Diploma in IT (cGPA 2.80+ for Direct Year 2 Entry).',
+    polytechnicAcceptance: 'Direct Year 2 Entry (Advanced Standing) considered on a case-to-case basis for PB Advanced Diploma in IT / Computing with cGPA ≥ 2.80 (subject to faculty module evaluation; otherwise Year 1 entry).',
+    ibteAcceptance: 'Graduates with relevant IBTE Diploma or PB Advanced Diploma considered for UTB Year 2 Direct on a case-to-case basis with cGPA ≥ 2.80.',
+    gradeRequirementText: 'Minimum 96 UCAS points across 3 A-Levels (e.g. CCC) or 80 across 2 A-Levels, OR Politeknik Brunei Advanced Diploma / IBTE Diploma in IT (cGPA 2.80+ considered for Direct Year 2 on a case-to-case basis).',
     subjectPrerequisites: ['Mathematics or Computing'],
     hecasCode: 'UTB-SCI01',
     isScholarshipEligible: true,
@@ -299,7 +299,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     localGovtApproved: true,
     mkpkAccredited: true,
     moePrioritySector: 'ICT & Cyber Security (Cluster 4)',
-    overview: 'Accredited by BCS (The Chartered Institute for IT). Direct advanced standing for PB Level 5 Diploma holders with full credit exemptions for Year 1.',
+    overview: 'Accredited by BCS (The Chartered Institute for IT). Direct advanced standing for PB Advanced Diploma holders with credit exemptions considered on a case-to-case basis.',
     careerPathways: ['Cybersecurity Specialist at Cyber Security Brunei (CSB)', 'Full-Stack Developer', 'IT Infrastructure Engineer at Unified National Networks (UNN)'],
     officialUrl: 'https://sci.utb.edu.bn'
   },
@@ -315,15 +315,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     diplomaLevel5Details: {
       acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
       minCgpa: 2.8,
-      entryYear: 'Direct Year 2',
+      entryYear: 'Direct Year 2 (Case-by-Case)',
       relevantDisciplines: ["Civil Engineering","Building Services Engineering","Construction"],
-      notes: 'Direct Year 2 Entry for PB Level 5 Diploma in Civil Engineering or IBTE Level 5 Diploma in Building Services / Engineering with cGPA >= 2.80. cGPA 2.50-2.79 accepted for Year 1.'
+      notes: 'Direct Year 2 Entry for PB Advanced Diploma in Civil Engineering or IBTE Diploma in Building Services / Engineering with cGPA >= 2.80 is evaluated strictly on a case-to-case basis by the faculty. Applicants not granted Year 2 enter Year 1 (cGPA 2.50-2.79 accepted for Year 1).'
     },
     duration: '4 Years',
     minPoints: 104,
-    polytechnicAcceptance: 'Direct Year 2 Entry for PB Level 5 Diploma in Civil Engineering with cGPA ≥ 2.80 (saves 1 year of study). cGPA 2.50 - 2.79 accepted for Year 1.',
-    ibteAcceptance: 'IBTE HNTec in Building Services or Construction graduates with Merit enter PB Civil Engineering Diploma, leading to UTB.',
-    gradeRequirementText: 'Minimum 104 UCAS points from 3 A-Levels (e.g. BCC) including Mathematics & Physics, OR Politeknik Brunei Level 5 Diploma in Civil Engineering (cGPA 2.80+ for Direct Year 2 Entry).',
+    polytechnicAcceptance: 'Direct Year 2 Entry for PB Advanced Diploma in Civil Engineering with cGPA ≥ 2.80 considered on a case-to-case basis by faculty (subject to module credit evaluation; saves 1 year if approved, otherwise Year 1). cGPA 2.50 - 2.79 accepted for Year 1.',
+    ibteAcceptance: 'IBTE HNTec in Building Services or Construction graduates with Merit enter PB Civil Engineering Diploma, leading to UTB (Year 2 on case-to-case basis).',
+    gradeRequirementText: 'Minimum 104 UCAS points from 3 A-Levels (e.g. BCC) including Mathematics & Physics, OR Politeknik Brunei Advanced Diploma in Civil Engineering (cGPA 2.80+ considered for Direct Year 2 on a case-to-case basis).',
     subjectPrerequisites: ['Mathematics', 'Physics'],
     hecasCode: 'UTB-ENG02',
     isScholarshipEligible: true,
@@ -333,7 +333,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     localGovtApproved: true,
     mkpkAccredited: true,
     moePrioritySector: 'Civil Infrastructure & Sustainable Construction',
-    overview: 'Focused on sustainable infrastructure, structural mechanics, geotechnics, and water resource engineering. Established direct articulation agreement with Politeknik Brunei.',
+    overview: 'Focused on sustainable infrastructure, structural mechanics, geotechnics, and water resource engineering. Established articulation for Politeknik Brunei graduates (Year 2 entry on case-to-case basis).',
     careerPathways: ['Civil Structural Engineer at Public Works Department (JKR)', 'Project Manager at Brunei LNG', 'Site Consultant'],
     officialUrl: 'https://engineering.utb.edu.bn'
   },
@@ -349,15 +349,15 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     diplomaLevel5Details: {
       acceptedInstitutions: ["Politeknik Brunei","IBTE","All Level 5 Diplomas"],
       minCgpa: 2.8,
-      entryYear: 'Direct Year 2',
+      entryYear: 'Direct Year 2 (Case-by-Case)',
       relevantDisciplines: ["Chemical Engineering","Petroleum Engineering","Mechanical Engineering","Refinery and Petrochemical"],
-      notes: 'Direct Year 2 Entry for PB Level 5 Diploma in Chemical/Petroleum Engineering or IBTE Level 5 Diploma in Refinery & Petrochemical / Mechanical with cGPA >= 2.80.'
+      notes: 'Direct Year 2 Entry for PB Advanced Diploma in Chemical/Petroleum Engineering or IBTE Diploma in Refinery & Petrochemical / Mechanical with cGPA >= 2.80 is evaluated on a case-to-case basis by the faculty. Otherwise admitted into Year 1.'
     },
     duration: '4 Years',
     minPoints: 112,
-    polytechnicAcceptance: 'Direct Year 2 Entry for PB Level 5 Diploma in Petrochemical / Mechanical Engineering with cGPA ≥ 3.00.',
-    ibteAcceptance: 'IBTE HNTec in Plant Engineering / Mechanical graduates enter PB Diploma with cGPA 2.80+, articulating to UTB.',
-    gradeRequirementText: 'Minimum 112 UCAS tariff points (e.g. BBC) from Mathematics, Chemistry, and Physics, OR PB Level 5 Diploma in Chemical / Petroleum / Mechanical Engineering (cGPA 3.00+).',
+    polytechnicAcceptance: 'Direct Year 2 Entry for PB Advanced Diploma in Petrochemical / Mechanical Engineering with cGPA ≥ 3.00 considered on a case-to-case basis by Faculty of Engineering.',
+    ibteAcceptance: 'IBTE HNTec in Plant Engineering / Mechanical graduates enter PB Diploma with cGPA 2.80+, articulating to UTB (Year 2 on case-to-case basis).',
+    gradeRequirementText: 'Minimum 112 UCAS tariff points (e.g. BBC) from Mathematics, Chemistry, and Physics, OR PB Advanced Diploma in Chemical / Petroleum / Mechanical Engineering (cGPA 3.00+ considered for Direct Year 2 on a case-to-case basis).',
     subjectPrerequisites: ['Mathematics', 'Chemistry', 'Physics'],
     hecasCode: 'UTB-ENG05',
     isScholarshipEligible: true,
@@ -447,9 +447,9 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Computer Science & AI',
     programLevel: 'Diploma / HND',
     institutionType: 'Government University',
-    duration: '3 Years (Direct articulation into Year 2 UTB or 1-Year UK Top-up at LCB)',
+    duration: '3 Years (Articulation into UTB Year 2 on case-to-case basis, or 1-Year UK Top-up at LCB)',
     minPoints: 48,
-    polytechnicAcceptance: 'Graduates articulate directly into UTB Bachelor of Science in Computing (Direct Year 2 Entry with 1-Year credit exemption) or 1-Year Degree Top-Up at LCB.',
+    polytechnicAcceptance: 'Graduates can apply for direct Year 2 entry into UTB Bachelor of Science in Computing (considered on a case-to-case basis with credit exemptions) or 1-Year Degree Top-Up at LCB.',
     ibteAcceptance: 'Direct admission for IBTE HNTec in Information Technology / Computer Systems holders with Merit (cGPA ≥ 2.80) or Distinction.',
     gradeRequirementText: 'Minimum 2 A-Levels (48 pts), OR 4 O-Level credits including Mathematics and English, OR relevant IBTE HNTec with Merit/Distinction.',
     subjectPrerequisites: ['Mathematics / Science / Computing'],
@@ -462,7 +462,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Technical & Applied IT Services',
     overview: 'Flagship BNQF Level 5 Diploma providing comprehensive networking, modern cloud infrastructure, database administration, and software development.',
-    careerPathways: ['Junior DevOps Specialist', 'Network Technician', 'Direct Year 2 degree candidate at UTB / Top-Up at LCB'],
+    careerPathways: ['Junior DevOps Specialist', 'Network Technician', 'Direct Year 2 degree candidate at UTB (case-to-case) / Top-Up at LCB'],
     officialUrl: 'https://pb.edu.bn'
   },
   {
@@ -473,9 +473,9 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     field: 'Engineering & Technology',
     programLevel: 'Diploma / HND',
     institutionType: 'Government University',
-    duration: '3 Years (Direct Year 2 Entry into UTB BEng Civil Engineering)',
+    duration: '3 Years (Eligible to apply for UTB BEng Civil Engineering Year 2 on case-to-case basis)',
     minPoints: 48,
-    polytechnicAcceptance: 'Graduates with cGPA ≥ 2.80 receive direct Year 2 entry into UTB Bachelor of Engineering (Hons) in Civil Engineering (1-year exemption).',
+    polytechnicAcceptance: 'Graduates with cGPA ≥ 2.80 are eligible to apply for direct Year 2 entry into UTB Bachelor of Engineering (Hons) in Civil Engineering (evaluated on a case-to-case basis by faculty; otherwise Year 1 admission applies).',
     ibteAcceptance: 'Direct admission for IBTE HNTec in Building Services Engineering or Construction with Merit or Distinction.',
     gradeRequirementText: 'Minimum 2 A-Levels (48 pts) with Mathematics or Physics, OR 4 O-Levels, OR relevant IBTE HNTec with Merit.',
     subjectPrerequisites: ['Mathematics', 'Physics or Science'],
@@ -488,7 +488,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Infrastructure & Construction Engineering',
     overview: 'Practical hands-on training in structural mechanics, AutoCAD, surveying, and materials testing at the Lumut Engineering Campus.',
-    careerPathways: ['Assistant Resident Engineer', 'Surveying Technician', 'Direct Year 2 BEng at UTB'],
+    careerPathways: ['Assistant Resident Engineer', 'Surveying Technician', 'Direct Year 2 candidate at UTB (case-to-case)'],
     officialUrl: 'https://pb.edu.bn'
   },
   {
@@ -531,7 +531,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     institutionType: 'Government University',
     duration: '3 Years (BNQF Level 5 Diploma - Industrial Attachment at Pulau Muara Besar)',
     minPoints: 48,
-    polytechnicAcceptance: 'Level 5 qualification recognized alongside PB diplomas for direct Year 2 entry into UTB Bachelor of Engineering (Hons) in Chemical Engineering.',
+    polytechnicAcceptance: 'Recognized alongside PB diplomas for direct Year 2 entry into UTB Bachelor of Engineering (Hons) in Chemical Engineering on a case-to-case basis (minimum cGPA 2.80+).',
     ibteAcceptance: 'Flagship Level 5 Diploma joint training programme with Hengyi Industries. Prepares specialized plant chemical technicians and process operators with conditional employment at Hengyi PMB.',
     gradeRequirementText: 'Minimum 4 GCE O-Level credits in Mathematics, Chemistry, Physics or Combined Science, and pass in English.',
     subjectPrerequisites: ['Mathematics', 'Chemistry or Combined Science'],
@@ -544,7 +544,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Downstream Petrochemical & Energy Refining',
     overview: 'Flagship Level 5 Diploma joint training programme with Hengyi Industries. Prepares specialized plant chemical technicians and process operators for Brunei’s downstream petrochemical refinery at Pulau Muara Besar with conditional employment upon graduation.',
-    careerPathways: ['Petrochemical Plant Operator at Hengyi PMB', 'Process Control Technician', 'Chemical Plant Inspector', 'Articulation to UTB Chemical Engineering'],
+    careerPathways: ['Petrochemical Plant Operator at Hengyi PMB', 'Process Control Technician', 'Chemical Plant Inspector', 'Articulation to UTB Chemical Engineering (case-to-case Year 2)'],
     officialUrl: 'https://ibte.edu.bn'
   },
   {
@@ -557,7 +557,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     institutionType: 'Government University',
     duration: '3 Years (BNQF Level 5 Diploma)',
     minPoints: 48,
-    polytechnicAcceptance: 'Level 5 qualification eligible for direct Year 2 entry into UTB Bachelor of Engineering (Hons) in Mechatronics or Electrical & Electronic Engineering.',
+    polytechnicAcceptance: 'Eligible to apply for direct Year 2 entry into UTB Bachelor of Engineering (Hons) in Mechatronics or Electrical & Electronic Engineering on a case-to-case basis (cGPA ≥ 2.80).',
     ibteAcceptance: 'Premier industrial instrumentation qualification covering SCADA, PLC programming, and distributed control systems (DCS).',
     gradeRequirementText: 'Minimum 4 GCE O-Level credits in Mathematics, Physics or Combined Science, and pass in English.',
     subjectPrerequisites: ['Mathematics', 'Physics / Combined Science'],
@@ -570,7 +570,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Industrial Automation & Robotics',
     overview: 'Comprehensive instrumentation and automation engineering covering PLC programming, SCADA systems, industrial robotics, sensor calibration, and closed-loop process control.',
-    careerPathways: ['Instrumentation & Automation Engineer Assistant', 'SCADA Technician at BSP/Hengyi', 'Industrial Robotics Specialist', 'Articulation to UTB Mechatronics'],
+    careerPathways: ['Instrumentation & Automation Engineer Assistant', 'SCADA Technician at BSP/Hengyi', 'Industrial Robotics Specialist', 'Articulation to UTB Mechatronics (case-to-case Year 2)'],
     officialUrl: 'https://ibte.edu.bn'
   },
   {
@@ -583,7 +583,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     institutionType: 'Government University',
     duration: '3 Years (BNQF Level 5 Diploma)',
     minPoints: 48,
-    polytechnicAcceptance: 'Direct Year 2 entry into UTB BEng (Hons) in Mechanical Engineering with Merit.',
+    polytechnicAcceptance: 'Direct Year 2 entry into UTB BEng (Hons) in Mechanical Engineering considered on a case-to-case basis with Merit (cGPA ≥ 2.80).',
     ibteAcceptance: 'Advanced engineering diploma covering rotating equipment, thermodynamics, CAD/CAM machining, and industrial hydraulics.',
     gradeRequirementText: 'Minimum 4 GCE O-Level credits with Mathematics, Physics / Science, and pass in English.',
     subjectPrerequisites: ['Mathematics', 'Physics / Science'],
@@ -596,7 +596,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Heavy Industry & Mechanical Systems',
     overview: 'Industry-standard mechanical engineering qualification covering thermodynamics, fluid mechanics, CAD/CAM manufacturing, rotating equipment maintenance, and plant machinery inspection.',
-    careerPathways: ['Mechanical Maintenance Supervisor', 'Plant Machinery Inspector at BSP/BLNG', 'Rotating Equipment Technician', 'Direct Year 2 UTB Mechanical Engineering'],
+    careerPathways: ['Mechanical Maintenance Supervisor', 'Plant Machinery Inspector at BSP/BLNG', 'Rotating Equipment Technician', 'Direct Year 2 candidate at UTB Mechanical Engineering (case-to-case)'],
     officialUrl: 'https://ibte.edu.bn'
   },
   {
@@ -609,7 +609,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     institutionType: 'Government University',
     duration: '3 Years (BNQF Level 5 Diploma)',
     minPoints: 48,
-    polytechnicAcceptance: 'Direct Year 2 entry into UTB BEng (Hons) in Electrical & Electronic Engineering with Merit.',
+    polytechnicAcceptance: 'Direct Year 2 entry into UTB BEng (Hons) in Electrical & Electronic Engineering considered on a case-to-case basis with Merit (cGPA ≥ 2.80).',
     ibteAcceptance: 'Covers high voltage power distribution, solar photovoltaic systems, and microcontroller automation for Brunei national infrastructure.',
     gradeRequirementText: 'Minimum 4 GCE O-Level credits in Mathematics, Physics / Science, and pass in English.',
     subjectPrerequisites: ['Mathematics', 'Physics / Science'],
@@ -622,7 +622,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Renewable Energy & Power Engineering',
     overview: 'Advanced study of power generation, electrical grid distribution, renewable solar PV systems, electronic circuit design, and microcontroller automation.',
-    careerPathways: ['Power Distribution Technician at DES/BPMC', 'Solar PV Installation Engineer', 'Electrical Maintenance Officer', 'Direct Year 2 UTB EEE'],
+    careerPathways: ['Power Distribution Technician at DES/BPMC', 'Solar PV Installation Engineer', 'Electrical Maintenance Officer', 'Direct Year 2 candidate at UTB EEE (case-to-case)'],
     officialUrl: 'https://ibte.edu.bn'
   },
   {
@@ -739,7 +739,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     institutionType: 'Government University',
     duration: '3 Years (BNQF Level 5 Diploma)',
     minPoints: 48,
-    polytechnicAcceptance: 'Direct Year 2 entry into UTB BSc (Hons) in Computer Science or Software Engineering with Merit.',
+    polytechnicAcceptance: 'Direct Year 2 entry into UTB BSc (Hons) in Computer Science or Software Engineering considered on a case-to-case basis with Merit (cGPA ≥ 2.80).',
     ibteAcceptance: 'Advanced Level 5 computing diploma delivering deep competencies in full-stack software development, cloud infrastructure, and cybersecurity.',
     gradeRequirementText: 'Minimum 4 GCE O-Level credits with Mathematics, Science / Commerce, and pass in English, OR HNTec in IT with Merit.',
     subjectPrerequisites: ['Mathematics', 'English Language'],
@@ -752,7 +752,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Cloud Engineering & Digital Services',
     overview: 'Delivers competencies in full-stack web and mobile application engineering, cloud infrastructure, cybersecurity essentials, and software architecture.',
-    careerPathways: ['Full-Stack Junior Developer', 'Cloud Systems Administrator', 'Cybersecurity Analyst', 'Direct Year 2 UTB Computing'],
+    careerPathways: ['Full-Stack Junior Developer', 'Cloud Systems Administrator', 'Cybersecurity Analyst', 'Direct Year 2 candidate at UTB Computing (case-to-case)'],
     officialUrl: 'https://ibte.edu.bn'
   },
   {
@@ -765,7 +765,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     institutionType: 'Government University',
     duration: '3 Years (BNQF Level 5 Diploma)',
     minPoints: 48,
-    polytechnicAcceptance: 'Direct Year 2 entry into UTB BEng (Hons) in Building Services or Civil Engineering with Merit.',
+    polytechnicAcceptance: 'Direct Year 2 entry into UTB BEng (Hons) in Building Services or Civil Engineering considered on a case-to-case basis with Merit (cGPA ≥ 2.80).',
     ibteAcceptance: 'Specialized diploma in commercial HVAC air-conditioning, electrical reticulation, fire detection, and BIM MEP modeling.',
     gradeRequirementText: 'Minimum 4 GCE O-Level credits with Mathematics, Physics / Science, and pass in English, OR HNTec in Building Services with Merit.',
     subjectPrerequisites: ['Mathematics', 'Physics / Science'],
@@ -778,7 +778,7 @@ export const UNIVERSITY_PROGRAMS: UniversityProgram[] = [
     mkpkAccredited: true,
     moePrioritySector: 'Infrastructure & Building Services',
     overview: 'Specialized diploma in modern HVAC air-conditioning, electrical reticulation, fire protection, life safety engineering, and BIM MEP modeling for commercial structures.',
-    careerPathways: ['Building Services Engineer Assistant', 'HVAC Facilities Supervisor', 'BIM MEP Modeler at Consultancies', 'Direct Year 2 UTB Engineering'],
+    careerPathways: ['Building Services Engineer Assistant', 'HVAC Facilities Supervisor', 'BIM MEP Modeler at Consultancies', 'Direct Year 2 candidate at UTB Engineering (case-to-case)'],
     officialUrl: 'https://ibte.edu.bn'
   },
   {

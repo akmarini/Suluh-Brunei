@@ -240,9 +240,9 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                     <option value="3.90">3.90 (High Distinction - AAA equiv)</option>
                     <option value="3.60">3.60 (Distinction - MoE Overseas 120+ equiv)</option>
                     <option value="3.50">3.50 (Distinction - Min for MoE Overseas)</option>
-                    <option value="3.30">3.30 (Merit - Direct Year 2 UTB/UBD)</option>
+                    <option value="3.30">3.30 (Merit - UTB Year 2 Consideration / UBD)</option>
                     <option value="3.00">3.00 (Merit - Standard UTB)</option>
-                    <option value="2.80">2.80 (Merit - Min for Direct Year 2)</option>
+                    <option value="2.80">2.80 (Merit - Min Threshold for UTB Year 2 Case-by-Case)</option>
                     <option value="2.50">2.50 (Pass - Local Degree entry)</option>
                   </select>
                 </div>
@@ -259,9 +259,9 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                     <option value="3.90">3.90 (High Distinction - AAA equiv)</option>
                     <option value="3.60">3.60 (Distinction - MoE Overseas 120+ equiv)</option>
                     <option value="3.50">3.50 (Distinction - Min for MoE Overseas)</option>
-                    <option value="3.30">3.30 (Merit - Direct Year 2 UTB/UBD)</option>
+                    <option value="3.30">3.30 (Merit - UTB Year 2 Consideration / UBD)</option>
                     <option value="3.00">3.00 (Merit - Standard UTB)</option>
-                    <option value="2.80">2.80 (Merit - Min for Direct Year 2)</option>
+                    <option value="2.80">2.80 (Merit - Min Threshold for UTB Year 2 Case-by-Case)</option>
                     <option value="2.50">2.50 (Pass - Local Degree entry)</option>
                   </select>
                 </div>
@@ -490,13 +490,13 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               ) : (
                 <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
                   <CheckCircle2 className="w-3.5 h-3.5" /> 
-                  {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? 'Direct Year 2' : profile.qualificationType === 'HNTec-IBTE' ? 'PB Entry' : 'Scholarship'}
+                  {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? 'UTB Year 2 (Case-by-Case)' : profile.qualificationType === 'HNTec-IBTE' ? 'PB Entry' : 'Scholarship'}
                 </span>
               )}
             </div>
             <div className="text-xs text-slate-600 mb-1.5 font-medium">
               {profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma'
-                ? 'UTB/UBD Direct Year 2 (cGPA ≥ 2.80)'
+                ? 'UTB Year 2 (Case-by-Case, cGPA ≥ 2.80)'
                 : profile.qualificationType === 'HNTec-IBTE'
                 ? 'PB Advanced Diploma Entry'
                 : '64–112 pts via HECAS'}
@@ -508,7 +508,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                 </span>
               ) : profile.qualificationType === 'Politeknik-Diploma' || profile.qualificationType === 'IBTE-Diploma' ? (
                 <span className="text-slate-600">
-                  Direct Year 2 into UTB/UBD degree with tuition-free status &amp; $350/mo allowance.
+                  Direct Year 2 into UTB (case-to-case basis) or UBD with tuition-free status &amp; $350/mo allowance.
                 </span>
               ) : profile.qualificationType === 'HNTec-IBTE' ? (
                 <span className="text-slate-600">
@@ -568,7 +568,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
               Advanced Diploma &amp; IBTE Diploma Progression Hub
             </h2>
             <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed">
-              <strong>Official BDQF/BNQF Equivalence:</strong> IBTE Diploma is certified as a <strong>BNQF Level 5 qualification</strong> (equivalent to Politeknik Brunei Advanced Diplomas and Pearson BTEC Higher National Diplomas). Structured for UTB Direct Year 2 entry, UBD advanced standing, UNISSA Islamic Finance, government tuition-free scholarships, and BND $350/mo living allowances.
+              <strong>Official BDQF/BNQF Equivalence:</strong> IBTE Diploma is certified as a <strong>BNQF Level 5 qualification</strong> (equivalent to Politeknik Brunei Advanced Diplomas and Pearson BTEC Higher National Diplomas). Structured for UTB Direct Year 2 entry (considered strictly on a case-to-case basis), UBD advanced standing, UNISSA Islamic Finance, government tuition-free scholarships, and BND $350/mo living allowances.
             </p>
           </div>
 
@@ -625,13 +625,13 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
           <div className="p-4 bg-purple-50/60 rounded-xl border border-purple-200/80 space-y-2">
             <div className="font-bold text-purple-950 flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-purple-800 shrink-0" />
-              <span>3. UTB Direct Year 2 Entry</span>
+              <span>3. UTB Direct Year 2 (Case-by-Case)</span>
             </div>
             <p className="text-slate-700 leading-relaxed text-[11px]">
-              UTB formally accepts PB Advanced Diploma and IBTE Diploma graduates with <strong>cGPA ≥ 2.80 (Merit)</strong> for <strong>Direct Year 2 Entry</strong> in Civil, Petroleum, Mechanical, and Computing degrees!
+              UTB considers PB Advanced Diploma and IBTE Diploma graduates with <strong>cGPA ≥ 2.80 (Merit)</strong> for <strong>Direct Year 2 Entry strictly on a case-to-case basis</strong>! Admission into Year 2 depends on faculty module mapping &amp; credit exemptions (otherwise admitted to Year 1).
             </p>
             <div className="text-[10px] text-purple-900 font-semibold bg-purple-100/70 px-2 py-0.5 rounded inline-block">
-              Save 1 Year (Graduate in 2 Yrs)
+              Case-by-Case Basis (cGPA ≥ 2.80)
             </div>
           </div>
 
@@ -671,7 +671,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
             <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg text-xs overflow-x-auto max-w-full">
               {[
                 { id: 'all', label: `All Local (${eligibleLocalDiplomasPrograms.length})` },
-                { id: 'UTB', label: 'UTB (Direct Year 2)' },
+                { id: 'UTB', label: 'UTB (Year 2 Case-by-Case)' },
                 { id: 'UBD', label: 'UBD' },
                 { id: 'UNISSA', label: 'UNISSA' },
                 { id: 'Private', label: 'Private (LCB / KIGS / MIC)' }
@@ -724,7 +724,7 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                       {isLevel5Student && (
                         isEligibleWithStudentCgpa ? (
                           <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Eligible (cGPA {diplomaCgpa.toFixed(2)})
+                            <CheckCircle2 className="w-3 h-3 text-emerald-600" /> {prog.institution.includes('UTB') ? 'Meets Min cGPA (Case-by-Case)' : `Eligible (cGPA ${diplomaCgpa.toFixed(2)})`}
                           </span>
                         ) : (
                           <span className="flex items-center gap-1 text-[10px] font-medium text-amber-800 bg-amber-100 px-2 py-0.5 rounded">
@@ -749,6 +749,11 @@ export const ScholarshipGuide: React.FC<ScholarshipGuideProps> = ({
                         Diploma Articulation Criteria:
                       </strong>
                       <span>{prog.diplomaLevel5Details?.notes || prog.polytechnicAcceptance}</span>
+                      {prog.institution.includes('UTB') && (
+                        <div className="mt-1.5 text-[10px] font-semibold text-amber-800 bg-amber-100/70 p-1.5 rounded border border-amber-200">
+                          ⚠️ Note: Direct Year 2 admission is evaluated strictly on a case-to-case basis by UTB faculty.
+                        </div>
+                      )}
                     </div>
 
                     {/* Accepted Disciplines */}
